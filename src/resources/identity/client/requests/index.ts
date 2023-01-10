@@ -1,0 +1,1 @@
+export { GetIdentityProfileRequest } from "./GetIdentityProfileRequest";
