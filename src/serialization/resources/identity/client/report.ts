@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Request: core.schemas.Schema<serializers.identity.report.Request.Raw, RivetRivet.ReportIdentityInput> =
+export const Request: core.schemas.Schema<serializers.identity.report.Request.Raw, RivetApi.ReportIdentityInput> =
   core.schemas.object({
     reason: core.schemas.string(),
   });

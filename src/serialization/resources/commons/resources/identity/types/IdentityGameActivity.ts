@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const IdentityGameActivity: core.schemas.ObjectSchema<
   serializers.commons.IdentityGameActivity.Raw,
-  RivetRivet.commons.IdentityGameActivity
+  RivetApi.commons.IdentityGameActivity
 > = core.schemas.object({
   game: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
   message: core.schemas.string(),

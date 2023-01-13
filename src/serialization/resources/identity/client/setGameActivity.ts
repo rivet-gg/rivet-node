@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
 export const Request: core.schemas.Schema<
   serializers.identity.setGameActivity.Request.Raw,
-  RivetRivet.SetIdentityGameActivityInput
+  RivetApi.SetIdentityGameActivityInput
 > = core.schemas.object({
   gameActivity: core.schemas.property(
     "game_activity",

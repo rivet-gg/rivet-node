@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
 export const Request: core.schemas.Schema<
   serializers.identity.prepareIdentityAvatarUpload.Request.Raw,
-  RivetRivet.PrepareIdentityAvatarUploadInput
+  RivetApi.PrepareIdentityAvatarUploadInput
 > = core.schemas.object({
   path: core.schemas.string(),
   mime: core.schemas.string(),
@@ -25,7 +25,7 @@ export declare namespace Request {
 
 export const Response: core.schemas.Schema<
   serializers.identity.prepareIdentityAvatarUpload.Response.Raw,
-  RivetRivet.PrepareIdentityAvatarUploadOutput
+  RivetApi.PrepareIdentityAvatarUploadOutput
 > = core.schemas.lazyObject(async () => (await import("../../..")).PrepareIdentityAvatarUploadOutput);
 
 export declare namespace Response {

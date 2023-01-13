@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GlobalEventIdentityUpdate: core.schemas.ObjectSchema<
   serializers.identity.GlobalEventIdentityUpdate.Raw,
-  RivetRivet.identity.GlobalEventIdentityUpdate
+  RivetApi.identity.GlobalEventIdentityUpdate
 > = core.schemas.object({
   identity: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityProfile),
 });

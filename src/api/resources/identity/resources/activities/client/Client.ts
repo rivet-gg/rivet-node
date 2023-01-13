@@ -4,13 +4,13 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 
 export declare namespace Client {
   interface Options {
-    environment?: environments.RivetRivetEnvironment | string;
+    environment?: environments.RivetApiEnvironment | string;
     token?: core.Supplier<core.BearerToken>;
   }
 }
@@ -19,15 +19,15 @@ export class Client {
   constructor(private readonly options: Client.Options) {}
 
   public async list(
-    request?: RivetRivet.identity.ListActivitiesInput
-  ): Promise<RivetRivet.identity.activities.list.Response> {
+    request?: RivetApi.identity.ListActivitiesInput
+  ): Promise<RivetApi.identity.activities.list.Response> {
     const _queryParams = new URLSearchParams();
     if (request?.watchIndex != null) {
       _queryParams.append("watch_index", request?.watchIndex);
     }
 
     const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetRivetEnvironment.Production, "/activities"),
+      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/activities"),
       method: "GET",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -45,7 +45,7 @@ export class Client {
 
     return {
       ok: false,
-      error: RivetRivet.identity.activities.list.Error._unknown(_response.error),
+      error: RivetApi.identity.activities.list.Error._unknown(_response.error),
     };
   }
 }

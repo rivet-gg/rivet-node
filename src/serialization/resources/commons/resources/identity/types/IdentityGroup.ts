@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const IdentityGroup: core.schemas.ObjectSchema<
   serializers.commons.IdentityGroup.Raw,
-  RivetRivet.commons.IdentityGroup
+  RivetApi.commons.IdentityGroup
 > = core.schemas.object({
   group: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupHandle),
 });

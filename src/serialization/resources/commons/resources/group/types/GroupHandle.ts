@@ -3,22 +3,20 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GroupHandle: core.schemas.ObjectSchema<
-  serializers.commons.GroupHandle.Raw,
-  RivetRivet.commons.GroupHandle
-> = core.schemas.object({
-  groupId: core.schemas.property("group_id", core.schemas.string()),
-  displayName: core.schemas.property(
-    "display_name",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
-  ),
-  avatarUrl: core.schemas.property("avatar_url", core.schemas.string()),
-  external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupExternalLinks),
-  isDeveloper: core.schemas.property("is_developer", core.schemas.boolean().optional()),
-});
+export const GroupHandle: core.schemas.ObjectSchema<serializers.commons.GroupHandle.Raw, RivetApi.commons.GroupHandle> =
+  core.schemas.object({
+    groupId: core.schemas.property("group_id", core.schemas.string()),
+    displayName: core.schemas.property(
+      "display_name",
+      core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    ),
+    avatarUrl: core.schemas.property("avatar_url", core.schemas.string()),
+    external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupExternalLinks),
+    isDeveloper: core.schemas.property("is_developer", core.schemas.boolean().optional()),
+  });
 
 export declare namespace GroupHandle {
   interface Raw {

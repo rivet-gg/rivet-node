@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const PartyMemberState: core.schemas.Schema<
   serializers.commons.PartyMemberState.Raw,
-  RivetRivet.commons.PartyMemberState
+  RivetApi.commons.PartyMemberState
 > = core.schemas
   .union("type", {
     idle: core.schemas.object({}),
@@ -18,19 +18,19 @@ export const PartyMemberState: core.schemas.Schema<
       async () => (await import("../../../../..")).commons.PartyMemberStateMatchmakerLobby
     ),
   })
-  .transform<RivetRivet.commons.PartyMemberState>({
+  .transform<RivetApi.commons.PartyMemberState>({
     parse: (value) => {
       switch (value.type) {
         case "idle":
-          return RivetRivet.commons.PartyMemberState.idle();
+          return RivetApi.commons.PartyMemberState.idle();
         case "matchmaker_pending":
-          return RivetRivet.commons.PartyMemberState.matchmakerPending();
+          return RivetApi.commons.PartyMemberState.matchmakerPending();
         case "matchmaker_finding_lobby":
-          return RivetRivet.commons.PartyMemberState.matchmakerFindingLobby();
+          return RivetApi.commons.PartyMemberState.matchmakerFindingLobby();
         case "matchmaker_lobby":
-          return RivetRivet.commons.PartyMemberState.matchmakerLobby(value);
+          return RivetApi.commons.PartyMemberState.matchmakerLobby(value);
         default:
-          return RivetRivet.commons.PartyMemberState._unknown(value);
+          return RivetApi.commons.PartyMemberState._unknown(value);
       }
     },
     json: (value) => value as any,

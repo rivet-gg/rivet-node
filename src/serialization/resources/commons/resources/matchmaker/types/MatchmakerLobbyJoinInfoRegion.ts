@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const MatchmakerLobbyJoinInfoRegion: core.schemas.ObjectSchema<
   serializers.commons.MatchmakerLobbyJoinInfoRegion.Raw,
-  RivetRivet.commons.MatchmakerLobbyJoinInfoRegion
+  RivetApi.commons.MatchmakerLobbyJoinInfoRegion
 > = core.schemas.object({
   regionId: core.schemas.property(
     "region_id",

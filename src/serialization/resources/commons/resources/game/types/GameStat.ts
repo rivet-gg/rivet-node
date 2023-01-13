@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameStat: core.schemas.ObjectSchema<serializers.commons.GameStat.Raw, RivetRivet.commons.GameStat> =
+export const GameStat: core.schemas.ObjectSchema<serializers.commons.GameStat.Raw, RivetApi.commons.GameStat> =
   core.schemas.object({
     config: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameStatConfig),
     overallValue: core.schemas.property("overall_value", core.schemas.number()),

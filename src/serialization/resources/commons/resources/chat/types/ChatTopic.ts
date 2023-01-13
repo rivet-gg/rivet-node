@@ -3,27 +3,27 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const ChatTopic: core.schemas.Schema<serializers.commons.ChatTopic.Raw, RivetRivet.commons.ChatTopic> =
+export const ChatTopic: core.schemas.Schema<serializers.commons.ChatTopic.Raw, RivetApi.commons.ChatTopic> =
   core.schemas
     .union("type", {
       group: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.ChatTopicGroup),
       party: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.ChatTopicParty),
       direct: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.ChatTopicDirect),
     })
-    .transform<RivetRivet.commons.ChatTopic>({
+    .transform<RivetApi.commons.ChatTopic>({
       parse: (value) => {
         switch (value.type) {
           case "group":
-            return RivetRivet.commons.ChatTopic.group(value);
+            return RivetApi.commons.ChatTopic.group(value);
           case "party":
-            return RivetRivet.commons.ChatTopic.party(value);
+            return RivetApi.commons.ChatTopic.party(value);
           case "direct":
-            return RivetRivet.commons.ChatTopic.direct(value);
+            return RivetApi.commons.ChatTopic.direct(value);
           default:
-            return RivetRivet.commons.ChatTopic._unknown(value);
+            return RivetApi.commons.ChatTopic._unknown(value);
         }
       },
       json: (value) => value as any,

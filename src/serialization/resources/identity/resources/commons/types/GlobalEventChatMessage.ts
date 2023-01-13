@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GlobalEventChatMessage: core.schemas.ObjectSchema<
   serializers.identity.GlobalEventChatMessage.Raw,
-  RivetRivet.identity.GlobalEventChatMessage
+  RivetApi.identity.GlobalEventChatMessage
 > = core.schemas.object({
   thread: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.ChatThread),
 });

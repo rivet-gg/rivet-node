@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GameStatFormatMethod: core.schemas.Schema<
   serializers.commons.GameStatFormatMethod.Raw,
-  RivetRivet.commons.GameStatFormatMethod
+  RivetApi.commons.GameStatFormatMethod
 > = core.schemas.enum_([
   "integer",
   "float_1",

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const IdentityHandle: core.schemas.ObjectSchema<
   serializers.commons.IdentityHandle.Raw,
-  RivetRivet.commons.IdentityHandle
+  RivetApi.commons.IdentityHandle
 > = core.schemas.object({
   identityId: core.schemas.property("identity_id", core.schemas.string()),
   displayName: core.schemas.property(

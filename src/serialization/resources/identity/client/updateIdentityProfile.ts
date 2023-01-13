@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
 export const Request: core.schemas.Schema<
   serializers.identity.updateIdentityProfile.Request.Raw,
-  RivetRivet.UpdateIdentityProfileInput
+  RivetApi.UpdateIdentityProfileInput
 > = core.schemas.object({
   displayName: core.schemas.property(
     "display_name",

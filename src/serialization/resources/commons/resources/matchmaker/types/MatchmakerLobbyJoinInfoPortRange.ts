@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const MatchmakerLobbyJoinInfoPortRange: core.schemas.ObjectSchema<
   serializers.commons.MatchmakerLobbyJoinInfoPortRange.Raw,
-  RivetRivet.commons.MatchmakerLobbyJoinInfoPortRange
+  RivetApi.commons.MatchmakerLobbyJoinInfoPortRange
 > = core.schemas.object({
   min: core.schemas.number(),
   max: core.schemas.number(),

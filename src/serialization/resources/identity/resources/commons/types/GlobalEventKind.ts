@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GlobalEventKind: core.schemas.Schema<
   serializers.identity.GlobalEventKind.Raw,
-  RivetRivet.identity.GlobalEventKind
+  RivetApi.identity.GlobalEventKind
 > = core.schemas
   .union("type", {
     chat_message: core.schemas.lazyObject(async () => (await import("../../../../..")).identity.GlobalEventChatMessage),
@@ -24,23 +24,23 @@ export const GlobalEventKind: core.schemas.Schema<
       async () => (await import("../../../../..")).identity.GlobalEventChatThreadRemove
     ),
   })
-  .transform<RivetRivet.identity.GlobalEventKind>({
+  .transform<RivetApi.identity.GlobalEventKind>({
     parse: (value) => {
       switch (value.type) {
         case "chat_message":
-          return RivetRivet.identity.GlobalEventKind.chatMessage(value);
+          return RivetApi.identity.GlobalEventKind.chatMessage(value);
         case "chat_read":
-          return RivetRivet.identity.GlobalEventKind.chatRead(value);
+          return RivetApi.identity.GlobalEventKind.chatRead(value);
         case "party_update":
-          return RivetRivet.identity.GlobalEventKind.partyUpdate(value);
+          return RivetApi.identity.GlobalEventKind.partyUpdate(value);
         case "identity_update":
-          return RivetRivet.identity.GlobalEventKind.identityUpdate(value);
+          return RivetApi.identity.GlobalEventKind.identityUpdate(value);
         case "matchmaker_lobby_join":
-          return RivetRivet.identity.GlobalEventKind.matchmakerLobbyJoin(value);
+          return RivetApi.identity.GlobalEventKind.matchmakerLobbyJoin(value);
         case "chat_thread_remove":
-          return RivetRivet.identity.GlobalEventKind.chatThreadRemove(value);
+          return RivetApi.identity.GlobalEventKind.chatThreadRemove(value);
         default:
-          return RivetRivet.identity.GlobalEventKind._unknown(value);
+          return RivetApi.identity.GlobalEventKind._unknown(value);
       }
     },
     json: (value) => value as any,

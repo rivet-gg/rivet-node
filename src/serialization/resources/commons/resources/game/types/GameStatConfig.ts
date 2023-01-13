@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GameStatConfig: core.schemas.ObjectSchema<
   serializers.commons.GameStatConfig.Raw,
-  RivetRivet.commons.GameStatConfig
+  RivetApi.commons.GameStatConfig
 > = core.schemas.object({
   recordId: core.schemas.property("record_id", core.schemas.string()),
   iconId: core.schemas.property("icon_id", core.schemas.string()),

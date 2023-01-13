@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameHandle: core.schemas.ObjectSchema<serializers.commons.GameHandle.Raw, RivetRivet.commons.GameHandle> =
+export const GameHandle: core.schemas.ObjectSchema<serializers.commons.GameHandle.Raw, RivetApi.commons.GameHandle> =
   core.schemas.object({
     gameId: core.schemas.property("game_id", core.schemas.string()),
     nameId: core.schemas.property(

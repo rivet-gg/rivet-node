@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const Request: core.schemas.Schema<
   serializers.identity.links.complete.Request.Raw,
-  RivetRivet.identity.CompleteGameLinkInput
+  RivetApi.identity.CompleteGameLinkInput
 > = core.schemas.object({
   identityLinkToken: core.schemas.property(
     "identity_link_token",

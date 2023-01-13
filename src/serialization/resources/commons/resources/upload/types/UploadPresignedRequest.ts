@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const UploadPresignedRequest: core.schemas.ObjectSchema<
   serializers.commons.UploadPresignedRequest.Raw,
-  RivetRivet.commons.UploadPresignedRequest
+  RivetApi.commons.UploadPresignedRequest
 > = core.schemas.object({
   path: core.schemas.string(),
   url: core.schemas.string(),

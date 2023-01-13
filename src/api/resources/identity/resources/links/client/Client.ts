@@ -4,13 +4,13 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 
 export declare namespace Client {
   interface Options {
-    environment?: environments.RivetRivetEnvironment | string;
+    environment?: environments.RivetApiEnvironment | string;
     token?: core.Supplier<core.BearerToken>;
   }
 }
@@ -18,9 +18,9 @@ export declare namespace Client {
 export class Client {
   constructor(private readonly options: Client.Options) {}
 
-  public async prepare(): Promise<RivetRivet.identity.links.prepare.Response> {
+  public async prepare(): Promise<RivetApi.identity.links.prepare.Response> {
     const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetRivetEnvironment.Production, "/game-links"),
+      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links"),
       method: "POST",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -37,16 +37,16 @@ export class Client {
 
     return {
       ok: false,
-      error: RivetRivet.identity.links.prepare.Error._unknown(_response.error),
+      error: RivetApi.identity.links.prepare.Error._unknown(_response.error),
     };
   }
 
-  public async get(request: RivetRivet.identity.GetGameLinkInput): Promise<RivetRivet.identity.links.get.Response> {
+  public async get(request: RivetApi.identity.GetGameLinkInput): Promise<RivetApi.identity.links.get.Response> {
     const _queryParams = new URLSearchParams();
     _queryParams.append("identity_link_token", request.identityLinkToken);
     _queryParams.append("watch_index", request.watchIndex);
     const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetRivetEnvironment.Production, "/game-links"),
+      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links"),
       method: "GET",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -64,15 +64,15 @@ export class Client {
 
     return {
       ok: false,
-      error: RivetRivet.identity.links.get.Error._unknown(_response.error),
+      error: RivetApi.identity.links.get.Error._unknown(_response.error),
     };
   }
 
   public async complete(
-    request: RivetRivet.identity.CompleteGameLinkInput
-  ): Promise<RivetRivet.identity.links.complete.Response> {
+    request: RivetApi.identity.CompleteGameLinkInput
+  ): Promise<RivetApi.identity.links.complete.Response> {
     const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetRivetEnvironment.Production, "/game-links/complete"),
+      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links/complete"),
       method: "POST",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -90,15 +90,15 @@ export class Client {
 
     return {
       ok: false,
-      error: RivetRivet.identity.links.complete.Error._unknown(_response.error),
+      error: RivetApi.identity.links.complete.Error._unknown(_response.error),
     };
   }
 
   public async cancel(
-    request: RivetRivet.identity.CancelGameLinkInput
-  ): Promise<RivetRivet.identity.links.cancel.Response> {
+    request: RivetApi.identity.CancelGameLinkInput
+  ): Promise<RivetApi.identity.links.cancel.Response> {
     const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetRivetEnvironment.Production, "/game-links"),
+      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links"),
       method: "POST",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -116,7 +116,7 @@ export class Client {
 
     return {
       ok: false,
-      error: RivetRivet.identity.links.cancel.Error._unknown(_response.error),
+      error: RivetApi.identity.links.cancel.Error._unknown(_response.error),
     };
   }
 }

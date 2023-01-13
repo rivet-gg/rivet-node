@@ -3,13 +3,11 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const AccountNumber: core.schemas.Schema<
-  serializers.commons.AccountNumber.Raw,
-  RivetRivet.commons.AccountNumber
-> = core.schemas.number();
+export const AccountNumber: core.schemas.Schema<serializers.commons.AccountNumber.Raw, RivetApi.commons.AccountNumber> =
+  core.schemas.number();
 
 export declare namespace AccountNumber {
   type Raw = number;

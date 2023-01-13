@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const UpdateIdentityGameActivity: core.schemas.ObjectSchema<
   serializers.identity.UpdateIdentityGameActivity.Raw,
-  RivetRivet.identity.UpdateIdentityGameActivity
+  RivetApi.identity.UpdateIdentityGameActivity
 > = core.schemas.object({
   message: core.schemas.string().optional(),
   publicMetadata: core.schemas.property("public_metadata", core.schemas.unknown()),

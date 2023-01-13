@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
 export const ValidateIdentityProfileOutput: core.schemas.ObjectSchema<
   serializers.ValidateIdentityProfileOutput.Raw,
-  RivetRivet.ValidateIdentityProfileOutput
+  RivetApi.ValidateIdentityProfileOutput
 > = core.schemas.object({
   errors: core.schemas.list(core.schemas.lazyObject(async () => (await import("../../..")).commons.ValidationError)),
 });

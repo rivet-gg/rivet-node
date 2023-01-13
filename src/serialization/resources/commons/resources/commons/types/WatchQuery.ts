@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const WatchQuery: core.schemas.Schema<serializers.commons.WatchQuery.Raw, RivetRivet.commons.WatchQuery> =
+export const WatchQuery: core.schemas.Schema<serializers.commons.WatchQuery.Raw, RivetApi.commons.WatchQuery> =
   core.schemas.string();
 
 export declare namespace WatchQuery {

@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const DisplayName: core.schemas.Schema<serializers.commons.DisplayName.Raw, RivetRivet.commons.DisplayName> =
+export const DisplayName: core.schemas.Schema<serializers.commons.DisplayName.Raw, RivetApi.commons.DisplayName> =
   core.schemas.string();
 
 export declare namespace DisplayName {

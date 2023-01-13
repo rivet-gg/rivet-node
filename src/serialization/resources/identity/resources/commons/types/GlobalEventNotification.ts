@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GlobalEventNotification: core.schemas.ObjectSchema<
   serializers.identity.GlobalEventNotification.Raw,
-  RivetRivet.identity.GlobalEventNotification
+  RivetApi.identity.GlobalEventNotification
 > = core.schemas.object({
   title: core.schemas.string(),
   description: core.schemas.string(),

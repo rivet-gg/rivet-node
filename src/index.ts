@@ -1,3 +1,3 @@
-export * as RivetRivet from "./api";
-export { RivetRivetClient } from "./Client";
-export { RivetRivetEnvironment } from "./environments";
+export * as RivetApi from "./api";
+export { RivetApiClient } from "./Client";
+export { RivetApiEnvironment } from "./environments";

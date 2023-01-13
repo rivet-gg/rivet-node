@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const PartyMemberSummary: core.schemas.ObjectSchema<
   serializers.commons.PartyMemberSummary.Raw,
-  RivetRivet.commons.PartyMemberSummary
+  RivetApi.commons.PartyMemberSummary
 > = core.schemas.object({
   identity: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle),
   isLeader: core.schemas.property("is_leader", core.schemas.boolean()),

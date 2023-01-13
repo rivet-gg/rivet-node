@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GameLinkStatus: core.schemas.Schema<
   serializers.commons.GameLinkStatus.Raw,
-  RivetRivet.commons.GameLinkStatus
+  RivetApi.commons.GameLinkStatus
 > = core.schemas.enum_(["incomplete", "complete", "cancelled"]);
 
 export declare namespace GameLinkStatus {

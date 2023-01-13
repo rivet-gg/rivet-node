@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Jwt: core.schemas.Schema<serializers.commons.Jwt.Raw, RivetRivet.commons.Jwt> = core.schemas.string();
+export const Jwt: core.schemas.Schema<serializers.commons.Jwt.Raw, RivetApi.commons.Jwt> = core.schemas.string();
 
 export declare namespace Jwt {
   type Raw = string;

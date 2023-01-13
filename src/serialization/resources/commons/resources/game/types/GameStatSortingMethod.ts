@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GameStatSortingMethod: core.schemas.Schema<
   serializers.commons.GameStatSortingMethod.Raw,
-  RivetRivet.commons.GameStatSortingMethod
+  RivetApi.commons.GameStatSortingMethod
 > = core.schemas.enum_(["desc", "asc"]);
 
 export declare namespace GameStatSortingMethod {

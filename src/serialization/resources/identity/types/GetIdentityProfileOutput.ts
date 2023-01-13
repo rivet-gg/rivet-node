@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
 export const GetIdentityProfileOutput: core.schemas.ObjectSchema<
   serializers.GetIdentityProfileOutput.Raw,
-  RivetRivet.GetIdentityProfileOutput
+  RivetApi.GetIdentityProfileOutput
 > = core.schemas.object({
   identity: core.schemas.lazyObject(async () => (await import("../../..")).commons.IdentityProfile),
   watch: core.schemas.lazyObject(async () => (await import("../../..")).commons.WatchResponse),

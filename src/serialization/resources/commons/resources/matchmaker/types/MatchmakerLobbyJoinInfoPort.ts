@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const MatchmakerLobbyJoinInfoPort: core.schemas.ObjectSchema<
   serializers.commons.MatchmakerLobbyJoinInfoPort.Raw,
-  RivetRivet.commons.MatchmakerLobbyJoinInfoPort
+  RivetApi.commons.MatchmakerLobbyJoinInfoPort
 > = core.schemas.object({
   host: core.schemas.string().optional(),
   hostname: core.schemas.string(),

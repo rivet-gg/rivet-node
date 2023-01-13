@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const IdentityExternalLinks: core.schemas.ObjectSchema<
   serializers.commons.IdentityExternalLinks.Raw,
-  RivetRivet.commons.IdentityExternalLinks
+  RivetApi.commons.IdentityExternalLinks
 > = core.schemas.object({
   profile: core.schemas.string(),
   settings: core.schemas.string().optional(),

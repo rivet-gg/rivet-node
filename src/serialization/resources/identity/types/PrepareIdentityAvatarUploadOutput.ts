@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
 export const PrepareIdentityAvatarUploadOutput: core.schemas.ObjectSchema<
   serializers.PrepareIdentityAvatarUploadOutput.Raw,
-  RivetRivet.PrepareIdentityAvatarUploadOutput
+  RivetApi.PrepareIdentityAvatarUploadOutput
 > = core.schemas.object({
   uploadId: core.schemas.property("upload_id", core.schemas.string()),
   presignedRequest: core.schemas.property(

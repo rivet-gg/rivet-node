@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GlobalEventChatRead: core.schemas.ObjectSchema<
   serializers.identity.GlobalEventChatRead.Raw,
-  RivetRivet.identity.GlobalEventChatRead
+  RivetApi.identity.GlobalEventChatRead
 > = core.schemas.object({
   threadId: core.schemas.property("thread_id", core.schemas.string()),
   readTs: core.schemas.property(

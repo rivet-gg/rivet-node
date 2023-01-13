@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const PartyPublicity: core.schemas.ObjectSchema<
   serializers.commons.PartyPublicity.Raw,
-  RivetRivet.commons.PartyPublicity
+  RivetApi.commons.PartyPublicity
 > = core.schemas.object({
   public: core.schemas.lazy(async () => (await import("../../../../..")).commons.PartyPublicityLevel),
   mutualFollowers: core.schemas.property(

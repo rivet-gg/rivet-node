@@ -3,18 +3,16 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartyHandle: core.schemas.ObjectSchema<
-  serializers.commons.PartyHandle.Raw,
-  RivetRivet.commons.PartyHandle
-> = core.schemas.object({
-  partyId: core.schemas.property("party_id", core.schemas.string()),
-  createTs: core.schemas.property("create_ts", core.schemas.date()),
-  activity: core.schemas.lazy(async () => (await import("../../../../..")).commons.PartyActivity),
-  external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyExternalLinks),
-});
+export const PartyHandle: core.schemas.ObjectSchema<serializers.commons.PartyHandle.Raw, RivetApi.commons.PartyHandle> =
+  core.schemas.object({
+    partyId: core.schemas.property("party_id", core.schemas.string()),
+    createTs: core.schemas.property("create_ts", core.schemas.date()),
+    activity: core.schemas.lazy(async () => (await import("../../../../..")).commons.PartyActivity),
+    external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyExternalLinks),
+  });
 
 export declare namespace PartyHandle {
   interface Raw {

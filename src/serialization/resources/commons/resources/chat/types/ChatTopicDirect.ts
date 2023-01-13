@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const ChatTopicDirect: core.schemas.ObjectSchema<
   serializers.commons.ChatTopicDirect.Raw,
-  RivetRivet.commons.ChatTopicDirect
+  RivetApi.commons.ChatTopicDirect
 > = core.schemas.object({
   identityA: core.schemas.property(
     "identity_a",

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const Response: core.schemas.Schema<
   serializers.identity.links.get.Response.Raw,
-  RivetRivet.identity.GetGameLinkOutput
+  RivetApi.identity.GetGameLinkOutput
 > = core.schemas.lazyObject(async () => (await import("../../../../..")).identity.GetGameLinkOutput);
 
 export declare namespace Response {

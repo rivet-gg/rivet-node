@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GlobalEventChatThreadRemove: core.schemas.ObjectSchema<
   serializers.commons.GlobalEventChatThreadRemove.Raw,
-  RivetRivet.commons.GlobalEventChatThreadRemove
+  RivetApi.commons.GlobalEventChatThreadRemove
 > = core.schemas.object({
   threadId: core.schemas.property("thread_id", core.schemas.string()),
 });

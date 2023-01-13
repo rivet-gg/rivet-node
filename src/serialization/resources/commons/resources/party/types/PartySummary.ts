@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const PartySummary: core.schemas.ObjectSchema<
   serializers.commons.PartySummary.Raw,
-  RivetRivet.commons.PartySummary
+  RivetApi.commons.PartySummary
 > = core.schemas.object({
   partyId: core.schemas.property("party_id", core.schemas.string()),
   createTs: core.schemas.property(

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const IdentityPresence: core.schemas.ObjectSchema<
   serializers.commons.IdentityPresence.Raw,
-  RivetRivet.commons.IdentityPresence
+  RivetApi.commons.IdentityPresence
 > = core.schemas.object({
   updateTs: core.schemas.property("update_ts", core.schemas.date()),
   status: core.schemas.lazy(async () => (await import("../../../../..")).commons.IdentityStatus),

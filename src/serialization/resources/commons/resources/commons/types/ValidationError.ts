@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const ValidationError: core.schemas.ObjectSchema<
   serializers.commons.ValidationError.Raw,
-  RivetRivet.commons.ValidationError
+  RivetApi.commons.ValidationError
 > = core.schemas.object({
   path: core.schemas.list(core.schemas.string()),
 });

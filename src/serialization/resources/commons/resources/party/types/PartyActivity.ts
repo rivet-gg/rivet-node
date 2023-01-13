@@ -3,37 +3,35 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartyActivity: core.schemas.Schema<
-  serializers.commons.PartyActivity.Raw,
-  RivetRivet.commons.PartyActivity
-> = core.schemas
-  .union("type", {
-    idle: core.schemas.object({}),
-    matchmaker_finding_lobby: core.schemas.lazyObject(
-      async () => (await import("../../../../..")).commons.PartyActivityMatchmakerFindingLobby
-    ),
-    matchmaker_lobby: core.schemas.lazyObject(
-      async () => (await import("../../../../..")).commons.PartyActivityMatchmakerLobby
-    ),
-  })
-  .transform<RivetRivet.commons.PartyActivity>({
-    parse: (value) => {
-      switch (value.type) {
-        case "idle":
-          return RivetRivet.commons.PartyActivity.idle();
-        case "matchmaker_finding_lobby":
-          return RivetRivet.commons.PartyActivity.matchmakerFindingLobby(value);
-        case "matchmaker_lobby":
-          return RivetRivet.commons.PartyActivity.matchmakerLobby(value);
-        default:
-          return RivetRivet.commons.PartyActivity._unknown(value);
-      }
-    },
-    json: (value) => value as any,
-  });
+export const PartyActivity: core.schemas.Schema<serializers.commons.PartyActivity.Raw, RivetApi.commons.PartyActivity> =
+  core.schemas
+    .union("type", {
+      idle: core.schemas.object({}),
+      matchmaker_finding_lobby: core.schemas.lazyObject(
+        async () => (await import("../../../../..")).commons.PartyActivityMatchmakerFindingLobby
+      ),
+      matchmaker_lobby: core.schemas.lazyObject(
+        async () => (await import("../../../../..")).commons.PartyActivityMatchmakerLobby
+      ),
+    })
+    .transform<RivetApi.commons.PartyActivity>({
+      parse: (value) => {
+        switch (value.type) {
+          case "idle":
+            return RivetApi.commons.PartyActivity.idle();
+          case "matchmaker_finding_lobby":
+            return RivetApi.commons.PartyActivity.matchmakerFindingLobby(value);
+          case "matchmaker_lobby":
+            return RivetApi.commons.PartyActivity.matchmakerLobby(value);
+          default:
+            return RivetApi.commons.PartyActivity._unknown(value);
+        }
+      },
+      json: (value) => value as any,
+    });
 
 export declare namespace PartyActivity {
   type Raw = PartyActivity.Idle | PartyActivity.MatchmakerFindingLobby | PartyActivity.MatchmakerLobby;

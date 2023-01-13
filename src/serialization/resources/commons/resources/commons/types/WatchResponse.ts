@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const WatchResponse: core.schemas.ObjectSchema<
   serializers.commons.WatchResponse.Raw,
-  RivetRivet.commons.WatchResponse
+  RivetApi.commons.WatchResponse
 > = core.schemas.object({
   index: core.schemas.string(),
 });

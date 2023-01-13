@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Response: core.schemas.Schema<serializers.identity.setup.Response.Raw, RivetRivet.SetupIdentityOutput> =
+export const Response: core.schemas.Schema<serializers.identity.setup.Response.Raw, RivetApi.SetupIdentityOutput> =
   core.schemas.lazyObject(async () => (await import("../../..")).SetupIdentityOutput);
 
 export declare namespace Response {

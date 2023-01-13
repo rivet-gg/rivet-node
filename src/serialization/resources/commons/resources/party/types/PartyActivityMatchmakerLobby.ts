@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const PartyActivityMatchmakerLobby: core.schemas.ObjectSchema<
   serializers.commons.PartyActivityMatchmakerLobby.Raw,
-  RivetRivet.commons.PartyActivityMatchmakerLobby
+  RivetApi.commons.PartyActivityMatchmakerLobby
 > = core.schemas.object({
   lobby: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyMatchmakerLobby),
   game: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),

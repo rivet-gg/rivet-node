@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const PartyExternalLinks: core.schemas.ObjectSchema<
   serializers.commons.PartyExternalLinks.Raw,
-  RivetRivet.commons.PartyExternalLinks
+  RivetApi.commons.PartyExternalLinks
 > = core.schemas.object({
   chat: core.schemas.string(),
 });

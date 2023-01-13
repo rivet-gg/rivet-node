@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const IdentityStatus: core.schemas.Schema<
   serializers.commons.IdentityStatus.Raw,
-  RivetRivet.commons.IdentityStatus
+  RivetApi.commons.IdentityStatus
 > = core.schemas.enum_(["online", "away", "offline"]);
 
 export declare namespace IdentityStatus {

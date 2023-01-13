@@ -3,27 +3,25 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameSummary: core.schemas.ObjectSchema<
-  serializers.commons.GameSummary.Raw,
-  RivetRivet.commons.GameSummary
-> = core.schemas.object({
-  gameId: core.schemas.property("game_id", core.schemas.string()),
-  nameId: core.schemas.property(
-    "name_id",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Identifier)
-  ),
-  displayName: core.schemas.property(
-    "display_name",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
-  ),
-  logoUrl: core.schemas.property("logo_url", core.schemas.string().optional()),
-  bannerUrl: core.schemas.property("banner_url", core.schemas.string().optional()),
-  url: core.schemas.string(),
-  developer: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupHandle),
-});
+export const GameSummary: core.schemas.ObjectSchema<serializers.commons.GameSummary.Raw, RivetApi.commons.GameSummary> =
+  core.schemas.object({
+    gameId: core.schemas.property("game_id", core.schemas.string()),
+    nameId: core.schemas.property(
+      "name_id",
+      core.schemas.lazy(async () => (await import("../../../../..")).commons.Identifier)
+    ),
+    displayName: core.schemas.property(
+      "display_name",
+      core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    ),
+    logoUrl: core.schemas.property("logo_url", core.schemas.string().optional()),
+    bannerUrl: core.schemas.property("banner_url", core.schemas.string().optional()),
+    url: core.schemas.string(),
+    developer: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupHandle),
+  });
 
 export declare namespace GameSummary {
   interface Raw {

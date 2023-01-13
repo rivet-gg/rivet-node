@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const PartyMemberStateMatchmakerLobby: core.schemas.ObjectSchema<
   serializers.commons.PartyMemberStateMatchmakerLobby.Raw,
-  RivetRivet.commons.PartyMemberStateMatchmakerLobby
+  RivetApi.commons.PartyMemberStateMatchmakerLobby
 > = core.schemas.object({
   playerId: core.schemas.property("player_id", core.schemas.string()),
 });

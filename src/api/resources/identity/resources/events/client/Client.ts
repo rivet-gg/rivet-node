@@ -4,13 +4,13 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 
 export declare namespace Client {
   interface Options {
-    environment?: environments.RivetRivetEnvironment | string;
+    environment?: environments.RivetApiEnvironment | string;
     token?: core.Supplier<core.BearerToken>;
   }
 }
@@ -18,16 +18,14 @@ export declare namespace Client {
 export class Client {
   constructor(private readonly options: Client.Options) {}
 
-  public async watch(
-    request?: RivetRivet.identity.WatchEventsInput
-  ): Promise<RivetRivet.identity.events.watch.Response> {
+  public async watch(request?: RivetApi.identity.WatchEventsInput): Promise<RivetApi.identity.events.watch.Response> {
     const _queryParams = new URLSearchParams();
     if (request?.watchIndex != null) {
       _queryParams.append("watch_index", request?.watchIndex);
     }
 
     const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetRivetEnvironment.Production, "/events/live"),
+      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/events/live"),
       method: "GET",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -45,7 +43,7 @@ export class Client {
 
     return {
       ok: false,
-      error: RivetRivet.identity.events.watch.Error._unknown(_response.error),
+      error: RivetApi.identity.events.watch.Error._unknown(_response.error),
     };
   }
 }

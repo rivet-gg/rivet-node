@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
 export const GroupSummary: core.schemas.ObjectSchema<
   serializers.commons.GroupSummary.Raw,
-  RivetRivet.commons.GroupSummary
+  RivetApi.commons.GroupSummary
 > = core.schemas.object({
   groupId: core.schemas.property("group_id", core.schemas.string()),
   dispayName: core.schemas.property(

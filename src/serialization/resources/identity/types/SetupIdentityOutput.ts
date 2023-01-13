@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
 export const SetupIdentityOutput: core.schemas.ObjectSchema<
   serializers.SetupIdentityOutput.Raw,
-  RivetRivet.SetupIdentityOutput
+  RivetApi.SetupIdentityOutput
 > = core.schemas.object({
   identityToken: core.schemas.property(
     "identity_token",

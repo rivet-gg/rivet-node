@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Bio: core.schemas.Schema<serializers.commons.Bio.Raw, RivetRivet.commons.Bio> = core.schemas.string();
+export const Bio: core.schemas.Schema<serializers.commons.Bio.Raw, RivetApi.commons.Bio> = core.schemas.string();
 
 export declare namespace Bio {
   type Raw = string;

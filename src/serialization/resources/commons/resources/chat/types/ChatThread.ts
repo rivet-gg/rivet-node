@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetRivet } from "@fern-api/rivet";
+import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const ChatThread: core.schemas.ObjectSchema<serializers.commons.ChatThread.Raw, RivetRivet.commons.ChatThread> =
+export const ChatThread: core.schemas.ObjectSchema<serializers.commons.ChatThread.Raw, RivetApi.commons.ChatThread> =
   core.schemas.object({
     threadId: core.schemas.property("thread_id", core.schemas.string()),
     createTs: core.schemas.property(

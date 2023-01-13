@@ -6,15 +6,15 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { Client as IdentityClient } from "./api/resources/identity/client/Client";
 
-export declare namespace RivetRivetClient {
+export declare namespace RivetApiClient {
   interface Options {
-    environment?: environments.RivetRivetEnvironment | string;
+    environment?: environments.RivetApiEnvironment | string;
     token?: core.Supplier<core.BearerToken>;
   }
 }
 
-export class RivetRivetClient {
-  constructor(private readonly options: RivetRivetClient.Options) {}
+export class RivetApiClient {
+  constructor(private readonly options: RivetApiClient.Options) {}
 
   #identity: IdentityClient | undefined;
 
