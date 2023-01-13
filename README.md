@@ -13,20 +13,24 @@ API documentation is available at <https://docs.rivet.gg/docs/api/>.
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-wzb8cf?file=app.ts&view=editor)
 
 ```typescript
-import { RivetApiClient, RivetApiEnvironment } from '@fern-api/rivet';
+import { RivetApiClient } from '@fern-api/rivet';
 
 void main();
 
 async function main() {
   const client = new RivetApiClient({
-    environment: RivetApiEnvironment.Production,
+    environment: 'https://identity.api.rivet.gg/v1',
     token: 'MY_TOKEN',
   });
 
   const followResponse = await client.identity.follow('identity-id');
 
-  console.log('Received response from Rivet!', followResponse);
+  console.log(
+    'Received response from Rivet!',
+    JSON.stringify(followResponse, undefined, 4)
+  );
 }
+
 ```
 
 ## Beta status
