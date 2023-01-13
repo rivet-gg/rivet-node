@@ -4,17 +4,17 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Client as IdentityClient } from "./resources/identity/client/Client";
+import { Client as IdentityClient } from "./api/resources/identity/client/Client";
 
-export declare namespace RivetIdentityClient {
+export declare namespace RivetRivetClient {
   interface Options {
-    environment?: environments.Environment | string;
+    environment?: environments.RivetRivetEnvironment | string;
     token?: core.Supplier<core.BearerToken>;
   }
 }
 
-export class RivetIdentityClient {
-  constructor(private readonly options: RivetIdentityClient.Options) {}
+export class RivetRivetClient {
+  constructor(private readonly options: RivetRivetClient.Options) {}
 
   #identity: IdentityClient | undefined;
 

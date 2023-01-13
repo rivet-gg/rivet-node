@@ -1,7 +1,7 @@
 {
-    "name": "@fern-api/rivet-identity",
-    "version": "0.0.5",
-    "repository": "https://github.com/fern-rivet/identity-node",
+    "name": "@fern-api/rivet",
+    "version": "0.0.7",
+    "repository": "https://github.com/fern-rivet/rivet-node",
     "files": [
         "dist",
         "types",

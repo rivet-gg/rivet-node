@@ -55,7 +55,7 @@ async function runEsbuild({ platform, target, format, entryPoint, outfile }) {
         bundle: true,
         alias: {
             // matches up with tsconfig paths
-            "@fern-api/rivet-identity": "./src",
+            "@fern-api/rivet": "./src",
         }
     }).catch(() => process.exit(1));
 }

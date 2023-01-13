@@ -1,2 +1,3 @@
-export * as RivetIdentity from "./resources";
-export { RivetIdentityClient } from "./Client";
+export * as RivetRivet from "./api";
+export { RivetRivetClient } from "./Client";
+export { RivetRivetEnvironment } from "./environments";

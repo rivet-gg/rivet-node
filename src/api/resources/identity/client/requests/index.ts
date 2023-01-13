@@ -1,0 +1,16 @@
+export { SetupIdentityInput } from "./SetupIdentityInput";
+export { GetIdentityProfileInput } from "./GetIdentityProfileInput";
+export { GetIdentitySelfProfileInput } from "./GetIdentitySelfProfileInput";
+export { GetIdentityHandlesInput } from "./GetIdentityHandlesInput";
+export { GetIdentitySummariesInput } from "./GetIdentitySummariesInput";
+export { UpdateIdentityProfileInput } from "./UpdateIdentityProfileInput";
+export { ValidateIdentityProfileInput } from "./ValidateIdentityProfileInput";
+export { SearchIdentitiesInput } from "./SearchIdentitiesInput";
+export { SetIdentityGameActivityInput } from "./SetIdentityGameActivityInput";
+export { UpdateIentityStatusInput } from "./UpdateIentityStatusInput";
+export { PrepareIdentityAvatarUploadInput } from "./PrepareIdentityAvatarUploadInput";
+export { SignupForBetaInput } from "./SignupForBetaInput";
+export { ReportIdentityInput } from "./ReportIdentityInput";
+export { ListFollowersInput } from "./ListFollowersInput";
+export { ListFriendsInput } from "./ListFriendsInput";
+export { ListMutualFriendsInput } from "./ListMutualFriendsInput";

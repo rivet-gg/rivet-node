@@ -1,0 +1,16 @@
+export * as setup from "./setup";
+export * as getProfile from "./getProfile";
+export * as getSelfProfile from "./getSelfProfile";
+export * as getIdentityHandles from "./getIdentityHandles";
+export * as getIdentitySummaries from "./getIdentitySummaries";
+export * as updateIdentityProfile from "./updateIdentityProfile";
+export * as validateIdentityProfile from "./validateIdentityProfile";
+export * as search from "./search";
+export * as setGameActivity from "./setGameActivity";
+export * as updateIdentityStatus from "./updateIdentityStatus";
+export * as prepareIdentityAvatarUpload from "./prepareIdentityAvatarUpload";
+export * as signupForBeta from "./signupForBeta";
+export * as report from "./report";
+export * as listFollowers from "./listFollowers";
+export * as listFriends from "./listFriends";
+export * as listMutualFriends from "./listMutualFriends";
