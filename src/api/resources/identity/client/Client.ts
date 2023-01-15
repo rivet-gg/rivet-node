@@ -24,10 +24,6 @@ export class Client {
   public async setup(request: RivetApi.SetupIdentityInput): Promise<RivetApi.identity.setup.Response> {
     const _queryParams = new URLSearchParams();
     _queryParams.append("identity_link_token", request.identityLinkToken);
-    if (request.watchIndex != null) {
-      _queryParams.append("watch_index", request.watchIndex);
-    }
-
     const _response = await core.fetcher({
       url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/identities"),
       method: "POST",
