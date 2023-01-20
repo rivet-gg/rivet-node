@@ -8,5 +8,5 @@ import { RivetApi } from "@fern-api/rivet";
  * An identity's linked email.
  */
 export interface IdentityEmailLinkedAccount {
-  email: RivetApi.commons.Email;
+    email: RivetApi.commons.Email;
 }

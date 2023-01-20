@@ -5,6 +5,6 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ListMutualFriendsOutput {
-  identities: RivetApi.commons.IdentityHandle[];
-  anchor?: string;
+    identities: RivetApi.commons.IdentityHandle[];
+    anchor?: string;
 }

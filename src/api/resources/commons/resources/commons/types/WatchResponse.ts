@@ -6,10 +6,10 @@
  * Provided by watchable endpoints used in blocking loops.
  */
 export interface WatchResponse {
-  /**
-   * Index indicating the version of the data responded.
-   * Pass this to `WatchQuery` to block and wait for the next response.
-   *
-   */
-  index: string;
+    /**
+     * Index indicating the version of the data responded.
+     * Pass this to `WatchQuery` to block and wait for the next response.
+     *
+     */
+    index: string;
 }

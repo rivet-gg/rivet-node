@@ -6,17 +6,19 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const ListMutualFriendsOutput: core.schemas.ObjectSchema<
-  serializers.ListMutualFriendsOutput.Raw,
-  RivetApi.ListMutualFriendsOutput
-> = core.schemas.object({
-  identities: core.schemas.list(core.schemas.lazyObject(async () => (await import("../../..")).commons.IdentityHandle)),
-  anchor: core.schemas.string().optional(),
+export const ListMutualFriendsOutput: core.serialization.ObjectSchema<
+    serializers.ListMutualFriendsOutput.Raw,
+    RivetApi.ListMutualFriendsOutput
+> = core.serialization.object({
+    identities: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../..")).commons.IdentityHandle)
+    ),
+    anchor: core.serialization.string().optional(),
 });
 
 export declare namespace ListMutualFriendsOutput {
-  interface Raw {
-    identities: serializers.commons.IdentityHandle.Raw[];
-    anchor?: string | null;
-  }
+    interface Raw {
+        identities: serializers.commons.IdentityHandle.Raw[];
+        anchor?: string | null;
+    }
 }

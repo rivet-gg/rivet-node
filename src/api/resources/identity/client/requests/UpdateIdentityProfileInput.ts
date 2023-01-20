@@ -5,7 +5,7 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface UpdateIdentityProfileInput {
-  displayName?: RivetApi.commons.DisplayName;
-  accountNumber?: RivetApi.commons.AccountNumber;
-  bio?: RivetApi.commons.Bio;
+    displayName?: RivetApi.commons.DisplayName;
+    accountNumber?: RivetApi.commons.AccountNumber;
+    bio?: RivetApi.commons.Bio;
 }

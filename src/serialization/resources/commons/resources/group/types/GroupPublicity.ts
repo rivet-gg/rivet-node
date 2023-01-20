@@ -6,11 +6,11 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GroupPublicity: core.schemas.Schema<
-  serializers.commons.GroupPublicity.Raw,
-  RivetApi.commons.GroupPublicity
-> = core.schemas.enum_(["open", "closed"]);
+export const GroupPublicity: core.serialization.Schema<
+    serializers.commons.GroupPublicity.Raw,
+    RivetApi.commons.GroupPublicity
+> = core.serialization.enum_(["open", "closed"]);
 
 export declare namespace GroupPublicity {
-  type Raw = "open" | "closed";
+    type Raw = "open" | "closed";
 }

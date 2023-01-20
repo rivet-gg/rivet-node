@@ -6,74 +6,78 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityProfile: core.schemas.ObjectSchema<
-  serializers.commons.IdentityProfile.Raw,
-  RivetApi.commons.IdentityProfile
-> = core.schemas.object({
-  identityId: core.schemas.property("identity_id", core.schemas.string()),
-  displayName: core.schemas.property(
-    "display_name",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
-  ),
-  accountNumber: core.schemas.property(
-    "account_number",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.AccountNumber)
-  ),
-  avatarUrl: core.schemas.property("avatar_url", core.schemas.string()),
-  presence: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityPresence).optional(),
-  party: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartySummary).optional(),
-  isRegistered: core.schemas.property("is_registered", core.schemas.boolean()),
-  external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityExternalLinks),
-  isAdmin: core.schemas.property("is_admin", core.schemas.boolean()),
-  isGameLinked: core.schemas.property("is_game_linked", core.schemas.boolean().optional()),
-  devState: core.schemas.property(
-    "dev_state",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.IdentityDevState).optional()
-  ),
-  followerCount: core.schemas.property("follower_count", core.schemas.number()),
-  followingCount: core.schemas.property("following_count", core.schemas.number()),
-  following: core.schemas.boolean(),
-  isFollowingMe: core.schemas.property("is_following_me", core.schemas.boolean()),
-  isMutualFollowing: core.schemas.property("is_mutual_following", core.schemas.boolean()),
-  joinTs: core.schemas.property(
-    "join_ts",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Timestamp)
-  ),
-  bio: core.schemas.lazy(async () => (await import("../../../../..")).commons.Bio),
-  linkedAccounts: core.schemas.property(
-    "linked_accounts",
-    core.schemas.list(core.schemas.lazy(async () => (await import("../../../../..")).commons.IdentityLinkedAccount))
-  ),
-  groups: core.schemas.list(
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityGroup)
-  ),
-  games: core.schemas.list(
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameStatSummary)
-  ),
+export const IdentityProfile: core.serialization.ObjectSchema<
+    serializers.commons.IdentityProfile.Raw,
+    RivetApi.commons.IdentityProfile
+> = core.serialization.object({
+    identityId: core.serialization.property("identity_id", core.serialization.string()),
+    displayName: core.serialization.property(
+        "display_name",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    ),
+    accountNumber: core.serialization.property(
+        "account_number",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.AccountNumber)
+    ),
+    avatarUrl: core.serialization.property("avatar_url", core.serialization.string()),
+    presence: core.serialization
+        .lazyObject(async () => (await import("../../../../..")).commons.IdentityPresence)
+        .optional(),
+    party: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartySummary).optional(),
+    isRegistered: core.serialization.property("is_registered", core.serialization.boolean()),
+    external: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityExternalLinks),
+    isAdmin: core.serialization.property("is_admin", core.serialization.boolean()),
+    isGameLinked: core.serialization.property("is_game_linked", core.serialization.boolean().optional()),
+    devState: core.serialization.property(
+        "dev_state",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.IdentityDevState).optional()
+    ),
+    followerCount: core.serialization.property("follower_count", core.serialization.number()),
+    followingCount: core.serialization.property("following_count", core.serialization.number()),
+    following: core.serialization.boolean(),
+    isFollowingMe: core.serialization.property("is_following_me", core.serialization.boolean()),
+    isMutualFollowing: core.serialization.property("is_mutual_following", core.serialization.boolean()),
+    joinTs: core.serialization.property(
+        "join_ts",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Timestamp)
+    ),
+    bio: core.serialization.lazy(async () => (await import("../../../../..")).commons.Bio),
+    linkedAccounts: core.serialization.property(
+        "linked_accounts",
+        core.serialization.list(
+            core.serialization.lazy(async () => (await import("../../../../..")).commons.IdentityLinkedAccount)
+        )
+    ),
+    groups: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityGroup)
+    ),
+    games: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameStatSummary)
+    ),
 });
 
 export declare namespace IdentityProfile {
-  interface Raw {
-    identity_id: string;
-    display_name: serializers.commons.DisplayName.Raw;
-    account_number: serializers.commons.AccountNumber.Raw;
-    avatar_url: string;
-    presence?: serializers.commons.IdentityPresence.Raw | null;
-    party?: serializers.commons.PartySummary.Raw | null;
-    is_registered: boolean;
-    external: serializers.commons.IdentityExternalLinks.Raw;
-    is_admin: boolean;
-    is_game_linked?: boolean | null;
-    dev_state?: serializers.commons.IdentityDevState.Raw | null;
-    follower_count: number;
-    following_count: number;
-    following: boolean;
-    is_following_me: boolean;
-    is_mutual_following: boolean;
-    join_ts: serializers.commons.Timestamp.Raw;
-    bio: serializers.commons.Bio.Raw;
-    linked_accounts: serializers.commons.IdentityLinkedAccount.Raw[];
-    groups: serializers.commons.IdentityGroup.Raw[];
-    games: serializers.commons.GameStatSummary.Raw[];
-  }
+    interface Raw {
+        identity_id: string;
+        display_name: serializers.commons.DisplayName.Raw;
+        account_number: serializers.commons.AccountNumber.Raw;
+        avatar_url: string;
+        presence?: serializers.commons.IdentityPresence.Raw | null;
+        party?: serializers.commons.PartySummary.Raw | null;
+        is_registered: boolean;
+        external: serializers.commons.IdentityExternalLinks.Raw;
+        is_admin: boolean;
+        is_game_linked?: boolean | null;
+        dev_state?: serializers.commons.IdentityDevState.Raw | null;
+        follower_count: number;
+        following_count: number;
+        following: boolean;
+        is_following_me: boolean;
+        is_mutual_following: boolean;
+        join_ts: serializers.commons.Timestamp.Raw;
+        bio: serializers.commons.Bio.Raw;
+        linked_accounts: serializers.commons.IdentityLinkedAccount.Raw[];
+        groups: serializers.commons.IdentityGroup.Raw[];
+        games: serializers.commons.GameStatSummary.Raw[];
+    }
 }

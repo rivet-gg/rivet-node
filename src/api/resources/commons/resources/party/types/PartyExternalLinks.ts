@@ -6,6 +6,6 @@
  * External links for a party.
  */
 export interface PartyExternalLinks {
-  /** A link to the given party's chat thread. */
-  chat: string;
+    /** A link to the given party's chat thread. */
+    chat: string;
 }

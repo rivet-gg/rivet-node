@@ -8,6 +8,6 @@ import { RivetApi } from "@fern-api/rivet";
  * A party activity denoting that the party is currently in a lobby.
  */
 export interface PartyActivityMatchmakerLobby {
-  lobby: RivetApi.commons.PartyMatchmakerLobby;
-  game: RivetApi.commons.GameHandle;
+    lobby: RivetApi.commons.PartyMatchmakerLobby;
+    game: RivetApi.commons.GameHandle;
 }

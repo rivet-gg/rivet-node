@@ -6,15 +6,17 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const ValidateIdentityProfileOutput: core.schemas.ObjectSchema<
-  serializers.ValidateIdentityProfileOutput.Raw,
-  RivetApi.ValidateIdentityProfileOutput
-> = core.schemas.object({
-  errors: core.schemas.list(core.schemas.lazyObject(async () => (await import("../../..")).commons.ValidationError)),
+export const ValidateIdentityProfileOutput: core.serialization.ObjectSchema<
+    serializers.ValidateIdentityProfileOutput.Raw,
+    RivetApi.ValidateIdentityProfileOutput
+> = core.serialization.object({
+    errors: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../..")).commons.ValidationError)
+    ),
 });
 
 export declare namespace ValidateIdentityProfileOutput {
-  interface Raw {
-    errors: serializers.commons.ValidationError.Raw[];
-  }
+    interface Raw {
+        errors: serializers.commons.ValidationError.Raw[];
+    }
 }

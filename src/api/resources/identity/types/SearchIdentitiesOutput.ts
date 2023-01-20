@@ -5,10 +5,10 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface SearchIdentitiesOutput {
-  identities: RivetApi.commons.IdentityHandle[];
-  /**
-   * The pagination anchor.
-   *
-   */
-  anchor: string;
+    identities: RivetApi.commons.IdentityHandle[];
+    /**
+     * The pagination anchor.
+     *
+     */
+    anchor: string;
 }

@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const ValidationError: core.schemas.ObjectSchema<
-  serializers.commons.ValidationError.Raw,
-  RivetApi.commons.ValidationError
-> = core.schemas.object({
-  path: core.schemas.list(core.schemas.string()),
+export const ValidationError: core.serialization.ObjectSchema<
+    serializers.commons.ValidationError.Raw,
+    RivetApi.commons.ValidationError
+> = core.serialization.object({
+    path: core.serialization.list(core.serialization.string()),
 });
 
 export declare namespace ValidationError {
-  interface Raw {
-    path: string[];
-  }
+    interface Raw {
+        path: string[];
+    }
 }

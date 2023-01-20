@@ -5,6 +5,6 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface PrepareIdentityAvatarUploadOutput {
-  uploadId: string;
-  presignedRequest: RivetApi.commons.UploadPresignedRequest;
+    uploadId: string;
+    presignedRequest: RivetApi.commons.UploadPresignedRequest;
 }

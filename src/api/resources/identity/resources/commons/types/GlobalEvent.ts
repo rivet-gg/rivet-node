@@ -8,7 +8,7 @@ import { RivetApi } from "@fern-api/rivet";
  * An event relevant to the current identity.
  */
 export interface GlobalEvent {
-  ts: RivetApi.commons.Timestamp;
-  kind: RivetApi.identity.GlobalEventKind;
-  notification: RivetApi.identity.GlobalEventNotification;
+    ts: RivetApi.commons.Timestamp;
+    kind: RivetApi.identity.GlobalEventKind;
+    notification: RivetApi.identity.GlobalEventNotification;
 }

@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GetIdentitySummariesOutput {
-  identities: RivetApi.commons.IdentitySummary[];
+    identities: RivetApi.commons.IdentitySummary[];
 }

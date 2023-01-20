@@ -5,7 +5,7 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface PartyPublicity {
-  public: RivetApi.commons.PartyPublicityLevel;
-  mutualFollowers: RivetApi.commons.PartyPublicityLevel;
-  groups: RivetApi.commons.PartyPublicityLevel;
+    public: RivetApi.commons.PartyPublicityLevel;
+    mutualFollowers: RivetApi.commons.PartyPublicityLevel;
+    groups: RivetApi.commons.PartyPublicityLevel;
 }

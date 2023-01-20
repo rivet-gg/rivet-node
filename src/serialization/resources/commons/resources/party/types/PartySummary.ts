@@ -6,34 +6,34 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartySummary: core.schemas.ObjectSchema<
-  serializers.commons.PartySummary.Raw,
-  RivetApi.commons.PartySummary
-> = core.schemas.object({
-  partyId: core.schemas.property("party_id", core.schemas.string()),
-  createTs: core.schemas.property(
-    "create_ts",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Timestamp)
-  ),
-  activity: core.schemas.lazy(async () => (await import("../../../../..")).commons.PartyActivity),
-  external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyExternalLinks),
-  publicity: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyPublicity),
-  partySize: core.schemas.property("party_size", core.schemas.number()),
-  members: core.schemas.list(
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyMemberSummary)
-  ),
-  threadId: core.schemas.property("thread_id", core.schemas.string()),
+export const PartySummary: core.serialization.ObjectSchema<
+    serializers.commons.PartySummary.Raw,
+    RivetApi.commons.PartySummary
+> = core.serialization.object({
+    partyId: core.serialization.property("party_id", core.serialization.string()),
+    createTs: core.serialization.property(
+        "create_ts",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Timestamp)
+    ),
+    activity: core.serialization.lazy(async () => (await import("../../../../..")).commons.PartyActivity),
+    external: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartyExternalLinks),
+    publicity: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartyPublicity),
+    partySize: core.serialization.property("party_size", core.serialization.number()),
+    members: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartyMemberSummary)
+    ),
+    threadId: core.serialization.property("thread_id", core.serialization.string()),
 });
 
 export declare namespace PartySummary {
-  interface Raw {
-    party_id: string;
-    create_ts: serializers.commons.Timestamp.Raw;
-    activity: serializers.commons.PartyActivity.Raw;
-    external: serializers.commons.PartyExternalLinks.Raw;
-    publicity: serializers.commons.PartyPublicity.Raw;
-    party_size: number;
-    members: serializers.commons.PartyMemberSummary.Raw[];
-    thread_id: string;
-  }
+    interface Raw {
+        party_id: string;
+        create_ts: serializers.commons.Timestamp.Raw;
+        activity: serializers.commons.PartyActivity.Raw;
+        external: serializers.commons.PartyExternalLinks.Raw;
+        publicity: serializers.commons.PartyPublicity.Raw;
+        party_size: number;
+        members: serializers.commons.PartyMemberSummary.Raw[];
+        thread_id: string;
+    }
 }

@@ -6,38 +6,40 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameStatConfig: core.schemas.ObjectSchema<
-  serializers.commons.GameStatConfig.Raw,
-  RivetApi.commons.GameStatConfig
-> = core.schemas.object({
-  recordId: core.schemas.property("record_id", core.schemas.string()),
-  iconId: core.schemas.property("icon_id", core.schemas.string()),
-  format: core.schemas.lazy(async () => (await import("../../../../..")).commons.GameStatFormatMethod),
-  aggregation: core.schemas.lazy(async () => (await import("../../../../..")).commons.GameStatAggregationMethod),
-  sorting: core.schemas.lazy(async () => (await import("../../../../..")).commons.GameStatSortingMethod),
-  priority: core.schemas.number(),
-  displayName: core.schemas.property(
-    "display_name",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
-  ),
-  postfixSingular: core.schemas.property("postfix_singular", core.schemas.string().optional()),
-  postfixPlural: core.schemas.property("postfix_plural", core.schemas.string().optional()),
-  prefixSingular: core.schemas.property("prefix_singular", core.schemas.string().optional()),
-  prefixPlural: core.schemas.property("prefix_plural", core.schemas.string().optional()),
+export const GameStatConfig: core.serialization.ObjectSchema<
+    serializers.commons.GameStatConfig.Raw,
+    RivetApi.commons.GameStatConfig
+> = core.serialization.object({
+    recordId: core.serialization.property("record_id", core.serialization.string()),
+    iconId: core.serialization.property("icon_id", core.serialization.string()),
+    format: core.serialization.lazy(async () => (await import("../../../../..")).commons.GameStatFormatMethod),
+    aggregation: core.serialization.lazy(
+        async () => (await import("../../../../..")).commons.GameStatAggregationMethod
+    ),
+    sorting: core.serialization.lazy(async () => (await import("../../../../..")).commons.GameStatSortingMethod),
+    priority: core.serialization.number(),
+    displayName: core.serialization.property(
+        "display_name",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    ),
+    postfixSingular: core.serialization.property("postfix_singular", core.serialization.string().optional()),
+    postfixPlural: core.serialization.property("postfix_plural", core.serialization.string().optional()),
+    prefixSingular: core.serialization.property("prefix_singular", core.serialization.string().optional()),
+    prefixPlural: core.serialization.property("prefix_plural", core.serialization.string().optional()),
 });
 
 export declare namespace GameStatConfig {
-  interface Raw {
-    record_id: string;
-    icon_id: string;
-    format: serializers.commons.GameStatFormatMethod.Raw;
-    aggregation: serializers.commons.GameStatAggregationMethod.Raw;
-    sorting: serializers.commons.GameStatSortingMethod.Raw;
-    priority: number;
-    display_name: serializers.commons.DisplayName.Raw;
-    postfix_singular?: string | null;
-    postfix_plural?: string | null;
-    prefix_singular?: string | null;
-    prefix_plural?: string | null;
-  }
+    interface Raw {
+        record_id: string;
+        icon_id: string;
+        format: serializers.commons.GameStatFormatMethod.Raw;
+        aggregation: serializers.commons.GameStatAggregationMethod.Raw;
+        sorting: serializers.commons.GameStatSortingMethod.Raw;
+        priority: number;
+        display_name: serializers.commons.DisplayName.Raw;
+        postfix_singular?: string | null;
+        postfix_plural?: string | null;
+        prefix_singular?: string | null;
+        prefix_plural?: string | null;
+    }
 }

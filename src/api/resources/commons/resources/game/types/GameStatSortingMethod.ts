@@ -6,14 +6,14 @@
  * A value denoting the sorting method of a game statistic.
  */
 export type GameStatSortingMethod =
-  /**
-   * Descending sorting. */
-  | "desc"
-  /**
-   * Ascending sorting. */
-  | "asc";
+    /**
+     * Descending sorting. */
+    | "desc"
+    /**
+     * Ascending sorting. */
+    | "asc";
 
 export const GameStatSortingMethod = {
-  Desc: "desc",
-  Asc: "asc",
+    Desc: "desc",
+    Asc: "asc",
 } as const;

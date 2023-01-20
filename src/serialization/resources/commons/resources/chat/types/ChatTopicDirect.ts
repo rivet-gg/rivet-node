@@ -6,23 +6,23 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const ChatTopicDirect: core.schemas.ObjectSchema<
-  serializers.commons.ChatTopicDirect.Raw,
-  RivetApi.commons.ChatTopicDirect
-> = core.schemas.object({
-  identityA: core.schemas.property(
-    "identity_a",
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
-  ),
-  identityB: core.schemas.property(
-    "identity_b",
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
-  ),
+export const ChatTopicDirect: core.serialization.ObjectSchema<
+    serializers.commons.ChatTopicDirect.Raw,
+    RivetApi.commons.ChatTopicDirect
+> = core.serialization.object({
+    identityA: core.serialization.property(
+        "identity_a",
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
+    ),
+    identityB: core.serialization.property(
+        "identity_b",
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
+    ),
 });
 
 export declare namespace ChatTopicDirect {
-  interface Raw {
-    identity_a: serializers.commons.IdentityHandle.Raw;
-    identity_b: serializers.commons.IdentityHandle.Raw;
-  }
+    interface Raw {
+        identity_a: serializers.commons.IdentityHandle.Raw;
+        identity_b: serializers.commons.IdentityHandle.Raw;
+    }
 }

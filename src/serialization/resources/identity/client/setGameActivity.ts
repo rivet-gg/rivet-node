@@ -6,18 +6,18 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Request: core.schemas.Schema<
-  serializers.identity.setGameActivity.Request.Raw,
-  RivetApi.SetIdentityGameActivityInput
-> = core.schemas.object({
-  gameActivity: core.schemas.property(
-    "game_activity",
-    core.schemas.lazyObject(async () => (await import("../../..")).identity.UpdateIdentityGameActivity)
-  ),
+export const Request: core.serialization.Schema<
+    serializers.identity.setGameActivity.Request.Raw,
+    RivetApi.SetIdentityGameActivityInput
+> = core.serialization.object({
+    gameActivity: core.serialization.property(
+        "game_activity",
+        core.serialization.lazyObject(async () => (await import("../../..")).identity.UpdateIdentityGameActivity)
+    ),
 });
 
 export declare namespace Request {
-  interface Raw {
-    game_activity: serializers.identity.UpdateIdentityGameActivity.Raw;
-  }
+    interface Raw {
+        game_activity: serializers.identity.UpdateIdentityGameActivity.Raw;
+    }
 }

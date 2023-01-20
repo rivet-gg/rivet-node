@@ -5,6 +5,6 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface WatchEventsOutput {
-  events: RivetApi.identity.GlobalEvent[];
-  watch: RivetApi.commons.WatchResponse;
+    events: RivetApi.identity.GlobalEvent[];
+    watch: RivetApi.commons.WatchResponse;
 }

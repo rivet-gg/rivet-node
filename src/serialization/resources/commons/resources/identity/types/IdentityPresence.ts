@@ -6,22 +6,24 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityPresence: core.schemas.ObjectSchema<
-  serializers.commons.IdentityPresence.Raw,
-  RivetApi.commons.IdentityPresence
-> = core.schemas.object({
-  updateTs: core.schemas.property("update_ts", core.schemas.date()),
-  status: core.schemas.lazy(async () => (await import("../../../../..")).commons.IdentityStatus),
-  gameActivity: core.schemas.property(
-    "game_activity",
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityGameActivity).optional()
-  ),
+export const IdentityPresence: core.serialization.ObjectSchema<
+    serializers.commons.IdentityPresence.Raw,
+    RivetApi.commons.IdentityPresence
+> = core.serialization.object({
+    updateTs: core.serialization.property("update_ts", core.serialization.date()),
+    status: core.serialization.lazy(async () => (await import("../../../../..")).commons.IdentityStatus),
+    gameActivity: core.serialization.property(
+        "game_activity",
+        core.serialization
+            .lazyObject(async () => (await import("../../../../..")).commons.IdentityGameActivity)
+            .optional()
+    ),
 });
 
 export declare namespace IdentityPresence {
-  interface Raw {
-    update_ts: string;
-    status: serializers.commons.IdentityStatus.Raw;
-    game_activity?: serializers.commons.IdentityGameActivity.Raw | null;
-  }
+    interface Raw {
+        update_ts: string;
+        status: serializers.commons.IdentityStatus.Raw;
+        game_activity?: serializers.commons.IdentityGameActivity.Raw | null;
+    }
 }

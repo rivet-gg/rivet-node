@@ -5,13 +5,13 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GameSummary {
-  gameId: string;
-  nameId: RivetApi.commons.Identifier;
-  displayName: RivetApi.commons.DisplayName;
-  /** The URL of this game's logo image. */
-  logoUrl?: string;
-  /** The URL of this game's banner image. */
-  bannerUrl?: string;
-  url: string;
-  developer: RivetApi.commons.GroupHandle;
+    gameId: string;
+    nameId: RivetApi.commons.Identifier;
+    displayName: RivetApi.commons.DisplayName;
+    /** The URL of this game's logo image. */
+    logoUrl?: string;
+    /** The URL of this game's banner image. */
+    bannerUrl?: string;
+    url: string;
+    developer: RivetApi.commons.GroupHandle;
 }

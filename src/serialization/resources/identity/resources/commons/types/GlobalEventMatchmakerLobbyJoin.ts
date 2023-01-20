@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GlobalEventMatchmakerLobbyJoin: core.schemas.ObjectSchema<
-  serializers.identity.GlobalEventMatchmakerLobbyJoin.Raw,
-  RivetApi.identity.GlobalEventMatchmakerLobbyJoin
-> = core.schemas.object({
-  lobby: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfo),
+export const GlobalEventMatchmakerLobbyJoin: core.serialization.ObjectSchema<
+    serializers.identity.GlobalEventMatchmakerLobbyJoin.Raw,
+    RivetApi.identity.GlobalEventMatchmakerLobbyJoin
+> = core.serialization.object({
+    lobby: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfo),
 });
 
 export declare namespace GlobalEventMatchmakerLobbyJoin {
-  interface Raw {
-    lobby: serializers.commons.MatchmakerLobbyJoinInfo.Raw;
-  }
+    interface Raw {
+        lobby: serializers.commons.MatchmakerLobbyJoinInfo.Raw;
+    }
 }

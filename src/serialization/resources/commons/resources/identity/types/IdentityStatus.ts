@@ -6,11 +6,11 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityStatus: core.schemas.Schema<
-  serializers.commons.IdentityStatus.Raw,
-  RivetApi.commons.IdentityStatus
-> = core.schemas.enum_(["online", "away", "offline"]);
+export const IdentityStatus: core.serialization.Schema<
+    serializers.commons.IdentityStatus.Raw,
+    RivetApi.commons.IdentityStatus
+> = core.serialization.enum_(["online", "away", "offline"]);
 
 export declare namespace IdentityStatus {
-  type Raw = "online" | "away" | "offline";
+    type Raw = "online" | "away" | "offline";
 }

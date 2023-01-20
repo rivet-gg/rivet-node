@@ -6,17 +6,17 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GroupExternalLinks: core.schemas.ObjectSchema<
-  serializers.commons.GroupExternalLinks.Raw,
-  RivetApi.commons.GroupExternalLinks
-> = core.schemas.object({
-  profile: core.schemas.string(),
-  chat: core.schemas.string(),
+export const GroupExternalLinks: core.serialization.ObjectSchema<
+    serializers.commons.GroupExternalLinks.Raw,
+    RivetApi.commons.GroupExternalLinks
+> = core.serialization.object({
+    profile: core.serialization.string(),
+    chat: core.serialization.string(),
 });
 
 export declare namespace GroupExternalLinks {
-  interface Raw {
-    profile: string;
-    chat: string;
-  }
+    interface Raw {
+        profile: string;
+        chat: string;
+    }
 }

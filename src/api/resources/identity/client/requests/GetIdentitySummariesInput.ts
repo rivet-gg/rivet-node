@@ -3,5 +3,5 @@
  */
 
 export interface GetIdentitySummariesInput {
-  identityIds: string | string[];
+    identityIds: string | string[];
 }

@@ -6,6 +6,6 @@
  * An error given by failed content validation.
  */
 export interface ValidationError {
-  /** A list of strings denoting the origin of a validation error. */
-  path: string[];
+    /** A list of strings denoting the origin of a validation error. */
+    path: string[];
 }

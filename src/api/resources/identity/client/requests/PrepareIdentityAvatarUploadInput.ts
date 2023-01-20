@@ -3,7 +3,7 @@
  */
 
 export interface PrepareIdentityAvatarUploadInput {
-  path: string;
-  mime: string;
-  contentLength: number;
+    path: string;
+    mime: string;
+    contentLength: number;
 }

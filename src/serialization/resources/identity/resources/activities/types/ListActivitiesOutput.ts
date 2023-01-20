@@ -6,35 +6,41 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const ListActivitiesOutput: core.schemas.ObjectSchema<
-  serializers.identity.ListActivitiesOutput.Raw,
-  RivetApi.identity.ListActivitiesOutput
-> = core.schemas.object({
-  identities: core.schemas.list(
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
-  ),
-  games: core.schemas.list(core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameSummary)),
-  parties: core.schemas.list(
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartySummary)
-  ),
-  suggestedGroups: core.schemas.property(
-    "suggested_groups",
-    core.schemas.list(core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupSummary))
-  ),
-  suggestedPlayers: core.schemas.property(
-    "suggested_players",
-    core.schemas.list(core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle))
-  ),
-  watch: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.WatchResponse),
+export const ListActivitiesOutput: core.serialization.ObjectSchema<
+    serializers.identity.ListActivitiesOutput.Raw,
+    RivetApi.identity.ListActivitiesOutput
+> = core.serialization.object({
+    identities: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
+    ),
+    games: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameSummary)
+    ),
+    parties: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartySummary)
+    ),
+    suggestedGroups: core.serialization.property(
+        "suggested_groups",
+        core.serialization.list(
+            core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GroupSummary)
+        )
+    ),
+    suggestedPlayers: core.serialization.property(
+        "suggested_players",
+        core.serialization.list(
+            core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
+        )
+    ),
+    watch: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.WatchResponse),
 });
 
 export declare namespace ListActivitiesOutput {
-  interface Raw {
-    identities: serializers.commons.IdentityHandle.Raw[];
-    games: serializers.commons.GameSummary.Raw[];
-    parties: serializers.commons.PartySummary.Raw[];
-    suggested_groups: serializers.commons.GroupSummary.Raw[];
-    suggested_players: serializers.commons.IdentityHandle.Raw[];
-    watch: serializers.commons.WatchResponse.Raw;
-  }
+    interface Raw {
+        identities: serializers.commons.IdentityHandle.Raw[];
+        games: serializers.commons.GameSummary.Raw[];
+        parties: serializers.commons.PartySummary.Raw[];
+        suggested_groups: serializers.commons.GroupSummary.Raw[];
+        suggested_players: serializers.commons.IdentityHandle.Raw[];
+        watch: serializers.commons.WatchResponse.Raw;
+    }
 }

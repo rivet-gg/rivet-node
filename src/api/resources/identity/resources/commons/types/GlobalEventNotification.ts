@@ -29,10 +29,10 @@
  *
  */
 export interface GlobalEventNotification {
-  title: string;
-  description: string;
-  /** URL to an image thumbnail that should be shown for this notification. */
-  thumbnailUrl: string;
-  /** Rivet Hub URL that holds the relevant context for this notification. */
-  url: string;
+    title: string;
+    description: string;
+    /** URL to an image thumbnail that should be shown for this notification. */
+    thumbnailUrl: string;
+    /** Rivet Hub URL that holds the relevant context for this notification. */
+    url: string;
 }

@@ -6,11 +6,11 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Response: core.schemas.Schema<
-  serializers.identity.getSelfProfile.Response.Raw,
-  RivetApi.GetIdentityProfileOutput
-> = core.schemas.lazyObject(async () => (await import("../../..")).GetIdentityProfileOutput);
+export const Response: core.serialization.Schema<
+    serializers.identity.getSelfProfile.Response.Raw,
+    RivetApi.GetIdentityProfileOutput
+> = core.serialization.lazyObject(async () => (await import("../../..")).GetIdentityProfileOutput);
 
 export declare namespace Response {
-  type Raw = serializers.GetIdentityProfileOutput.Raw;
+    type Raw = serializers.GetIdentityProfileOutput.Raw;
 }

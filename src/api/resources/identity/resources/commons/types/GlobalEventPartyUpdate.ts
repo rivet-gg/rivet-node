@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GlobalEventPartyUpdate {
-  party: RivetApi.commons.PartySummary;
+    party: RivetApi.commons.PartySummary;
 }

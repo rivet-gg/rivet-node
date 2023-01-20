@@ -6,22 +6,22 @@
  * A value denoting the aggregation method of a game statistic.
  */
 export type GameStatAggregationMethod =
-  /**
-   * Summation aggregation. */
-  | "sum"
-  /**
-   * Average aggregation. */
-  | "average"
-  /**
-   * Minimum value aggregation. */
-  | "min"
-  /**
-   * Maximum value aggregation. */
-  | "max";
+    /**
+     * Summation aggregation. */
+    | "sum"
+    /**
+     * Average aggregation. */
+    | "average"
+    /**
+     * Minimum value aggregation. */
+    | "min"
+    /**
+     * Maximum value aggregation. */
+    | "max";
 
 export const GameStatAggregationMethod = {
-  Sum: "sum",
-  Average: "average",
-  Min: "min",
-  Max: "max",
+    Sum: "sum",
+    Average: "average",
+    Min: "min",
+    Max: "max",
 } as const;

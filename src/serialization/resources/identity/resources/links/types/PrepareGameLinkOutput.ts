@@ -6,22 +6,22 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PrepareGameLinkOutput: core.schemas.ObjectSchema<
-  serializers.identity.PrepareGameLinkOutput.Raw,
-  RivetApi.identity.PrepareGameLinkOutput
-> = core.schemas.object({
-  identityLinkToken: core.schemas.property("identity_link_token", core.schemas.string()),
-  identityLinkUrl: core.schemas.property("identity_link_url", core.schemas.string()),
-  expireTs: core.schemas.property(
-    "expire_ts",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Timestamp)
-  ),
+export const PrepareGameLinkOutput: core.serialization.ObjectSchema<
+    serializers.identity.PrepareGameLinkOutput.Raw,
+    RivetApi.identity.PrepareGameLinkOutput
+> = core.serialization.object({
+    identityLinkToken: core.serialization.property("identity_link_token", core.serialization.string()),
+    identityLinkUrl: core.serialization.property("identity_link_url", core.serialization.string()),
+    expireTs: core.serialization.property(
+        "expire_ts",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Timestamp)
+    ),
 });
 
 export declare namespace PrepareGameLinkOutput {
-  interface Raw {
-    identity_link_token: string;
-    identity_link_url: string;
-    expire_ts: serializers.commons.Timestamp.Raw;
-  }
+    interface Raw {
+        identity_link_token: string;
+        identity_link_url: string;
+        expire_ts: serializers.commons.Timestamp.Raw;
+    }
 }

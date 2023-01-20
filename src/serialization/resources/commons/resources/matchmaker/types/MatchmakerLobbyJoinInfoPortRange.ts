@@ -6,17 +6,17 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const MatchmakerLobbyJoinInfoPortRange: core.schemas.ObjectSchema<
-  serializers.commons.MatchmakerLobbyJoinInfoPortRange.Raw,
-  RivetApi.commons.MatchmakerLobbyJoinInfoPortRange
-> = core.schemas.object({
-  min: core.schemas.number(),
-  max: core.schemas.number(),
+export const MatchmakerLobbyJoinInfoPortRange: core.serialization.ObjectSchema<
+    serializers.commons.MatchmakerLobbyJoinInfoPortRange.Raw,
+    RivetApi.commons.MatchmakerLobbyJoinInfoPortRange
+> = core.serialization.object({
+    min: core.serialization.number(),
+    max: core.serialization.number(),
 });
 
 export declare namespace MatchmakerLobbyJoinInfoPortRange {
-  interface Raw {
-    min: number;
-    max: number;
-  }
+    interface Raw {
+        min: number;
+        max: number;
+    }
 }

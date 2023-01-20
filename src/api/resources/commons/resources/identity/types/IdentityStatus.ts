@@ -8,7 +8,7 @@
 export type IdentityStatus = "online" | "away" | "offline";
 
 export const IdentityStatus = {
-  Online: "online",
-  Away: "away",
-  Offline: "offline",
+    Online: "online",
+    Away: "away",
+    Offline: "offline",
 } as const;

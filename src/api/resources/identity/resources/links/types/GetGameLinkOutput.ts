@@ -5,9 +5,9 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GetGameLinkOutput {
-  status: RivetApi.commons.GameLinkStatus;
-  game: RivetApi.commons.GameHandle;
-  currentIdentity: RivetApi.commons.IdentityHandle;
-  newIdentity: RivetApi.identity.GetGameLinkNewIdentity;
-  watch: RivetApi.commons.WatchResponse;
+    status: RivetApi.commons.GameLinkStatus;
+    game: RivetApi.commons.GameHandle;
+    currentIdentity: RivetApi.commons.IdentityHandle;
+    newIdentity: RivetApi.identity.GetGameLinkNewIdentity;
+    watch: RivetApi.commons.WatchResponse;
 }

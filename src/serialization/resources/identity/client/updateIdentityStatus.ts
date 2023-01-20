@@ -6,15 +6,15 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Request: core.schemas.Schema<
-  serializers.identity.updateIdentityStatus.Request.Raw,
-  RivetApi.UpdateIentityStatusInput
-> = core.schemas.object({
-  status: core.schemas.lazy(async () => (await import("../../..")).commons.IdentityStatus),
+export const Request: core.serialization.Schema<
+    serializers.identity.updateIdentityStatus.Request.Raw,
+    RivetApi.UpdateIentityStatusInput
+> = core.serialization.object({
+    status: core.serialization.lazy(async () => (await import("../../..")).commons.IdentityStatus),
 });
 
 export declare namespace Request {
-  interface Raw {
-    status: serializers.commons.IdentityStatus.Raw;
-  }
+    interface Raw {
+        status: serializers.commons.IdentityStatus.Raw;
+    }
 }

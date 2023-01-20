@@ -6,41 +6,43 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentitySummary: core.schemas.ObjectSchema<
-  serializers.commons.IdentitySummary.Raw,
-  RivetApi.commons.IdentitySummary
-> = core.schemas.object({
-  identityId: core.schemas.property("identity_id", core.schemas.string()),
-  displayName: core.schemas.property(
-    "display_name",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
-  ),
-  accountNumber: core.schemas.property(
-    "account_number",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.AccountNumber)
-  ),
-  avatarUrl: core.schemas.property("avatar_url", core.schemas.string()),
-  presence: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityPresence).optional(),
-  party: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyHandle).optional(),
-  isRegistered: core.schemas.property("is_registered", core.schemas.boolean()),
-  external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityExternalLinks),
-  following: core.schemas.boolean(),
-  isFollowingMe: core.schemas.property("is_following_me", core.schemas.boolean()),
-  isMutualFollowing: core.schemas.property("is_mutual_following", core.schemas.boolean()),
+export const IdentitySummary: core.serialization.ObjectSchema<
+    serializers.commons.IdentitySummary.Raw,
+    RivetApi.commons.IdentitySummary
+> = core.serialization.object({
+    identityId: core.serialization.property("identity_id", core.serialization.string()),
+    displayName: core.serialization.property(
+        "display_name",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    ),
+    accountNumber: core.serialization.property(
+        "account_number",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.AccountNumber)
+    ),
+    avatarUrl: core.serialization.property("avatar_url", core.serialization.string()),
+    presence: core.serialization
+        .lazyObject(async () => (await import("../../../../..")).commons.IdentityPresence)
+        .optional(),
+    party: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartyHandle).optional(),
+    isRegistered: core.serialization.property("is_registered", core.serialization.boolean()),
+    external: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityExternalLinks),
+    following: core.serialization.boolean(),
+    isFollowingMe: core.serialization.property("is_following_me", core.serialization.boolean()),
+    isMutualFollowing: core.serialization.property("is_mutual_following", core.serialization.boolean()),
 });
 
 export declare namespace IdentitySummary {
-  interface Raw {
-    identity_id: string;
-    display_name: serializers.commons.DisplayName.Raw;
-    account_number: serializers.commons.AccountNumber.Raw;
-    avatar_url: string;
-    presence?: serializers.commons.IdentityPresence.Raw | null;
-    party?: serializers.commons.PartyHandle.Raw | null;
-    is_registered: boolean;
-    external: serializers.commons.IdentityExternalLinks.Raw;
-    following: boolean;
-    is_following_me: boolean;
-    is_mutual_following: boolean;
-  }
+    interface Raw {
+        identity_id: string;
+        display_name: serializers.commons.DisplayName.Raw;
+        account_number: serializers.commons.AccountNumber.Raw;
+        avatar_url: string;
+        presence?: serializers.commons.IdentityPresence.Raw | null;
+        party?: serializers.commons.PartyHandle.Raw | null;
+        is_registered: boolean;
+        external: serializers.commons.IdentityExternalLinks.Raw;
+        following: boolean;
+        is_following_me: boolean;
+        is_mutual_following: boolean;
+    }
 }

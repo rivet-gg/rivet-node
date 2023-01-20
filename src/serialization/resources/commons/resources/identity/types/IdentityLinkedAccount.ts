@@ -6,29 +6,31 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityLinkedAccount: core.schemas.Schema<
-  serializers.commons.IdentityLinkedAccount.Raw,
-  RivetApi.commons.IdentityLinkedAccount
-> = core.schemas
-  .union("type", {
-    email: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityEmailLinkedAccount),
-  })
-  .transform<RivetApi.commons.IdentityLinkedAccount>({
-    parse: (value) => {
-      switch (value.type) {
-        case "email":
-          return RivetApi.commons.IdentityLinkedAccount.email(value);
-        default:
-          return RivetApi.commons.IdentityLinkedAccount._unknown(value);
-      }
-    },
-    json: (value) => value as any,
-  });
+export const IdentityLinkedAccount: core.serialization.Schema<
+    serializers.commons.IdentityLinkedAccount.Raw,
+    RivetApi.commons.IdentityLinkedAccount
+> = core.serialization
+    .union("type", {
+        email: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).commons.IdentityEmailLinkedAccount
+        ),
+    })
+    .transform<RivetApi.commons.IdentityLinkedAccount>({
+        parse: (value) => {
+            switch (value.type) {
+                case "email":
+                    return RivetApi.commons.IdentityLinkedAccount.email(value);
+                default:
+                    return RivetApi.commons.IdentityLinkedAccount._unknown(value);
+            }
+        },
+        json: (value) => value as any,
+    });
 
 export declare namespace IdentityLinkedAccount {
-  type Raw = IdentityLinkedAccount.Email;
+    type Raw = IdentityLinkedAccount.Email;
 
-  interface Email extends serializers.commons.IdentityEmailLinkedAccount.Raw {
-    type: "email";
-  }
+    interface Email extends serializers.commons.IdentityEmailLinkedAccount.Raw {
+        type: "email";
+    }
 }

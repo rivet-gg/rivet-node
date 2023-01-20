@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface UpdateIentityStatusInput {
-  status: RivetApi.commons.IdentityStatus;
+    status: RivetApi.commons.IdentityStatus;
 }

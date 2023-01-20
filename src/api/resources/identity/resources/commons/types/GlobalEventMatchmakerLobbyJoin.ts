@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GlobalEventMatchmakerLobbyJoin {
-  lobby: RivetApi.commons.MatchmakerLobbyJoinInfo;
+    lobby: RivetApi.commons.MatchmakerLobbyJoinInfo;
 }

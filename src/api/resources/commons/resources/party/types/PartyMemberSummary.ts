@@ -5,9 +5,9 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface PartyMemberSummary {
-  identity: RivetApi.commons.IdentityHandle;
-  /** Whether or not this party member is the leader of the given party. */
-  isLeader: boolean;
-  joinTs: Date;
-  state: RivetApi.commons.PartyMemberState;
+    identity: RivetApi.commons.IdentityHandle;
+    /** Whether or not this party member is the leader of the given party. */
+    isLeader: boolean;
+    joinTs: Date;
+    state: RivetApi.commons.PartyMemberState;
 }

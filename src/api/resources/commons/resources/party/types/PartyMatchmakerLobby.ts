@@ -6,5 +6,5 @@
  * A party lobby.
  */
 export interface PartyMatchmakerLobby {
-  lobbyId: string;
+    lobbyId: string;
 }

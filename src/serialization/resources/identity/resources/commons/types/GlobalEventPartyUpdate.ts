@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GlobalEventPartyUpdate: core.schemas.ObjectSchema<
-  serializers.identity.GlobalEventPartyUpdate.Raw,
-  RivetApi.identity.GlobalEventPartyUpdate
-> = core.schemas.object({
-  party: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartySummary),
+export const GlobalEventPartyUpdate: core.serialization.ObjectSchema<
+    serializers.identity.GlobalEventPartyUpdate.Raw,
+    RivetApi.identity.GlobalEventPartyUpdate
+> = core.serialization.object({
+    party: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartySummary),
 });
 
 export declare namespace GlobalEventPartyUpdate {
-  interface Raw {
-    party: serializers.commons.PartySummary.Raw;
-  }
+    interface Raw {
+        party: serializers.commons.PartySummary.Raw;
+    }
 }

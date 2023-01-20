@@ -8,7 +8,7 @@ import { RivetApi } from "@fern-api/rivet";
  * A game statistic.
  */
 export interface GameStat {
-  config: RivetApi.commons.GameStatConfig;
-  /** A single overall value of the given statistic. */
-  overallValue: number;
+    config: RivetApi.commons.GameStatConfig;
+    /** A single overall value of the given statistic. */
+    overallValue: number;
 }

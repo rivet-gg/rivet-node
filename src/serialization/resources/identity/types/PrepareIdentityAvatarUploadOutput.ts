@@ -6,20 +6,20 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const PrepareIdentityAvatarUploadOutput: core.schemas.ObjectSchema<
-  serializers.PrepareIdentityAvatarUploadOutput.Raw,
-  RivetApi.PrepareIdentityAvatarUploadOutput
-> = core.schemas.object({
-  uploadId: core.schemas.property("upload_id", core.schemas.string()),
-  presignedRequest: core.schemas.property(
-    "presigned_request",
-    core.schemas.lazyObject(async () => (await import("../../..")).commons.UploadPresignedRequest)
-  ),
+export const PrepareIdentityAvatarUploadOutput: core.serialization.ObjectSchema<
+    serializers.PrepareIdentityAvatarUploadOutput.Raw,
+    RivetApi.PrepareIdentityAvatarUploadOutput
+> = core.serialization.object({
+    uploadId: core.serialization.property("upload_id", core.serialization.string()),
+    presignedRequest: core.serialization.property(
+        "presigned_request",
+        core.serialization.lazyObject(async () => (await import("../../..")).commons.UploadPresignedRequest)
+    ),
 });
 
 export declare namespace PrepareIdentityAvatarUploadOutput {
-  interface Raw {
-    upload_id: string;
-    presigned_request: serializers.commons.UploadPresignedRequest.Raw;
-  }
+    interface Raw {
+        upload_id: string;
+        presigned_request: serializers.commons.UploadPresignedRequest.Raw;
+    }
 }

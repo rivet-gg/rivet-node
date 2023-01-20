@@ -7,116 +7,207 @@ import * as core from "../../../../../../core";
 import { RivetApi } from "@fern-api/rivet";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
+import * as errors from "../../../../../../errors";
 
 export declare namespace Client {
-  interface Options {
-    environment?: environments.RivetApiEnvironment | string;
-    token?: core.Supplier<core.BearerToken>;
-  }
+    interface Options {
+        environment?: environments.RivetApiEnvironment | environments.RivetApiEnvironmentUrls;
+        token?: core.Supplier<core.BearerToken>;
+    }
 }
 
 export class Client {
-  constructor(private readonly options: Client.Options) {}
+    constructor(private readonly options: Client.Options) {}
 
-  public async prepare(): Promise<RivetApi.identity.links.prepare.Response> {
-    const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links"),
-      method: "POST",
-      headers: {
-        Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
-      },
-    });
-    if (_response.ok) {
-      return {
-        ok: true,
-        body: await serializers.identity.links.prepare.Response.parse(
-          _response.body as serializers.identity.links.prepare.Response.Raw
-        ),
-      };
+    /**
+     * Begins the process for linking an identity with the Rivet Hub.
+     *
+     * # Importance of Linking Identities
+     *
+     * When an identity is created via `rivet.api.identity#SetupIdentity`, the identity is temporary
+     * and is not shared with other games the user plays.
+     *
+     * In order to make the identity permanent and synchronize the identity with
+     * other games, the identity must be linked with the hub.
+     *
+     * # Linking Process
+     *
+     * The linking process works by opening `identity_link_url` in a browser then polling
+     * `rivet.api.identity#GetGameLink` to wait for it to complete.
+     *
+     * This is designed to be as flexible as possible so `identity_link_url` can be opened
+     * on any device. For example, when playing a console game, the user can scan a
+     * QR code for `identity_link_url` to authenticate on their phone.
+     *
+     */
+    public async prepare(): Promise<RivetApi.identity.PrepareGameLinkOutput> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetApiEnvironment.Production).Identity,
+                "/game-links"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+        });
+        if (_response.ok) {
+            return await serializers.identity.links.prepare.Response.parse(
+                _response.body as serializers.identity.links.prepare.Response.Raw
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetApiError({
+                statusCode: _response.error.statusCode,
+                responseBody: _response.error.rawBody,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetApiError({
+                    statusCode: _response.error.statusCode,
+                    responseBody: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetApiTimeoutError();
+            case "unknown":
+                throw new errors.RivetApiError({
+                    message: _response.error.errorMessage,
+                });
+        }
     }
 
-    return {
-      ok: false,
-      error: RivetApi.identity.links.prepare.Error._unknown(_response.error),
-    };
-  }
+    /**
+     * Returns the current status of a linking process. Once `status` is `complete`, the identity's profile should be fetched again since they may have switched accounts.
+     */
+    public async get(request: RivetApi.identity.GetGameLinkInput): Promise<RivetApi.identity.GetGameLinkOutput> {
+        const _queryParams = new URLSearchParams();
+        _queryParams.append("identity_link_token", request.identityLinkToken);
+        _queryParams.append("watch_index", request.watchIndex);
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetApiEnvironment.Production).Identity,
+                "/game-links"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.links.get.Response.parse(
+                _response.body as serializers.identity.links.get.Response.Raw
+            );
+        }
 
-  public async get(request: RivetApi.identity.GetGameLinkInput): Promise<RivetApi.identity.links.get.Response> {
-    const _queryParams = new URLSearchParams();
-    _queryParams.append("identity_link_token", request.identityLinkToken);
-    _queryParams.append("watch_index", request.watchIndex);
-    const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links"),
-      method: "GET",
-      headers: {
-        Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
-      },
-      queryParameters: _queryParams,
-    });
-    if (_response.ok) {
-      return {
-        ok: true,
-        body: await serializers.identity.links.get.Response.parse(
-          _response.body as serializers.identity.links.get.Response.Raw
-        ),
-      };
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetApiError({
+                statusCode: _response.error.statusCode,
+                responseBody: _response.error.rawBody,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetApiError({
+                    statusCode: _response.error.statusCode,
+                    responseBody: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetApiTimeoutError();
+            case "unknown":
+                throw new errors.RivetApiError({
+                    message: _response.error.errorMessage,
+                });
+        }
     }
 
-    return {
-      ok: false,
-      error: RivetApi.identity.links.get.Error._unknown(_response.error),
-    };
-  }
+    /**
+     * Completes a game link process and returns whether or not the link is valid.
+     */
+    public async complete(request: RivetApi.identity.CompleteGameLinkInput): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetApiEnvironment.Production).Identity,
+                "/game-links/complete"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.links.complete.Request.json({
+                identityLinkToken: request.identityLinkToken,
+            }),
+        });
+        if (_response.ok) {
+            return;
+        }
 
-  public async complete(
-    request: RivetApi.identity.CompleteGameLinkInput
-  ): Promise<RivetApi.identity.links.complete.Response> {
-    const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links/complete"),
-      method: "POST",
-      headers: {
-        Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
-      },
-      body: await serializers.identity.links.complete.Request.json({
-        identityLinkToken: request.identityLinkToken,
-      }),
-    });
-    if (_response.ok) {
-      return {
-        ok: true,
-        body: undefined,
-      };
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetApiError({
+                statusCode: _response.error.statusCode,
+                responseBody: _response.error.rawBody,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetApiError({
+                    statusCode: _response.error.statusCode,
+                    responseBody: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetApiTimeoutError();
+            case "unknown":
+                throw new errors.RivetApiError({
+                    message: _response.error.errorMessage,
+                });
+        }
     }
 
-    return {
-      ok: false,
-      error: RivetApi.identity.links.complete.Error._unknown(_response.error),
-    };
-  }
+    /**
+     * Cancels a game link. It can no longer be used to link after cancellation.
+     */
+    public async cancel(request: RivetApi.identity.CancelGameLinkInput): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetApiEnvironment.Production).Identity,
+                "/game-links/cancel"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.links.cancel.Request.json({
+                identityLinkToken: request.identityLinkToken,
+            }),
+        });
+        if (_response.ok) {
+            return;
+        }
 
-  public async cancel(
-    request: RivetApi.identity.CancelGameLinkInput
-  ): Promise<RivetApi.identity.links.cancel.Response> {
-    const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/game-links"),
-      method: "POST",
-      headers: {
-        Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
-      },
-      body: await serializers.identity.links.cancel.Request.json({
-        identityLinkToken: request.identityLinkToken,
-      }),
-    });
-    if (_response.ok) {
-      return {
-        ok: true,
-        body: undefined,
-      };
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetApiError({
+                statusCode: _response.error.statusCode,
+                responseBody: _response.error.rawBody,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetApiError({
+                    statusCode: _response.error.statusCode,
+                    responseBody: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetApiTimeoutError();
+            case "unknown":
+                throw new errors.RivetApiError({
+                    message: _response.error.errorMessage,
+                });
+        }
     }
-
-    return {
-      ok: false,
-      error: RivetApi.identity.links.cancel.Error._unknown(_response.error),
-    };
-  }
 }

@@ -6,8 +6,9 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Bio: core.schemas.Schema<serializers.commons.Bio.Raw, RivetApi.commons.Bio> = core.schemas.string();
+export const Bio: core.serialization.Schema<serializers.commons.Bio.Raw, RivetApi.commons.Bio> =
+    core.serialization.string();
 
 export declare namespace Bio {
-  type Raw = string;
+    type Raw = string;
 }

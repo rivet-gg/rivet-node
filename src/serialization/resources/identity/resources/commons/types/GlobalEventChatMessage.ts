@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GlobalEventChatMessage: core.schemas.ObjectSchema<
-  serializers.identity.GlobalEventChatMessage.Raw,
-  RivetApi.identity.GlobalEventChatMessage
-> = core.schemas.object({
-  thread: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.ChatThread),
+export const GlobalEventChatMessage: core.serialization.ObjectSchema<
+    serializers.identity.GlobalEventChatMessage.Raw,
+    RivetApi.identity.GlobalEventChatMessage
+> = core.serialization.object({
+    thread: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.ChatThread),
 });
 
 export declare namespace GlobalEventChatMessage {
-  interface Raw {
-    thread: serializers.commons.ChatThread.Raw;
-  }
+    interface Raw {
+        thread: serializers.commons.ChatThread.Raw;
+    }
 }

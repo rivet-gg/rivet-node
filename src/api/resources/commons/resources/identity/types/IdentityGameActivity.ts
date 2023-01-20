@@ -8,11 +8,11 @@ import { RivetApi } from "@fern-api/rivet";
  * The game an identity is currently participating in.
  */
 export interface IdentityGameActivity {
-  game: RivetApi.commons.GameHandle;
-  /** A short activity message about the current game activity. */
-  message: string;
-  /** JSON data seen by anyone. */
-  publicMetadata?: unknown;
-  /** JSON data seen only by the given identity and their mutual followers. */
-  mutualMetadata?: unknown;
+    game: RivetApi.commons.GameHandle;
+    /** A short activity message about the current game activity. */
+    message: string;
+    /** JSON data seen by anyone. */
+    publicMetadata?: unknown;
+    /** JSON data seen only by the given identity and their mutual followers. */
+    mutualMetadata?: unknown;
 }

@@ -5,10 +5,10 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ListActivitiesOutput {
-  identities: RivetApi.commons.IdentityHandle[];
-  games: RivetApi.commons.GameSummary[];
-  parties: RivetApi.commons.PartySummary[];
-  suggestedGroups: RivetApi.commons.GroupSummary[];
-  suggestedPlayers: RivetApi.commons.IdentityHandle[];
-  watch: RivetApi.commons.WatchResponse;
+    identities: RivetApi.commons.IdentityHandle[];
+    games: RivetApi.commons.GameSummary[];
+    parties: RivetApi.commons.PartySummary[];
+    suggestedGroups: RivetApi.commons.GroupSummary[];
+    suggestedPlayers: RivetApi.commons.IdentityHandle[];
+    watch: RivetApi.commons.WatchResponse;
 }

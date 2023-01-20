@@ -5,6 +5,6 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ChatTopicDirect {
-  identityA: RivetApi.commons.IdentityHandle;
-  identityB: RivetApi.commons.IdentityHandle;
+    identityA: RivetApi.commons.IdentityHandle;
+    identityB: RivetApi.commons.IdentityHandle;
 }

@@ -6,17 +6,17 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartyActivityMatchmakerLobby: core.schemas.ObjectSchema<
-  serializers.commons.PartyActivityMatchmakerLobby.Raw,
-  RivetApi.commons.PartyActivityMatchmakerLobby
-> = core.schemas.object({
-  lobby: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyMatchmakerLobby),
-  game: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
+export const PartyActivityMatchmakerLobby: core.serialization.ObjectSchema<
+    serializers.commons.PartyActivityMatchmakerLobby.Raw,
+    RivetApi.commons.PartyActivityMatchmakerLobby
+> = core.serialization.object({
+    lobby: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartyMatchmakerLobby),
+    game: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
 });
 
 export declare namespace PartyActivityMatchmakerLobby {
-  interface Raw {
-    lobby: serializers.commons.PartyMatchmakerLobby.Raw;
-    game: serializers.commons.GameHandle.Raw;
-  }
+    interface Raw {
+        lobby: serializers.commons.PartyMatchmakerLobby.Raw;
+        game: serializers.commons.GameHandle.Raw;
+    }
 }

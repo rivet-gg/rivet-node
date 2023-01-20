@@ -5,6 +5,6 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GetGameLinkInput {
-  identityLinkToken: RivetApi.commons.Jwt;
-  watchIndex: RivetApi.commons.WatchQuery;
+    identityLinkToken: RivetApi.commons.Jwt;
+    watchIndex: RivetApi.commons.WatchQuery;
 }

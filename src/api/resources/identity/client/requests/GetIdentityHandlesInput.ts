@@ -3,5 +3,5 @@
  */
 
 export interface GetIdentityHandlesInput {
-  identityIds: string | string[];
+    identityIds: string | string[];
 }

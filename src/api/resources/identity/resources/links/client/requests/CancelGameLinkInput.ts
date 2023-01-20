@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface CancelGameLinkInput {
-  identityLinkToken: RivetApi.commons.Jwt;
+    identityLinkToken: RivetApi.commons.Jwt;
 }

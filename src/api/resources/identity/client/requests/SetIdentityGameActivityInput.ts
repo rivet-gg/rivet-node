@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface SetIdentityGameActivityInput {
-  gameActivity: RivetApi.identity.UpdateIdentityGameActivity;
+    gameActivity: RivetApi.identity.UpdateIdentityGameActivity;
 }

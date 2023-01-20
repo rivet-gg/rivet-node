@@ -6,8 +6,9 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Email: core.schemas.Schema<serializers.commons.Email.Raw, RivetApi.commons.Email> = core.schemas.string();
+export const Email: core.serialization.Schema<serializers.commons.Email.Raw, RivetApi.commons.Email> =
+    core.serialization.string();
 
 export declare namespace Email {
-  type Raw = string;
+    type Raw = string;
 }

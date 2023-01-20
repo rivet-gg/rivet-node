@@ -8,11 +8,11 @@ import { RivetApi } from "@fern-api/rivet";
  * A chat thread
  */
 export interface ChatThread {
-  threadId: string;
-  createTs: RivetApi.commons.Timestamp;
-  topic: RivetApi.commons.ChatTopic;
-  tailMessage?: RivetApi.commons.ChatMessage;
-  lastReadTs: RivetApi.commons.Timestamp;
-  unreadCount: number;
-  external: RivetApi.commons.ChatThreadExternalLinks;
+    threadId: string;
+    createTs: RivetApi.commons.Timestamp;
+    topic: RivetApi.commons.ChatTopic;
+    tailMessage?: RivetApi.commons.ChatMessage;
+    lastReadTs: RivetApi.commons.Timestamp;
+    unreadCount: number;
+    external: RivetApi.commons.ChatThreadExternalLinks;
 }

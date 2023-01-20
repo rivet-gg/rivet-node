@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ChatTopicGroup {
-  group: RivetApi.commons.GroupHandle;
+    group: RivetApi.commons.GroupHandle;
 }

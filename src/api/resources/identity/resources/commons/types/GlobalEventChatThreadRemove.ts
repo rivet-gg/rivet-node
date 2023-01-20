@@ -7,5 +7,5 @@
  *
  */
 export interface GlobalEventChatThreadRemove {
-  threadId: string;
+    threadId: string;
 }

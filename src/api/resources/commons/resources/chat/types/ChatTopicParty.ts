@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ChatTopicParty {
-  party: RivetApi.commons.PartyHandle;
+    party: RivetApi.commons.PartyHandle;
 }

@@ -5,6 +5,6 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GetIdentityProfileOutput {
-  identity: RivetApi.commons.IdentityProfile;
-  watch: RivetApi.commons.WatchResponse;
+    identity: RivetApi.commons.IdentityProfile;
+    watch: RivetApi.commons.WatchResponse;
 }

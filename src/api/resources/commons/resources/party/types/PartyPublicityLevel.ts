@@ -5,7 +5,7 @@
 export type PartyPublicityLevel = "none" | "view" | "join";
 
 export const PartyPublicityLevel = {
-  None: "none",
-  View: "view",
-  Join: "join",
+    None: "none",
+    View: "view",
+    Join: "join",
 } as const;

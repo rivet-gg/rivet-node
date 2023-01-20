@@ -6,9 +6,9 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Identifier: core.schemas.Schema<serializers.commons.Identifier.Raw, RivetApi.commons.Identifier> =
-  core.schemas.string();
+export const Identifier: core.serialization.Schema<serializers.commons.Identifier.Raw, RivetApi.commons.Identifier> =
+    core.serialization.string();
 
 export declare namespace Identifier {
-  type Raw = string;
+    type Raw = string;
 }

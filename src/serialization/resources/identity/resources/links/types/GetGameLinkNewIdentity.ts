@@ -6,25 +6,25 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GetGameLinkNewIdentity: core.schemas.ObjectSchema<
-  serializers.identity.GetGameLinkNewIdentity.Raw,
-  RivetApi.identity.GetGameLinkNewIdentity
-> = core.schemas.object({
-  identityToken: core.schemas.property(
-    "identity_token",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Jwt)
-  ),
-  identityTokenExpireTs: core.schemas.property(
-    "identity_token_expire_ts",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Timestamp)
-  ),
-  identity: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityProfile),
+export const GetGameLinkNewIdentity: core.serialization.ObjectSchema<
+    serializers.identity.GetGameLinkNewIdentity.Raw,
+    RivetApi.identity.GetGameLinkNewIdentity
+> = core.serialization.object({
+    identityToken: core.serialization.property(
+        "identity_token",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Jwt)
+    ),
+    identityTokenExpireTs: core.serialization.property(
+        "identity_token_expire_ts",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Timestamp)
+    ),
+    identity: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityProfile),
 });
 
 export declare namespace GetGameLinkNewIdentity {
-  interface Raw {
-    identity_token: serializers.commons.Jwt.Raw;
-    identity_token_expire_ts: serializers.commons.Timestamp.Raw;
-    identity: serializers.commons.IdentityProfile.Raw;
-  }
+    interface Raw {
+        identity_token: serializers.commons.Jwt.Raw;
+        identity_token_expire_ts: serializers.commons.Timestamp.Raw;
+        identity: serializers.commons.IdentityProfile.Raw;
+    }
 }

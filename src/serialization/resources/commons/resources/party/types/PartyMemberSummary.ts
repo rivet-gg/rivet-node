@@ -6,21 +6,21 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartyMemberSummary: core.schemas.ObjectSchema<
-  serializers.commons.PartyMemberSummary.Raw,
-  RivetApi.commons.PartyMemberSummary
-> = core.schemas.object({
-  identity: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle),
-  isLeader: core.schemas.property("is_leader", core.schemas.boolean()),
-  joinTs: core.schemas.property("join_ts", core.schemas.date()),
-  state: core.schemas.lazy(async () => (await import("../../../../..")).commons.PartyMemberState),
+export const PartyMemberSummary: core.serialization.ObjectSchema<
+    serializers.commons.PartyMemberSummary.Raw,
+    RivetApi.commons.PartyMemberSummary
+> = core.serialization.object({
+    identity: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle),
+    isLeader: core.serialization.property("is_leader", core.serialization.boolean()),
+    joinTs: core.serialization.property("join_ts", core.serialization.date()),
+    state: core.serialization.lazy(async () => (await import("../../../../..")).commons.PartyMemberState),
 });
 
 export declare namespace PartyMemberSummary {
-  interface Raw {
-    identity: serializers.commons.IdentityHandle.Raw;
-    is_leader: boolean;
-    join_ts: string;
-    state: serializers.commons.PartyMemberState.Raw;
-  }
+    interface Raw {
+        identity: serializers.commons.IdentityHandle.Raw;
+        is_leader: boolean;
+        join_ts: string;
+        state: serializers.commons.PartyMemberState.Raw;
+    }
 }

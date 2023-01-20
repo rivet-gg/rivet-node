@@ -8,11 +8,11 @@ import { RivetApi } from "@fern-api/rivet";
  * A group handle.
  */
 export interface GroupHandle {
-  groupId: string;
-  displayName: RivetApi.commons.DisplayName;
-  /** The URL of this group's avatar image */
-  avatarUrl: string;
-  external: RivetApi.commons.GroupExternalLinks;
-  /** Whether or not this group is a developer group. */
-  isDeveloper?: boolean;
+    groupId: string;
+    displayName: RivetApi.commons.DisplayName;
+    /** The URL of this group's avatar image */
+    avatarUrl: string;
+    external: RivetApi.commons.GroupExternalLinks;
+    /** Whether or not this group is a developer group. */
+    isDeveloper?: boolean;
 }

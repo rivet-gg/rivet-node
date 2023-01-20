@@ -6,11 +6,11 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Response: core.schemas.Schema<
-  serializers.identity.links.prepare.Response.Raw,
-  RivetApi.identity.PrepareGameLinkOutput
-> = core.schemas.lazyObject(async () => (await import("../../../../..")).identity.PrepareGameLinkOutput);
+export const Response: core.serialization.Schema<
+    serializers.identity.links.prepare.Response.Raw,
+    RivetApi.identity.PrepareGameLinkOutput
+> = core.serialization.lazyObject(async () => (await import("../../../../..")).identity.PrepareGameLinkOutput);
 
 export declare namespace Response {
-  type Raw = serializers.identity.PrepareGameLinkOutput.Raw;
+    type Raw = serializers.identity.PrepareGameLinkOutput.Raw;
 }

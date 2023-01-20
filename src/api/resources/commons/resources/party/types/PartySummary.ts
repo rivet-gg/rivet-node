@@ -5,12 +5,12 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface PartySummary {
-  partyId: string;
-  createTs: RivetApi.commons.Timestamp;
-  activity: RivetApi.commons.PartyActivity;
-  external: RivetApi.commons.PartyExternalLinks;
-  publicity: RivetApi.commons.PartyPublicity;
-  partySize: number;
-  members: RivetApi.commons.PartyMemberSummary[];
-  threadId: string;
+    partyId: string;
+    createTs: RivetApi.commons.Timestamp;
+    activity: RivetApi.commons.PartyActivity;
+    external: RivetApi.commons.PartyExternalLinks;
+    publicity: RivetApi.commons.PartyPublicity;
+    partySize: number;
+    members: RivetApi.commons.PartyMemberSummary[];
+    threadId: string;
 }

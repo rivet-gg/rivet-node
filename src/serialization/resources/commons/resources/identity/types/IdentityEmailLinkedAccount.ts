@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityEmailLinkedAccount: core.schemas.ObjectSchema<
-  serializers.commons.IdentityEmailLinkedAccount.Raw,
-  RivetApi.commons.IdentityEmailLinkedAccount
-> = core.schemas.object({
-  email: core.schemas.lazy(async () => (await import("../../../../..")).commons.Email),
+export const IdentityEmailLinkedAccount: core.serialization.ObjectSchema<
+    serializers.commons.IdentityEmailLinkedAccount.Raw,
+    RivetApi.commons.IdentityEmailLinkedAccount
+> = core.serialization.object({
+    email: core.serialization.lazy(async () => (await import("../../../../..")).commons.Email),
 });
 
 export declare namespace IdentityEmailLinkedAccount {
-  interface Raw {
-    email: serializers.commons.Email.Raw;
-  }
+    interface Raw {
+        email: serializers.commons.Email.Raw;
+    }
 }

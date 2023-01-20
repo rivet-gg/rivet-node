@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GlobalEventChatMessage {
-  thread: RivetApi.commons.ChatThread;
+    thread: RivetApi.commons.ChatThread;
 }

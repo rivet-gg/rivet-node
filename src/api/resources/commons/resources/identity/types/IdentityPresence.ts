@@ -8,7 +8,7 @@ import { RivetApi } from "@fern-api/rivet";
  * Information about the identity's current status, party, and active game.
  */
 export interface IdentityPresence {
-  updateTs: Date;
-  status: RivetApi.commons.IdentityStatus;
-  gameActivity?: RivetApi.commons.IdentityGameActivity;
+    updateTs: Date;
+    status: RivetApi.commons.IdentityStatus;
+    gameActivity?: RivetApi.commons.IdentityGameActivity;
 }

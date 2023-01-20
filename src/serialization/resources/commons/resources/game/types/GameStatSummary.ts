@@ -6,17 +6,19 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameStatSummary: core.schemas.ObjectSchema<
-  serializers.commons.GameStatSummary.Raw,
-  RivetApi.commons.GameStatSummary
-> = core.schemas.object({
-  game: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
-  stats: core.schemas.list(core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameStat)),
+export const GameStatSummary: core.serialization.ObjectSchema<
+    serializers.commons.GameStatSummary.Raw,
+    RivetApi.commons.GameStatSummary
+> = core.serialization.object({
+    game: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
+    stats: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameStat)
+    ),
 });
 
 export declare namespace GameStatSummary {
-  interface Raw {
-    game: serializers.commons.GameHandle.Raw;
-    stats: serializers.commons.GameStat.Raw[];
-  }
+    interface Raw {
+        game: serializers.commons.GameHandle.Raw;
+        stats: serializers.commons.GameStat.Raw[];
+    }
 }

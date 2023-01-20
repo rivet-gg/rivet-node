@@ -6,56 +6,56 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartyMemberState: core.schemas.Schema<
-  serializers.commons.PartyMemberState.Raw,
-  RivetApi.commons.PartyMemberState
-> = core.schemas
-  .union("type", {
-    idle: core.schemas.object({}),
-    matchmaker_pending: core.schemas.object({}),
-    matchmaker_finding_lobby: core.schemas.object({}),
-    matchmaker_lobby: core.schemas.lazyObject(
-      async () => (await import("../../../../..")).commons.PartyMemberStateMatchmakerLobby
-    ),
-  })
-  .transform<RivetApi.commons.PartyMemberState>({
-    parse: (value) => {
-      switch (value.type) {
-        case "idle":
-          return RivetApi.commons.PartyMemberState.idle();
-        case "matchmaker_pending":
-          return RivetApi.commons.PartyMemberState.matchmakerPending();
-        case "matchmaker_finding_lobby":
-          return RivetApi.commons.PartyMemberState.matchmakerFindingLobby();
-        case "matchmaker_lobby":
-          return RivetApi.commons.PartyMemberState.matchmakerLobby(value);
-        default:
-          return RivetApi.commons.PartyMemberState._unknown(value);
-      }
-    },
-    json: (value) => value as any,
-  });
+export const PartyMemberState: core.serialization.Schema<
+    serializers.commons.PartyMemberState.Raw,
+    RivetApi.commons.PartyMemberState
+> = core.serialization
+    .union("type", {
+        idle: core.serialization.object({}),
+        matchmaker_pending: core.serialization.object({}),
+        matchmaker_finding_lobby: core.serialization.object({}),
+        matchmaker_lobby: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).commons.PartyMemberStateMatchmakerLobby
+        ),
+    })
+    .transform<RivetApi.commons.PartyMemberState>({
+        parse: (value) => {
+            switch (value.type) {
+                case "idle":
+                    return RivetApi.commons.PartyMemberState.idle();
+                case "matchmaker_pending":
+                    return RivetApi.commons.PartyMemberState.matchmakerPending();
+                case "matchmaker_finding_lobby":
+                    return RivetApi.commons.PartyMemberState.matchmakerFindingLobby();
+                case "matchmaker_lobby":
+                    return RivetApi.commons.PartyMemberState.matchmakerLobby(value);
+                default:
+                    return RivetApi.commons.PartyMemberState._unknown(value);
+            }
+        },
+        json: (value) => value as any,
+    });
 
 export declare namespace PartyMemberState {
-  type Raw =
-    | PartyMemberState.Idle
-    | PartyMemberState.MatchmakerPending
-    | PartyMemberState.MatchmakerFindingLobby
-    | PartyMemberState.MatchmakerLobby;
+    type Raw =
+        | PartyMemberState.Idle
+        | PartyMemberState.MatchmakerPending
+        | PartyMemberState.MatchmakerFindingLobby
+        | PartyMemberState.MatchmakerLobby;
 
-  interface Idle {
-    type: "idle";
-  }
+    interface Idle {
+        type: "idle";
+    }
 
-  interface MatchmakerPending {
-    type: "matchmaker_pending";
-  }
+    interface MatchmakerPending {
+        type: "matchmaker_pending";
+    }
 
-  interface MatchmakerFindingLobby {
-    type: "matchmaker_finding_lobby";
-  }
+    interface MatchmakerFindingLobby {
+        type: "matchmaker_finding_lobby";
+    }
 
-  interface MatchmakerLobby extends serializers.commons.PartyMemberStateMatchmakerLobby.Raw {
-    type: "matchmaker_lobby";
-  }
+    interface MatchmakerLobby extends serializers.commons.PartyMemberStateMatchmakerLobby.Raw {
+        type: "matchmaker_lobby";
+    }
 }

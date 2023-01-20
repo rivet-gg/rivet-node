@@ -6,13 +6,13 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Request: core.schemas.Schema<serializers.identity.report.Request.Raw, RivetApi.ReportIdentityInput> =
-  core.schemas.object({
-    reason: core.schemas.string(),
-  });
+export const Request: core.serialization.Schema<serializers.identity.report.Request.Raw, RivetApi.ReportIdentityInput> =
+    core.serialization.object({
+        reason: core.serialization.string(),
+    });
 
 export declare namespace Request {
-  interface Raw {
-    reason: string;
-  }
+    interface Raw {
+        reason: string;
+    }
 }

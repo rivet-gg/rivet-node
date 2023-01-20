@@ -3,5 +3,5 @@
  */
 
 export interface ChatThreadExternalLinks {
-  chat: string;
+    chat: string;
 }

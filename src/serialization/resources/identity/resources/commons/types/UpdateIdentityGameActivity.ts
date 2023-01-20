@@ -6,19 +6,19 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const UpdateIdentityGameActivity: core.schemas.ObjectSchema<
-  serializers.identity.UpdateIdentityGameActivity.Raw,
-  RivetApi.identity.UpdateIdentityGameActivity
-> = core.schemas.object({
-  message: core.schemas.string().optional(),
-  publicMetadata: core.schemas.property("public_metadata", core.schemas.unknown()),
-  mutualMetadata: core.schemas.property("mutual_metadata", core.schemas.unknown()),
+export const UpdateIdentityGameActivity: core.serialization.ObjectSchema<
+    serializers.identity.UpdateIdentityGameActivity.Raw,
+    RivetApi.identity.UpdateIdentityGameActivity
+> = core.serialization.object({
+    message: core.serialization.string().optional(),
+    publicMetadata: core.serialization.property("public_metadata", core.serialization.unknown()),
+    mutualMetadata: core.serialization.property("mutual_metadata", core.serialization.unknown()),
 });
 
 export declare namespace UpdateIdentityGameActivity {
-  interface Raw {
-    message?: string | null;
-    public_metadata?: unknown;
-    mutual_metadata?: unknown;
-  }
+    interface Raw {
+        message?: string | null;
+        public_metadata?: unknown;
+        mutual_metadata?: unknown;
+    }
 }

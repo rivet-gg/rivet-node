@@ -5,9 +5,9 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GameHandle {
-  gameId: string;
-  nameId: RivetApi.commons.Identifier;
-  displayName: RivetApi.commons.DisplayName;
-  logoUrl: string;
-  bannerUrl: string;
+    gameId: string;
+    nameId: RivetApi.commons.Identifier;
+    displayName: RivetApi.commons.DisplayName;
+    logoUrl: string;
+    bannerUrl: string;
 }

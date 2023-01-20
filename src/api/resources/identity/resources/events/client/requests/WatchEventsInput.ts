@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface WatchEventsInput {
-  watchIndex?: RivetApi.commons.WatchQuery;
+    watchIndex?: RivetApi.commons.WatchQuery;
 }

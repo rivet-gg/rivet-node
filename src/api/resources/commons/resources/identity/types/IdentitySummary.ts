@@ -8,19 +8,19 @@ import { RivetApi } from "@fern-api/rivet";
  * An identity summary.
  */
 export interface IdentitySummary {
-  identityId: string;
-  displayName: RivetApi.commons.DisplayName;
-  accountNumber: RivetApi.commons.AccountNumber;
-  /** The URL of this identity's avatar image. */
-  avatarUrl: string;
-  presence?: RivetApi.commons.IdentityPresence;
-  party?: RivetApi.commons.PartyHandle;
-  /** Whether or not this identity is registered with a linked account. */
-  isRegistered: boolean;
-  external: RivetApi.commons.IdentityExternalLinks;
-  /** Whether or not the requestee's identity is following this identity. */
-  following: boolean;
-  /** Whether or not this identity is both followng and is followed by the requestee's identity. */
-  isFollowingMe: boolean;
-  isMutualFollowing: boolean;
+    identityId: string;
+    displayName: RivetApi.commons.DisplayName;
+    accountNumber: RivetApi.commons.AccountNumber;
+    /** The URL of this identity's avatar image. */
+    avatarUrl: string;
+    presence?: RivetApi.commons.IdentityPresence;
+    party?: RivetApi.commons.PartyHandle;
+    /** Whether or not this identity is registered with a linked account. */
+    isRegistered: boolean;
+    external: RivetApi.commons.IdentityExternalLinks;
+    /** Whether or not the requestee's identity is following this identity. */
+    following: boolean;
+    /** Whether or not this identity is both followng and is followed by the requestee's identity. */
+    isFollowingMe: boolean;
+    isMutualFollowing: boolean;
 }

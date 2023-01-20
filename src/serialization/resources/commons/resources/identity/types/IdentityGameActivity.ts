@@ -6,21 +6,21 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityGameActivity: core.schemas.ObjectSchema<
-  serializers.commons.IdentityGameActivity.Raw,
-  RivetApi.commons.IdentityGameActivity
-> = core.schemas.object({
-  game: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
-  message: core.schemas.string(),
-  publicMetadata: core.schemas.property("public_metadata", core.schemas.unknown()),
-  mutualMetadata: core.schemas.property("mutual_metadata", core.schemas.unknown()),
+export const IdentityGameActivity: core.serialization.ObjectSchema<
+    serializers.commons.IdentityGameActivity.Raw,
+    RivetApi.commons.IdentityGameActivity
+> = core.serialization.object({
+    game: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
+    message: core.serialization.string(),
+    publicMetadata: core.serialization.property("public_metadata", core.serialization.unknown()),
+    mutualMetadata: core.serialization.property("mutual_metadata", core.serialization.unknown()),
 });
 
 export declare namespace IdentityGameActivity {
-  interface Raw {
-    game: serializers.commons.GameHandle.Raw;
-    message: string;
-    public_metadata?: unknown;
-    mutual_metadata?: unknown;
-  }
+    interface Raw {
+        game: serializers.commons.GameHandle.Raw;
+        message: string;
+        public_metadata?: unknown;
+        mutual_metadata?: unknown;
+    }
 }

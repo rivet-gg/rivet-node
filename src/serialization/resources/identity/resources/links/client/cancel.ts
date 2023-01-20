@@ -6,18 +6,18 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Request: core.schemas.Schema<
-  serializers.identity.links.cancel.Request.Raw,
-  RivetApi.identity.CancelGameLinkInput
-> = core.schemas.object({
-  identityLinkToken: core.schemas.property(
-    "identity_link_token",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Jwt)
-  ),
+export const Request: core.serialization.Schema<
+    serializers.identity.links.cancel.Request.Raw,
+    RivetApi.identity.CancelGameLinkInput
+> = core.serialization.object({
+    identityLinkToken: core.serialization.property(
+        "identity_link_token",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Jwt)
+    ),
 });
 
 export declare namespace Request {
-  interface Raw {
-    identity_link_token: serializers.commons.Jwt.Raw;
-  }
+    interface Raw {
+        identity_link_token: serializers.commons.Jwt.Raw;
+    }
 }

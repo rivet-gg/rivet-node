@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GlobalEventIdentityUpdate {
-  identity: RivetApi.commons.IdentityProfile;
+    identity: RivetApi.commons.IdentityProfile;
 }

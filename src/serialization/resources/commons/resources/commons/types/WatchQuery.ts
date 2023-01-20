@@ -6,9 +6,9 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const WatchQuery: core.schemas.Schema<serializers.commons.WatchQuery.Raw, RivetApi.commons.WatchQuery> =
-  core.schemas.string();
+export const WatchQuery: core.serialization.Schema<serializers.commons.WatchQuery.Raw, RivetApi.commons.WatchQuery> =
+    core.serialization.string();
 
 export declare namespace WatchQuery {
-  type Raw = string;
+    type Raw = string;
 }

@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const ChatThreadExternalLinks: core.schemas.ObjectSchema<
-  serializers.commons.ChatThreadExternalLinks.Raw,
-  RivetApi.commons.ChatThreadExternalLinks
-> = core.schemas.object({
-  chat: core.schemas.string(),
+export const ChatThreadExternalLinks: core.serialization.ObjectSchema<
+    serializers.commons.ChatThreadExternalLinks.Raw,
+    RivetApi.commons.ChatThreadExternalLinks
+> = core.serialization.object({
+    chat: core.serialization.string(),
 });
 
 export declare namespace ChatThreadExternalLinks {
-  interface Raw {
-    chat: string;
-  }
+    interface Raw {
+        chat: string;
+    }
 }

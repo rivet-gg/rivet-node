@@ -6,17 +6,19 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const SearchIdentitiesOutput: core.schemas.ObjectSchema<
-  serializers.SearchIdentitiesOutput.Raw,
-  RivetApi.SearchIdentitiesOutput
-> = core.schemas.object({
-  identities: core.schemas.list(core.schemas.lazyObject(async () => (await import("../../..")).commons.IdentityHandle)),
-  anchor: core.schemas.string(),
+export const SearchIdentitiesOutput: core.serialization.ObjectSchema<
+    serializers.SearchIdentitiesOutput.Raw,
+    RivetApi.SearchIdentitiesOutput
+> = core.serialization.object({
+    identities: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../..")).commons.IdentityHandle)
+    ),
+    anchor: core.serialization.string(),
 });
 
 export declare namespace SearchIdentitiesOutput {
-  interface Raw {
-    identities: serializers.commons.IdentityHandle.Raw[];
-    anchor: string;
-  }
+    interface Raw {
+        identities: serializers.commons.IdentityHandle.Raw[];
+        anchor: string;
+    }
 }

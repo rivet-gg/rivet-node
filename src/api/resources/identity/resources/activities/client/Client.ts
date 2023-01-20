@@ -7,45 +7,65 @@ import * as core from "../../../../../../core";
 import { RivetApi } from "@fern-api/rivet";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
+import * as errors from "../../../../../../errors";
 
 export declare namespace Client {
-  interface Options {
-    environment?: environments.RivetApiEnvironment | string;
-    token?: core.Supplier<core.BearerToken>;
-  }
+    interface Options {
+        environment?: environments.RivetApiEnvironment | environments.RivetApiEnvironmentUrls;
+        token?: core.Supplier<core.BearerToken>;
+    }
 }
 
 export class Client {
-  constructor(private readonly options: Client.Options) {}
+    constructor(private readonly options: Client.Options) {}
 
-  public async list(
-    request?: RivetApi.identity.ListActivitiesInput
-  ): Promise<RivetApi.identity.activities.list.Response> {
-    const _queryParams = new URLSearchParams();
-    if (request?.watchIndex != null) {
-      _queryParams.append("watch_index", request?.watchIndex);
+    /**
+     * Returns an overview of all players currently online or in game.
+     */
+    public async list(
+        request?: RivetApi.identity.ListActivitiesInput
+    ): Promise<RivetApi.identity.ListActivitiesOutput> {
+        const _queryParams = new URLSearchParams();
+        if (request?.watchIndex != null) {
+            _queryParams.append("watch_index", request?.watchIndex);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetApiEnvironment.Production).Identity,
+                "/activities"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.activities.list.Response.parse(
+                _response.body as serializers.identity.activities.list.Response.Raw
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetApiError({
+                statusCode: _response.error.statusCode,
+                responseBody: _response.error.rawBody,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetApiError({
+                    statusCode: _response.error.statusCode,
+                    responseBody: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetApiTimeoutError();
+            case "unknown":
+                throw new errors.RivetApiError({
+                    message: _response.error.errorMessage,
+                });
+        }
     }
-
-    const _response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.RivetApiEnvironment.Production, "/activities"),
-      method: "GET",
-      headers: {
-        Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
-      },
-      queryParameters: _queryParams,
-    });
-    if (_response.ok) {
-      return {
-        ok: true,
-        body: await serializers.identity.activities.list.Response.parse(
-          _response.body as serializers.identity.activities.list.Response.Raw
-        ),
-      };
-    }
-
-    return {
-      ok: false,
-      error: RivetApi.identity.activities.list.Error._unknown(_response.error),
-    };
-  }
 }

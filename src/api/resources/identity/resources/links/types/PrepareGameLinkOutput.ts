@@ -5,8 +5,8 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface PrepareGameLinkOutput {
-  /** Pass this to `GetGameLink` to get the linking status. Valid for 15 minutes. */
-  identityLinkToken: string;
-  identityLinkUrl: string;
-  expireTs: RivetApi.commons.Timestamp;
+    /** Pass this to `GetGameLink` to get the linking status. Valid for 15 minutes. */
+    identityLinkToken: string;
+    identityLinkUrl: string;
+    expireTs: RivetApi.commons.Timestamp;
 }

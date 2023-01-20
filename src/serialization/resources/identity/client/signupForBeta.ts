@@ -6,21 +6,23 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Request: core.schemas.Schema<serializers.identity.signupForBeta.Request.Raw, RivetApi.SignupForBetaInput> =
-  core.schemas.object({
-    name: core.schemas.string(),
-    companyName: core.schemas.property("company_name", core.schemas.string().optional()),
-    companySize: core.schemas.property("company_size", core.schemas.string()),
-    preferredTools: core.schemas.property("preferred_tools", core.schemas.string()),
-    goals: core.schemas.string(),
-  });
+export const Request: core.serialization.Schema<
+    serializers.identity.signupForBeta.Request.Raw,
+    RivetApi.SignupForBetaInput
+> = core.serialization.object({
+    name: core.serialization.string(),
+    companyName: core.serialization.property("company_name", core.serialization.string().optional()),
+    companySize: core.serialization.property("company_size", core.serialization.string()),
+    preferredTools: core.serialization.property("preferred_tools", core.serialization.string()),
+    goals: core.serialization.string(),
+});
 
 export declare namespace Request {
-  interface Raw {
-    name: string;
-    company_name?: string | null;
-    company_size: string;
-    preferred_tools: string;
-    goals: string;
-  }
+    interface Raw {
+        name: string;
+        company_name?: string | null;
+        company_size: string;
+        preferred_tools: string;
+        goals: string;
+    }
 }

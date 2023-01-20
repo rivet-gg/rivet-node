@@ -7,14 +7,14 @@
  *
  */
 export interface UploadPresignedRequest {
-  /**
-   * The name of the file to upload.  This is the same as the one given in the upload prepare file.
-   *
-   */
-  path: string;
-  /**
-   * The URL of the presigned request for which to upload your file to.
-   *
-   */
-  url: string;
+    /**
+     * The name of the file to upload.  This is the same as the one given in the upload prepare file.
+     *
+     */
+    path: string;
+    /**
+     * The URL of the presigned request for which to upload your file to.
+     *
+     */
+    url: string;
 }

@@ -6,17 +6,19 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const WatchEventsOutput: core.schemas.ObjectSchema<
-  serializers.identity.WatchEventsOutput.Raw,
-  RivetApi.identity.WatchEventsOutput
-> = core.schemas.object({
-  events: core.schemas.list(core.schemas.lazyObject(async () => (await import("../../../../..")).identity.GlobalEvent)),
-  watch: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.WatchResponse),
+export const WatchEventsOutput: core.serialization.ObjectSchema<
+    serializers.identity.WatchEventsOutput.Raw,
+    RivetApi.identity.WatchEventsOutput
+> = core.serialization.object({
+    events: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../../../..")).identity.GlobalEvent)
+    ),
+    watch: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.WatchResponse),
 });
 
 export declare namespace WatchEventsOutput {
-  interface Raw {
-    events: serializers.identity.GlobalEvent.Raw[];
-    watch: serializers.commons.WatchResponse.Raw;
-  }
+    interface Raw {
+        events: serializers.identity.GlobalEvent.Raw[];
+        watch: serializers.commons.WatchResponse.Raw;
+    }
 }

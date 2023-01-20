@@ -5,6 +5,6 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GlobalEventChatRead {
-  threadId: string;
-  readTs: RivetApi.commons.Timestamp;
+    threadId: string;
+    readTs: RivetApi.commons.Timestamp;
 }

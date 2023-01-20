@@ -1,9 +1,13 @@
+export * as captcha from "./captcha";
+export * from "./captcha/types";
 export * as chat from "./chat";
 export * from "./chat/types";
 export * as commons from "./commons";
 export * from "./commons/types";
 export * as game from "./game";
 export * from "./game/types";
+export * as geo from "./geo";
+export * from "./geo/types";
 export * as group from "./group";
 export * from "./group/types";
 export * as identity from "./identity";

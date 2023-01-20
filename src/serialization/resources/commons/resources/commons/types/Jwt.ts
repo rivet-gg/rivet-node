@@ -6,8 +6,9 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Jwt: core.schemas.Schema<serializers.commons.Jwt.Raw, RivetApi.commons.Jwt> = core.schemas.string();
+export const Jwt: core.serialization.Schema<serializers.commons.Jwt.Raw, RivetApi.commons.Jwt> =
+    core.serialization.string();
 
 export declare namespace Jwt {
-  type Raw = string;
+    type Raw = string;
 }

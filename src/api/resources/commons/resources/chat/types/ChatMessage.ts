@@ -5,7 +5,7 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ChatMessage {
-  chatMessageId: string;
-  threadId: string;
-  sendTs: RivetApi.commons.Timestamp;
+    chatMessageId: string;
+    threadId: string;
+    sendTs: RivetApi.commons.Timestamp;
 }

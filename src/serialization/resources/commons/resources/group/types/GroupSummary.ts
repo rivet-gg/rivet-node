@@ -6,34 +6,37 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GroupSummary: core.schemas.ObjectSchema<
-  serializers.commons.GroupSummary.Raw,
-  RivetApi.commons.GroupSummary
-> = core.schemas.object({
-  groupId: core.schemas.property("group_id", core.schemas.string()),
-  dispayName: core.schemas.property(
-    "dispay_name",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
-  ),
-  avatarUrl: core.schemas.property("avatar_url", core.schemas.string().optional()),
-  external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupExternalLinks),
-  isDeveloper: core.schemas.property("is_developer", core.schemas.boolean()),
-  bio: core.schemas.lazy(async () => (await import("../../../../..")).commons.Bio),
-  isCurrentlyIdentityMember: core.schemas.property("is_currently_identity_member", core.schemas.boolean()),
-  publicity: core.schemas.lazy(async () => (await import("../../../../..")).commons.GroupPublicity),
-  memberCount: core.schemas.property("member_count", core.schemas.number()),
+export const GroupSummary: core.serialization.ObjectSchema<
+    serializers.commons.GroupSummary.Raw,
+    RivetApi.commons.GroupSummary
+> = core.serialization.object({
+    groupId: core.serialization.property("group_id", core.serialization.string()),
+    dispayName: core.serialization.property(
+        "dispay_name",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    ),
+    avatarUrl: core.serialization.property("avatar_url", core.serialization.string().optional()),
+    external: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GroupExternalLinks),
+    isDeveloper: core.serialization.property("is_developer", core.serialization.boolean()),
+    bio: core.serialization.lazy(async () => (await import("../../../../..")).commons.Bio),
+    isCurrentlyIdentityMember: core.serialization.property(
+        "is_currently_identity_member",
+        core.serialization.boolean()
+    ),
+    publicity: core.serialization.lazy(async () => (await import("../../../../..")).commons.GroupPublicity),
+    memberCount: core.serialization.property("member_count", core.serialization.number()),
 });
 
 export declare namespace GroupSummary {
-  interface Raw {
-    group_id: string;
-    dispay_name: serializers.commons.DisplayName.Raw;
-    avatar_url?: string | null;
-    external: serializers.commons.GroupExternalLinks.Raw;
-    is_developer: boolean;
-    bio: serializers.commons.Bio.Raw;
-    is_currently_identity_member: boolean;
-    publicity: serializers.commons.GroupPublicity.Raw;
-    member_count: number;
-  }
+    interface Raw {
+        group_id: string;
+        dispay_name: serializers.commons.DisplayName.Raw;
+        avatar_url?: string | null;
+        external: serializers.commons.GroupExternalLinks.Raw;
+        is_developer: boolean;
+        bio: serializers.commons.Bio.Raw;
+        is_currently_identity_member: boolean;
+        publicity: serializers.commons.GroupPublicity.Raw;
+        member_count: number;
+    }
 }

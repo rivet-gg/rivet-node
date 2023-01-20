@@ -3,8 +3,8 @@
  */
 
 export interface GlobalEventNotification {
-  title: string;
-  description: string;
-  thumbnailUrl: string;
-  url: string;
+    title: string;
+    description: string;
+    thumbnailUrl: string;
+    url: string;
 }

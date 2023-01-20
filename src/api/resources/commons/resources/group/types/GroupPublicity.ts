@@ -8,6 +8,6 @@
 export type GroupPublicity = "open" | "closed";
 
 export const GroupPublicity = {
-  Open: "open",
-  Closed: "closed",
+    Open: "open",
+    Closed: "closed",
 } as const;

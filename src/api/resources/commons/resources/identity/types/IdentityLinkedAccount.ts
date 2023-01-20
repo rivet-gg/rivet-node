@@ -8,63 +8,63 @@ import { RivetApi } from "@fern-api/rivet";
  * A union representing an identity's linked accounts.
  */
 export type IdentityLinkedAccount =
-  | RivetApi.commons.IdentityLinkedAccount.Email
-  | RivetApi.commons.IdentityLinkedAccount._Unknown;
+    | RivetApi.commons.IdentityLinkedAccount.Email
+    | RivetApi.commons.IdentityLinkedAccount._Unknown;
 
 export declare namespace IdentityLinkedAccount {
-  interface Email extends RivetApi.commons.IdentityEmailLinkedAccount, _Utils {
-    type: "email";
-  }
+    interface Email extends RivetApi.commons.IdentityEmailLinkedAccount, _Utils {
+        type: "email";
+    }
 
-  interface _Unknown extends _Utils {
-    type: void;
-  }
+    interface _Unknown extends _Utils {
+        type: void;
+    }
 
-  interface _Utils {
-    _visit: <_Result>(visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>) => _Result;
-  }
+    interface _Utils {
+        _visit: <_Result>(visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>) => _Result;
+    }
 
-  interface _Visitor<_Result> {
-    email: (value: RivetApi.commons.IdentityEmailLinkedAccount) => _Result;
-    _other: (value: { type: string }) => _Result;
-  }
+    interface _Visitor<_Result> {
+        email: (value: RivetApi.commons.IdentityEmailLinkedAccount) => _Result;
+        _other: (value: { type: string }) => _Result;
+    }
 }
 
 export const IdentityLinkedAccount = {
-  email: (value: RivetApi.commons.IdentityEmailLinkedAccount): RivetApi.commons.IdentityLinkedAccount.Email => {
-    return {
-      ...value,
-      type: "email",
-      _visit: function <_Result>(
-        this: RivetApi.commons.IdentityLinkedAccount.Email,
-        visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>
-      ) {
-        return RivetApi.commons.IdentityLinkedAccount._visit(this, visitor);
-      },
-    };
-  },
+    email: (value: RivetApi.commons.IdentityEmailLinkedAccount): RivetApi.commons.IdentityLinkedAccount.Email => {
+        return {
+            ...value,
+            type: "email",
+            _visit: function <_Result>(
+                this: RivetApi.commons.IdentityLinkedAccount.Email,
+                visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>
+            ) {
+                return RivetApi.commons.IdentityLinkedAccount._visit(this, visitor);
+            },
+        };
+    },
 
-  _unknown: (value: { type: string }): RivetApi.commons.IdentityLinkedAccount._Unknown => {
-    return {
-      ...(value as any),
-      _visit: function <_Result>(
-        this: RivetApi.commons.IdentityLinkedAccount._Unknown,
-        visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>
-      ) {
-        return RivetApi.commons.IdentityLinkedAccount._visit(this, visitor);
-      },
-    };
-  },
+    _unknown: (value: { type: string }): RivetApi.commons.IdentityLinkedAccount._Unknown => {
+        return {
+            ...(value as any),
+            _visit: function <_Result>(
+                this: RivetApi.commons.IdentityLinkedAccount._Unknown,
+                visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>
+            ) {
+                return RivetApi.commons.IdentityLinkedAccount._visit(this, visitor);
+            },
+        };
+    },
 
-  _visit: <_Result>(
-    value: RivetApi.commons.IdentityLinkedAccount,
-    visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>
-  ): _Result => {
-    switch (value.type) {
-      case "email":
-        return visitor.email(value);
-      default:
-        return visitor._other(value as any);
-    }
-  },
+    _visit: <_Result>(
+        value: RivetApi.commons.IdentityLinkedAccount,
+        visitor: RivetApi.commons.IdentityLinkedAccount._Visitor<_Result>
+    ): _Result => {
+        switch (value.type) {
+            case "email":
+                return visitor.email(value);
+            default:
+                return visitor._other(value as any);
+        }
+    },
 } as const;

@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface SetupIdentityInput {
-  identityLinkToken: RivetApi.commons.Jwt;
+    identityLinkToken: RivetApi.commons.Jwt;
 }

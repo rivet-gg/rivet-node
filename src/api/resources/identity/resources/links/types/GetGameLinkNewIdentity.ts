@@ -5,7 +5,7 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface GetGameLinkNewIdentity {
-  identityToken: RivetApi.commons.Jwt;
-  identityTokenExpireTs: RivetApi.commons.Timestamp;
-  identity: RivetApi.commons.IdentityProfile;
+    identityToken: RivetApi.commons.Jwt;
+    identityTokenExpireTs: RivetApi.commons.Timestamp;
+    identity: RivetApi.commons.IdentityProfile;
 }

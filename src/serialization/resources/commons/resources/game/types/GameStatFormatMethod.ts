@@ -6,26 +6,26 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameStatFormatMethod: core.schemas.Schema<
-  serializers.commons.GameStatFormatMethod.Raw,
-  RivetApi.commons.GameStatFormatMethod
-> = core.schemas.enum_([
-  "integer",
-  "float_1",
-  "float_2",
-  "float_3",
-  "duration_minute",
-  "duration_second",
-  "duration_hundredth_second",
+export const GameStatFormatMethod: core.serialization.Schema<
+    serializers.commons.GameStatFormatMethod.Raw,
+    RivetApi.commons.GameStatFormatMethod
+> = core.serialization.enum_([
+    "integer",
+    "float_1",
+    "float_2",
+    "float_3",
+    "duration_minute",
+    "duration_second",
+    "duration_hundredth_second",
 ]);
 
 export declare namespace GameStatFormatMethod {
-  type Raw =
-    | "integer"
-    | "float_1"
-    | "float_2"
-    | "float_3"
-    | "duration_minute"
-    | "duration_second"
-    | "duration_hundredth_second";
+    type Raw =
+        | "integer"
+        | "float_1"
+        | "float_2"
+        | "float_3"
+        | "duration_minute"
+        | "duration_second"
+        | "duration_hundredth_second";
 }

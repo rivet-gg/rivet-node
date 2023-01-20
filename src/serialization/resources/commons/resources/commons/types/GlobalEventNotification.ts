@@ -6,21 +6,21 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GlobalEventNotification: core.schemas.ObjectSchema<
-  serializers.commons.GlobalEventNotification.Raw,
-  RivetApi.commons.GlobalEventNotification
-> = core.schemas.object({
-  title: core.schemas.string(),
-  description: core.schemas.string(),
-  thumbnailUrl: core.schemas.property("thumbnail_url", core.schemas.string()),
-  url: core.schemas.string(),
+export const GlobalEventNotification: core.serialization.ObjectSchema<
+    serializers.commons.GlobalEventNotification.Raw,
+    RivetApi.commons.GlobalEventNotification
+> = core.serialization.object({
+    title: core.serialization.string(),
+    description: core.serialization.string(),
+    thumbnailUrl: core.serialization.property("thumbnail_url", core.serialization.string()),
+    url: core.serialization.string(),
 });
 
 export declare namespace GlobalEventNotification {
-  interface Raw {
-    title: string;
-    description: string;
-    thumbnail_url: string;
-    url: string;
-  }
+    interface Raw {
+        title: string;
+        description: string;
+        thumbnail_url: string;
+        url: string;
+    }
 }

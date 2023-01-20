@@ -6,9 +6,9 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Timestamp: core.schemas.Schema<serializers.commons.Timestamp.Raw, RivetApi.commons.Timestamp> =
-  core.schemas.string();
+export const Timestamp: core.serialization.Schema<serializers.commons.Timestamp.Raw, RivetApi.commons.Timestamp> =
+    core.serialization.string();
 
 export declare namespace Timestamp {
-  type Raw = string;
+    type Raw = string;
 }

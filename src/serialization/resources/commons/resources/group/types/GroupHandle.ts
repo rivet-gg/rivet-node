@@ -6,24 +6,26 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GroupHandle: core.schemas.ObjectSchema<serializers.commons.GroupHandle.Raw, RivetApi.commons.GroupHandle> =
-  core.schemas.object({
-    groupId: core.schemas.property("group_id", core.schemas.string()),
-    displayName: core.schemas.property(
-      "display_name",
-      core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+export const GroupHandle: core.serialization.ObjectSchema<
+    serializers.commons.GroupHandle.Raw,
+    RivetApi.commons.GroupHandle
+> = core.serialization.object({
+    groupId: core.serialization.property("group_id", core.serialization.string()),
+    displayName: core.serialization.property(
+        "display_name",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.DisplayName)
     ),
-    avatarUrl: core.schemas.property("avatar_url", core.schemas.string()),
-    external: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupExternalLinks),
-    isDeveloper: core.schemas.property("is_developer", core.schemas.boolean().optional()),
-  });
+    avatarUrl: core.serialization.property("avatar_url", core.serialization.string()),
+    external: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GroupExternalLinks),
+    isDeveloper: core.serialization.property("is_developer", core.serialization.boolean().optional()),
+});
 
 export declare namespace GroupHandle {
-  interface Raw {
-    group_id: string;
-    display_name: serializers.commons.DisplayName.Raw;
-    avatar_url: string;
-    external: serializers.commons.GroupExternalLinks.Raw;
-    is_developer?: boolean | null;
-  }
+    interface Raw {
+        group_id: string;
+        display_name: serializers.commons.DisplayName.Raw;
+        avatar_url: string;
+        external: serializers.commons.GroupExternalLinks.Raw;
+        is_developer?: boolean | null;
+    }
 }

@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const ChatTopicParty: core.schemas.ObjectSchema<
-  serializers.commons.ChatTopicParty.Raw,
-  RivetApi.commons.ChatTopicParty
-> = core.schemas.object({
-  party: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.PartyHandle),
+export const ChatTopicParty: core.serialization.ObjectSchema<
+    serializers.commons.ChatTopicParty.Raw,
+    RivetApi.commons.ChatTopicParty
+> = core.serialization.object({
+    party: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.PartyHandle),
 });
 
 export declare namespace ChatTopicParty {
-  interface Raw {
-    party: serializers.commons.PartyHandle.Raw;
-  }
+    interface Raw {
+        party: serializers.commons.PartyHandle.Raw;
+    }
 }

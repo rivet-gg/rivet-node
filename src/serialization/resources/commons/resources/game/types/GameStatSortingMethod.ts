@@ -6,11 +6,11 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameStatSortingMethod: core.schemas.Schema<
-  serializers.commons.GameStatSortingMethod.Raw,
-  RivetApi.commons.GameStatSortingMethod
-> = core.schemas.enum_(["desc", "asc"]);
+export const GameStatSortingMethod: core.serialization.Schema<
+    serializers.commons.GameStatSortingMethod.Raw,
+    RivetApi.commons.GameStatSortingMethod
+> = core.serialization.enum_(["desc", "asc"]);
 
 export declare namespace GameStatSortingMethod {
-  type Raw = "desc" | "asc";
+    type Raw = "desc" | "asc";
 }

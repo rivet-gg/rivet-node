@@ -5,20 +5,27 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import { Client as IdentityClient } from "./api/resources/identity/client/Client";
+import { Client as MatchmakerClient } from "./api/resources/matchmaker/client/Client";
 
 export declare namespace RivetApiClient {
-  interface Options {
-    environment?: environments.RivetApiEnvironment | string;
-    token?: core.Supplier<core.BearerToken>;
-  }
+    interface Options {
+        environment?: environments.RivetApiEnvironment | environments.RivetApiEnvironmentUrls;
+        token?: core.Supplier<core.BearerToken>;
+    }
 }
 
 export class RivetApiClient {
-  constructor(private readonly options: RivetApiClient.Options) {}
+    constructor(private readonly options: RivetApiClient.Options) {}
 
-  #identity: IdentityClient | undefined;
+    #identity: IdentityClient | undefined;
 
-  public get identity(): IdentityClient {
-    return (this.#identity ??= new IdentityClient(this.options));
-  }
+    public get identity(): IdentityClient {
+        return (this.#identity ??= new IdentityClient(this.options));
+    }
+
+    #matchmaker: MatchmakerClient | undefined;
+
+    public get matchmaker(): MatchmakerClient {
+        return (this.#matchmaker ??= new MatchmakerClient(this.options));
+    }
 }

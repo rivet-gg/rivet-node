@@ -8,8 +8,8 @@ import { RivetApi } from "@fern-api/rivet";
  * A matchmaker lobby.
  */
 export interface MatchmakerLobbyJoinInfo {
-  lobbyId: string;
-  region: RivetApi.commons.MatchmakerLobbyJoinInfoRegion;
-  ports: Record<string, RivetApi.commons.MatchmakerLobbyJoinInfoPort>;
-  player: RivetApi.commons.MatchmakerLobbyJoinInfoPlayer;
+    lobbyId: string;
+    region: RivetApi.commons.MatchmakerLobbyJoinInfoRegion;
+    ports: Record<string, RivetApi.commons.MatchmakerLobbyJoinInfoPort>;
+    player: RivetApi.commons.MatchmakerLobbyJoinInfoPlayer;
 }

@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ValidateIdentityProfileOutput {
-  errors: RivetApi.commons.ValidationError[];
+    errors: RivetApi.commons.ValidationError[];
 }

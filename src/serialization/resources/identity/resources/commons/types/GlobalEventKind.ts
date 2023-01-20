@@ -6,76 +6,82 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GlobalEventKind: core.schemas.Schema<
-  serializers.identity.GlobalEventKind.Raw,
-  RivetApi.identity.GlobalEventKind
-> = core.schemas
-  .union("type", {
-    chat_message: core.schemas.lazyObject(async () => (await import("../../../../..")).identity.GlobalEventChatMessage),
-    chat_read: core.schemas.lazyObject(async () => (await import("../../../../..")).identity.GlobalEventChatRead),
-    party_update: core.schemas.lazyObject(async () => (await import("../../../../..")).identity.GlobalEventPartyUpdate),
-    identity_update: core.schemas.lazyObject(
-      async () => (await import("../../../../..")).identity.GlobalEventIdentityUpdate
-    ),
-    matchmaker_lobby_join: core.schemas.lazyObject(
-      async () => (await import("../../../../..")).identity.GlobalEventMatchmakerLobbyJoin
-    ),
-    chat_thread_remove: core.schemas.lazyObject(
-      async () => (await import("../../../../..")).identity.GlobalEventChatThreadRemove
-    ),
-  })
-  .transform<RivetApi.identity.GlobalEventKind>({
-    parse: (value) => {
-      switch (value.type) {
-        case "chat_message":
-          return RivetApi.identity.GlobalEventKind.chatMessage(value);
-        case "chat_read":
-          return RivetApi.identity.GlobalEventKind.chatRead(value);
-        case "party_update":
-          return RivetApi.identity.GlobalEventKind.partyUpdate(value);
-        case "identity_update":
-          return RivetApi.identity.GlobalEventKind.identityUpdate(value);
-        case "matchmaker_lobby_join":
-          return RivetApi.identity.GlobalEventKind.matchmakerLobbyJoin(value);
-        case "chat_thread_remove":
-          return RivetApi.identity.GlobalEventKind.chatThreadRemove(value);
-        default:
-          return RivetApi.identity.GlobalEventKind._unknown(value);
-      }
-    },
-    json: (value) => value as any,
-  });
+export const GlobalEventKind: core.serialization.Schema<
+    serializers.identity.GlobalEventKind.Raw,
+    RivetApi.identity.GlobalEventKind
+> = core.serialization
+    .union("type", {
+        chat_message: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).identity.GlobalEventChatMessage
+        ),
+        chat_read: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).identity.GlobalEventChatRead
+        ),
+        party_update: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).identity.GlobalEventPartyUpdate
+        ),
+        identity_update: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).identity.GlobalEventIdentityUpdate
+        ),
+        matchmaker_lobby_join: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).identity.GlobalEventMatchmakerLobbyJoin
+        ),
+        chat_thread_remove: core.serialization.lazyObject(
+            async () => (await import("../../../../..")).identity.GlobalEventChatThreadRemove
+        ),
+    })
+    .transform<RivetApi.identity.GlobalEventKind>({
+        parse: (value) => {
+            switch (value.type) {
+                case "chat_message":
+                    return RivetApi.identity.GlobalEventKind.chatMessage(value);
+                case "chat_read":
+                    return RivetApi.identity.GlobalEventKind.chatRead(value);
+                case "party_update":
+                    return RivetApi.identity.GlobalEventKind.partyUpdate(value);
+                case "identity_update":
+                    return RivetApi.identity.GlobalEventKind.identityUpdate(value);
+                case "matchmaker_lobby_join":
+                    return RivetApi.identity.GlobalEventKind.matchmakerLobbyJoin(value);
+                case "chat_thread_remove":
+                    return RivetApi.identity.GlobalEventKind.chatThreadRemove(value);
+                default:
+                    return RivetApi.identity.GlobalEventKind._unknown(value);
+            }
+        },
+        json: (value) => value as any,
+    });
 
 export declare namespace GlobalEventKind {
-  type Raw =
-    | GlobalEventKind.ChatMessage
-    | GlobalEventKind.ChatRead
-    | GlobalEventKind.PartyUpdate
-    | GlobalEventKind.IdentityUpdate
-    | GlobalEventKind.MatchmakerLobbyJoin
-    | GlobalEventKind.ChatThreadRemove;
+    type Raw =
+        | GlobalEventKind.ChatMessage
+        | GlobalEventKind.ChatRead
+        | GlobalEventKind.PartyUpdate
+        | GlobalEventKind.IdentityUpdate
+        | GlobalEventKind.MatchmakerLobbyJoin
+        | GlobalEventKind.ChatThreadRemove;
 
-  interface ChatMessage extends serializers.identity.GlobalEventChatMessage.Raw {
-    type: "chat_message";
-  }
+    interface ChatMessage extends serializers.identity.GlobalEventChatMessage.Raw {
+        type: "chat_message";
+    }
 
-  interface ChatRead extends serializers.identity.GlobalEventChatRead.Raw {
-    type: "chat_read";
-  }
+    interface ChatRead extends serializers.identity.GlobalEventChatRead.Raw {
+        type: "chat_read";
+    }
 
-  interface PartyUpdate extends serializers.identity.GlobalEventPartyUpdate.Raw {
-    type: "party_update";
-  }
+    interface PartyUpdate extends serializers.identity.GlobalEventPartyUpdate.Raw {
+        type: "party_update";
+    }
 
-  interface IdentityUpdate extends serializers.identity.GlobalEventIdentityUpdate.Raw {
-    type: "identity_update";
-  }
+    interface IdentityUpdate extends serializers.identity.GlobalEventIdentityUpdate.Raw {
+        type: "identity_update";
+    }
 
-  interface MatchmakerLobbyJoin extends serializers.identity.GlobalEventMatchmakerLobbyJoin.Raw {
-    type: "matchmaker_lobby_join";
-  }
+    interface MatchmakerLobbyJoin extends serializers.identity.GlobalEventMatchmakerLobbyJoin.Raw {
+        type: "matchmaker_lobby_join";
+    }
 
-  interface ChatThreadRemove extends serializers.identity.GlobalEventChatThreadRemove.Raw {
-    type: "chat_thread_remove";
-  }
+    interface ChatThreadRemove extends serializers.identity.GlobalEventChatThreadRemove.Raw {
+        type: "chat_thread_remove";
+    }
 }

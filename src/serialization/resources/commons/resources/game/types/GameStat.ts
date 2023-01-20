@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameStat: core.schemas.ObjectSchema<serializers.commons.GameStat.Raw, RivetApi.commons.GameStat> =
-  core.schemas.object({
-    config: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameStatConfig),
-    overallValue: core.schemas.property("overall_value", core.schemas.number()),
-  });
+export const GameStat: core.serialization.ObjectSchema<serializers.commons.GameStat.Raw, RivetApi.commons.GameStat> =
+    core.serialization.object({
+        config: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameStatConfig),
+        overallValue: core.serialization.property("overall_value", core.serialization.number()),
+    });
 
 export declare namespace GameStat {
-  interface Raw {
-    config: serializers.commons.GameStatConfig.Raw;
-    overall_value: number;
-  }
+    interface Raw {
+        config: serializers.commons.GameStatConfig.Raw;
+        overall_value: number;
+    }
 }

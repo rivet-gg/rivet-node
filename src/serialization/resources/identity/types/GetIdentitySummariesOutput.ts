@@ -6,17 +6,17 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const GetIdentitySummariesOutput: core.schemas.ObjectSchema<
-  serializers.GetIdentitySummariesOutput.Raw,
-  RivetApi.GetIdentitySummariesOutput
-> = core.schemas.object({
-  identities: core.schemas.list(
-    core.schemas.lazyObject(async () => (await import("../../..")).commons.IdentitySummary)
-  ),
+export const GetIdentitySummariesOutput: core.serialization.ObjectSchema<
+    serializers.GetIdentitySummariesOutput.Raw,
+    RivetApi.GetIdentitySummariesOutput
+> = core.serialization.object({
+    identities: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("../../..")).commons.IdentitySummary)
+    ),
 });
 
 export declare namespace GetIdentitySummariesOutput {
-  interface Raw {
-    identities: serializers.commons.IdentitySummary.Raw[];
-  }
+    interface Raw {
+        identities: serializers.commons.IdentitySummary.Raw[];
+    }
 }

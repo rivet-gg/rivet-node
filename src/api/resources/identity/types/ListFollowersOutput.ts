@@ -5,5 +5,5 @@
 import { RivetApi } from "@fern-api/rivet";
 
 export interface ListFollowersOutput {
-  identities: RivetApi.commons.IdentityHandle[];
+    identities: RivetApi.commons.IdentityHandle[];
 }

@@ -3,5 +3,5 @@
  */
 
 export interface ReportIdentityInput {
-  reason: string;
+    reason: string;
 }

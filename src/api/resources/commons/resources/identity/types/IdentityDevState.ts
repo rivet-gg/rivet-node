@@ -8,7 +8,7 @@
 export type IdentityDevState = "inactive" | "pending" | "accepted";
 
 export const IdentityDevState = {
-  Inactive: "inactive",
-  Pending: "pending",
-  Accepted: "accepted",
+    Inactive: "inactive",
+    Pending: "pending",
+    Accepted: "accepted",
 } as const;

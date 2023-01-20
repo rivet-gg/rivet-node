@@ -6,19 +6,19 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityExternalLinks: core.schemas.ObjectSchema<
-  serializers.commons.IdentityExternalLinks.Raw,
-  RivetApi.commons.IdentityExternalLinks
-> = core.schemas.object({
-  profile: core.schemas.string(),
-  settings: core.schemas.string().optional(),
-  chat: core.schemas.string().optional(),
+export const IdentityExternalLinks: core.serialization.ObjectSchema<
+    serializers.commons.IdentityExternalLinks.Raw,
+    RivetApi.commons.IdentityExternalLinks
+> = core.serialization.object({
+    profile: core.serialization.string(),
+    settings: core.serialization.string().optional(),
+    chat: core.serialization.string().optional(),
 });
 
 export declare namespace IdentityExternalLinks {
-  interface Raw {
-    profile: string;
-    settings?: string | null;
-    chat?: string | null;
-  }
+    interface Raw {
+        profile: string;
+        settings?: string | null;
+        chat?: string | null;
+    }
 }

@@ -8,5 +8,5 @@ import { RivetApi } from "@fern-api/rivet";
  * A group that the given identity.
  */
 export interface IdentityGroup {
-  group: RivetApi.commons.GroupHandle;
+    group: RivetApi.commons.GroupHandle;
 }

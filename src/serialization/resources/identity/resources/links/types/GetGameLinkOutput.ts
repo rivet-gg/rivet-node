@@ -6,29 +6,29 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GetGameLinkOutput: core.schemas.ObjectSchema<
-  serializers.identity.GetGameLinkOutput.Raw,
-  RivetApi.identity.GetGameLinkOutput
-> = core.schemas.object({
-  status: core.schemas.lazy(async () => (await import("../../../../..")).commons.GameLinkStatus),
-  game: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
-  currentIdentity: core.schemas.property(
-    "current_identity",
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
-  ),
-  newIdentity: core.schemas.property(
-    "new_identity",
-    core.schemas.lazyObject(async () => (await import("../../../../..")).identity.GetGameLinkNewIdentity)
-  ),
-  watch: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.WatchResponse),
+export const GetGameLinkOutput: core.serialization.ObjectSchema<
+    serializers.identity.GetGameLinkOutput.Raw,
+    RivetApi.identity.GetGameLinkOutput
+> = core.serialization.object({
+    status: core.serialization.lazy(async () => (await import("../../../../..")).commons.GameLinkStatus),
+    game: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GameHandle),
+    currentIdentity: core.serialization.property(
+        "current_identity",
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.IdentityHandle)
+    ),
+    newIdentity: core.serialization.property(
+        "new_identity",
+        core.serialization.lazyObject(async () => (await import("../../../../..")).identity.GetGameLinkNewIdentity)
+    ),
+    watch: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.WatchResponse),
 });
 
 export declare namespace GetGameLinkOutput {
-  interface Raw {
-    status: serializers.commons.GameLinkStatus.Raw;
-    game: serializers.commons.GameHandle.Raw;
-    current_identity: serializers.commons.IdentityHandle.Raw;
-    new_identity: serializers.identity.GetGameLinkNewIdentity.Raw;
-    watch: serializers.commons.WatchResponse.Raw;
-  }
+    interface Raw {
+        status: serializers.commons.GameLinkStatus.Raw;
+        game: serializers.commons.GameHandle.Raw;
+        current_identity: serializers.commons.IdentityHandle.Raw;
+        new_identity: serializers.identity.GetGameLinkNewIdentity.Raw;
+        watch: serializers.commons.WatchResponse.Raw;
+    }
 }

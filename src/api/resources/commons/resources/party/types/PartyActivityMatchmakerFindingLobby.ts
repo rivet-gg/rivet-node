@@ -8,5 +8,5 @@ import { RivetApi } from "@fern-api/rivet";
  * A party activity denoting that the party is currently searching for a lobby.
  */
 export interface PartyActivityMatchmakerFindingLobby {
-  game: RivetApi.commons.GameHandle;
+    game: RivetApi.commons.GameHandle;
 }

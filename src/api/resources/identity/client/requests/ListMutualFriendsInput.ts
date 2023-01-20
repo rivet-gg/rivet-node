@@ -3,9 +3,9 @@
  */
 
 export interface ListMutualFriendsInput {
-  anchor?: string;
-  /**
-   * Range is between 1 and 32 (inclusive).
-   */
-  limit?: string;
+    anchor?: string;
+    /**
+     * Range is between 1 and 32 (inclusive).
+     */
+    limit?: string;
 }

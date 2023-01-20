@@ -6,11 +6,11 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const Response: core.schemas.Schema<
-  serializers.identity.events.watch.Response.Raw,
-  RivetApi.identity.WatchEventsOutput
-> = core.schemas.lazyObject(async () => (await import("../../../../..")).identity.WatchEventsOutput);
+export const Response: core.serialization.Schema<
+    serializers.identity.events.watch.Response.Raw,
+    RivetApi.identity.WatchEventsOutput
+> = core.serialization.lazyObject(async () => (await import("../../../../..")).identity.WatchEventsOutput);
 
 export declare namespace Response {
-  type Raw = serializers.identity.WatchEventsOutput.Raw;
+    type Raw = serializers.identity.WatchEventsOutput.Raw;
 }

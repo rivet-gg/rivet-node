@@ -6,28 +6,28 @@ import * as serializers from "../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../core";
 
-export const Request: core.schemas.Schema<
-  serializers.identity.prepareIdentityAvatarUpload.Request.Raw,
-  RivetApi.PrepareIdentityAvatarUploadInput
-> = core.schemas.object({
-  path: core.schemas.string(),
-  mime: core.schemas.string(),
-  contentLength: core.schemas.property("content_length", core.schemas.number()),
+export const Request: core.serialization.Schema<
+    serializers.identity.prepareIdentityAvatarUpload.Request.Raw,
+    RivetApi.PrepareIdentityAvatarUploadInput
+> = core.serialization.object({
+    path: core.serialization.string(),
+    mime: core.serialization.string(),
+    contentLength: core.serialization.property("content_length", core.serialization.number()),
 });
 
 export declare namespace Request {
-  interface Raw {
-    path: string;
-    mime: string;
-    content_length: number;
-  }
+    interface Raw {
+        path: string;
+        mime: string;
+        content_length: number;
+    }
 }
 
-export const Response: core.schemas.Schema<
-  serializers.identity.prepareIdentityAvatarUpload.Response.Raw,
-  RivetApi.PrepareIdentityAvatarUploadOutput
-> = core.schemas.lazyObject(async () => (await import("../../..")).PrepareIdentityAvatarUploadOutput);
+export const Response: core.serialization.Schema<
+    serializers.identity.prepareIdentityAvatarUpload.Response.Raw,
+    RivetApi.PrepareIdentityAvatarUploadOutput
+> = core.serialization.lazyObject(async () => (await import("../../..")).PrepareIdentityAvatarUploadOutput);
 
 export declare namespace Response {
-  type Raw = serializers.PrepareIdentityAvatarUploadOutput.Raw;
+    type Raw = serializers.PrepareIdentityAvatarUploadOutput.Raw;
 }

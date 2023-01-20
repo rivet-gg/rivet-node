@@ -6,23 +6,23 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const MatchmakerLobbyJoinInfoRegion: core.schemas.ObjectSchema<
-  serializers.commons.MatchmakerLobbyJoinInfoRegion.Raw,
-  RivetApi.commons.MatchmakerLobbyJoinInfoRegion
-> = core.schemas.object({
-  regionId: core.schemas.property(
-    "region_id",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.Identifier)
-  ),
-  displayName: core.schemas.property(
-    "display_name",
-    core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
-  ),
+export const MatchmakerLobbyJoinInfoRegion: core.serialization.ObjectSchema<
+    serializers.commons.MatchmakerLobbyJoinInfoRegion.Raw,
+    RivetApi.commons.MatchmakerLobbyJoinInfoRegion
+> = core.serialization.object({
+    regionId: core.serialization.property(
+        "region_id",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Identifier)
+    ),
+    displayName: core.serialization.property(
+        "display_name",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    ),
 });
 
 export declare namespace MatchmakerLobbyJoinInfoRegion {
-  interface Raw {
-    region_id: serializers.commons.Identifier.Raw;
-    display_name: serializers.commons.DisplayName.Raw;
-  }
+    interface Raw {
+        region_id: serializers.commons.Identifier.Raw;
+        display_name: serializers.commons.DisplayName.Raw;
+    }
 }

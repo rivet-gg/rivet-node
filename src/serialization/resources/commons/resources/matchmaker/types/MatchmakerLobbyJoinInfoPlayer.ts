@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const MatchmakerLobbyJoinInfoPlayer: core.schemas.ObjectSchema<
-  serializers.commons.MatchmakerLobbyJoinInfoPlayer.Raw,
-  RivetApi.commons.MatchmakerLobbyJoinInfoPlayer
-> = core.schemas.object({
-  token: core.schemas.lazy(async () => (await import("../../../../..")).commons.Jwt),
+export const MatchmakerLobbyJoinInfoPlayer: core.serialization.ObjectSchema<
+    serializers.commons.MatchmakerLobbyJoinInfoPlayer.Raw,
+    RivetApi.commons.MatchmakerLobbyJoinInfoPlayer
+> = core.serialization.object({
+    token: core.serialization.lazy(async () => (await import("../../../../..")).commons.Jwt),
 });
 
 export declare namespace MatchmakerLobbyJoinInfoPlayer {
-  interface Raw {
-    token: serializers.commons.Jwt.Raw;
-  }
+    interface Raw {
+        token: serializers.commons.Jwt.Raw;
+    }
 }

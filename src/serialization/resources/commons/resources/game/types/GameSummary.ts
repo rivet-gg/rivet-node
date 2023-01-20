@@ -6,31 +6,33 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const GameSummary: core.schemas.ObjectSchema<serializers.commons.GameSummary.Raw, RivetApi.commons.GameSummary> =
-  core.schemas.object({
-    gameId: core.schemas.property("game_id", core.schemas.string()),
-    nameId: core.schemas.property(
-      "name_id",
-      core.schemas.lazy(async () => (await import("../../../../..")).commons.Identifier)
+export const GameSummary: core.serialization.ObjectSchema<
+    serializers.commons.GameSummary.Raw,
+    RivetApi.commons.GameSummary
+> = core.serialization.object({
+    gameId: core.serialization.property("game_id", core.serialization.string()),
+    nameId: core.serialization.property(
+        "name_id",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.Identifier)
     ),
-    displayName: core.schemas.property(
-      "display_name",
-      core.schemas.lazy(async () => (await import("../../../../..")).commons.DisplayName)
+    displayName: core.serialization.property(
+        "display_name",
+        core.serialization.lazy(async () => (await import("../../../../..")).commons.DisplayName)
     ),
-    logoUrl: core.schemas.property("logo_url", core.schemas.string().optional()),
-    bannerUrl: core.schemas.property("banner_url", core.schemas.string().optional()),
-    url: core.schemas.string(),
-    developer: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupHandle),
-  });
+    logoUrl: core.serialization.property("logo_url", core.serialization.string().optional()),
+    bannerUrl: core.serialization.property("banner_url", core.serialization.string().optional()),
+    url: core.serialization.string(),
+    developer: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GroupHandle),
+});
 
 export declare namespace GameSummary {
-  interface Raw {
-    game_id: string;
-    name_id: serializers.commons.Identifier.Raw;
-    display_name: serializers.commons.DisplayName.Raw;
-    logo_url?: string | null;
-    banner_url?: string | null;
-    url: string;
-    developer: serializers.commons.GroupHandle.Raw;
-  }
+    interface Raw {
+        game_id: string;
+        name_id: serializers.commons.Identifier.Raw;
+        display_name: serializers.commons.DisplayName.Raw;
+        logo_url?: string | null;
+        banner_url?: string | null;
+        url: string;
+        developer: serializers.commons.GroupHandle.Raw;
+    }
 }

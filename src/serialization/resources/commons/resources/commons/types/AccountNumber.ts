@@ -6,9 +6,11 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const AccountNumber: core.schemas.Schema<serializers.commons.AccountNumber.Raw, RivetApi.commons.AccountNumber> =
-  core.schemas.number();
+export const AccountNumber: core.serialization.Schema<
+    serializers.commons.AccountNumber.Raw,
+    RivetApi.commons.AccountNumber
+> = core.serialization.number();
 
 export declare namespace AccountNumber {
-  type Raw = number;
+    type Raw = number;
 }

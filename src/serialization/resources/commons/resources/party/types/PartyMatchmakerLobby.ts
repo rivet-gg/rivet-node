@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartyMatchmakerLobby: core.schemas.ObjectSchema<
-  serializers.commons.PartyMatchmakerLobby.Raw,
-  RivetApi.commons.PartyMatchmakerLobby
-> = core.schemas.object({
-  lobbyId: core.schemas.property("lobby_id", core.schemas.string()),
+export const PartyMatchmakerLobby: core.serialization.ObjectSchema<
+    serializers.commons.PartyMatchmakerLobby.Raw,
+    RivetApi.commons.PartyMatchmakerLobby
+> = core.serialization.object({
+    lobbyId: core.serialization.property("lobby_id", core.serialization.string()),
 });
 
 export declare namespace PartyMatchmakerLobby {
-  interface Raw {
-    lobby_id: string;
-  }
+    interface Raw {
+        lobby_id: string;
+    }
 }

@@ -6,5 +6,5 @@
  * A party member state denoting that the member is in a lobby.
  */
 export interface PartyMemberStateMatchmakerLobby {
-  playerId: string;
+    playerId: string;
 }

@@ -6,24 +6,28 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const MatchmakerLobbyJoinInfo: core.schemas.ObjectSchema<
-  serializers.commons.MatchmakerLobbyJoinInfo.Raw,
-  RivetApi.commons.MatchmakerLobbyJoinInfo
-> = core.schemas.object({
-  lobbyId: core.schemas.property("lobby_id", core.schemas.string()),
-  region: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfoRegion),
-  ports: core.schemas.record(
-    core.schemas.string(),
-    core.schemas.lazyObject(async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfoPort)
-  ),
-  player: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfoPlayer),
+export const MatchmakerLobbyJoinInfo: core.serialization.ObjectSchema<
+    serializers.commons.MatchmakerLobbyJoinInfo.Raw,
+    RivetApi.commons.MatchmakerLobbyJoinInfo
+> = core.serialization.object({
+    lobbyId: core.serialization.property("lobby_id", core.serialization.string()),
+    region: core.serialization.lazyObject(
+        async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfoRegion
+    ),
+    ports: core.serialization.record(
+        core.serialization.string(),
+        core.serialization.lazyObject(async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfoPort)
+    ),
+    player: core.serialization.lazyObject(
+        async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfoPlayer
+    ),
 });
 
 export declare namespace MatchmakerLobbyJoinInfo {
-  interface Raw {
-    lobby_id: string;
-    region: serializers.commons.MatchmakerLobbyJoinInfoRegion.Raw;
-    ports: Record<string, serializers.commons.MatchmakerLobbyJoinInfoPort.Raw>;
-    player: serializers.commons.MatchmakerLobbyJoinInfoPlayer.Raw;
-  }
+    interface Raw {
+        lobby_id: string;
+        region: serializers.commons.MatchmakerLobbyJoinInfoRegion.Raw;
+        ports: Record<string, serializers.commons.MatchmakerLobbyJoinInfoPort.Raw>;
+        player: serializers.commons.MatchmakerLobbyJoinInfoPlayer.Raw;
+    }
 }

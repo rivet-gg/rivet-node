@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const IdentityGroup: core.schemas.ObjectSchema<
-  serializers.commons.IdentityGroup.Raw,
-  RivetApi.commons.IdentityGroup
-> = core.schemas.object({
-  group: core.schemas.lazyObject(async () => (await import("../../../../..")).commons.GroupHandle),
+export const IdentityGroup: core.serialization.ObjectSchema<
+    serializers.commons.IdentityGroup.Raw,
+    RivetApi.commons.IdentityGroup
+> = core.serialization.object({
+    group: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.GroupHandle),
 });
 
 export declare namespace IdentityGroup {
-  interface Raw {
-    group: serializers.commons.GroupHandle.Raw;
-  }
+    interface Raw {
+        group: serializers.commons.GroupHandle.Raw;
+    }
 }

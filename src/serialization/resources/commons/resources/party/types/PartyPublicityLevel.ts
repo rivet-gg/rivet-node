@@ -6,11 +6,11 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const PartyPublicityLevel: core.schemas.Schema<
-  serializers.commons.PartyPublicityLevel.Raw,
-  RivetApi.commons.PartyPublicityLevel
-> = core.schemas.enum_(["none", "view", "join"]);
+export const PartyPublicityLevel: core.serialization.Schema<
+    serializers.commons.PartyPublicityLevel.Raw,
+    RivetApi.commons.PartyPublicityLevel
+> = core.serialization.enum_(["none", "view", "join"]);
 
 export declare namespace PartyPublicityLevel {
-  type Raw = "none" | "view" | "join";
+    type Raw = "none" | "view" | "join";
 }

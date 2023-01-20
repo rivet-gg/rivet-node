@@ -3,9 +3,9 @@
  */
 
 export interface SignupForBetaInput {
-  name: string;
-  companyName?: string;
-  companySize: string;
-  preferredTools: string;
-  goals: string;
+    name: string;
+    companyName?: string;
+    companySize: string;
+    preferredTools: string;
+    goals: string;
 }

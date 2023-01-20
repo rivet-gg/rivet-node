@@ -6,15 +6,15 @@ import * as serializers from "../../../../..";
 import { RivetApi } from "@fern-api/rivet";
 import * as core from "../../../../../../core";
 
-export const WatchResponse: core.schemas.ObjectSchema<
-  serializers.commons.WatchResponse.Raw,
-  RivetApi.commons.WatchResponse
-> = core.schemas.object({
-  index: core.schemas.string(),
+export const WatchResponse: core.serialization.ObjectSchema<
+    serializers.commons.WatchResponse.Raw,
+    RivetApi.commons.WatchResponse
+> = core.serialization.object({
+    index: core.serialization.string(),
 });
 
 export declare namespace WatchResponse {
-  interface Raw {
-    index: string;
-  }
+    interface Raw {
+        index: string;
+    }
 }
