@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import urlJoin from "url-join";
-import * as errors from "../../../../../../errors";
 import { RivetApi } from "@fern-api/rivet";
+import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
+import * as errors from "../../../../../../errors";
 
 export declare namespace Client {
     interface Options {
@@ -18,46 +18,6 @@ export declare namespace Client {
 
 export class Client {
     constructor(private readonly options: Client.Options) {}
-
-    /**
-     * Marks the current lobby as ready to accept connections.  Players will not be able to connect to this lobby until the  lobby is flagged as ready.
-     */
-    public async ready(): Promise<void> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetApiEnvironment.Production).Matchmaking,
-                "/lobbies/ready"
-            ),
-            method: "POST",
-            headers: {
-                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
-            },
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.RivetApiError({
-                statusCode: _response.error.statusCode,
-                responseBody: _response.error.rawBody,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.RivetApiError({
-                    statusCode: _response.error.statusCode,
-                    responseBody: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.RivetApiTimeoutError();
-            case "unknown":
-                throw new errors.RivetApiError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
 
     /**
      * If `is_closed` is `true`, players will be prevented from joining the lobby.

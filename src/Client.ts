@@ -4,7 +4,6 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Client as IdentityClient } from "./api/resources/identity/client/Client";
 import { Client as MatchmakerClient } from "./api/resources/matchmaker/client/Client";
 
 export declare namespace RivetApiClient {
@@ -16,12 +15,6 @@ export declare namespace RivetApiClient {
 
 export class RivetApiClient {
     constructor(private readonly options: RivetApiClient.Options) {}
-
-    #identity: IdentityClient | undefined;
-
-    public get identity(): IdentityClient {
-        return (this.#identity ??= new IdentityClient(this.options));
-    }
 
     #matchmaker: MatchmakerClient | undefined;
 

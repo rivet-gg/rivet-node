@@ -5,7 +5,6 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import { Client as LobbiesClient } from "../resources/lobbies/client/Client";
-import { Client as PlayersClient } from "../resources/players/client/Client";
 import { Client as RegionsClient } from "../resources/regions/client/Client";
 
 export declare namespace Client {
@@ -22,12 +21,6 @@ export class Client {
 
     public get lobbies(): LobbiesClient {
         return (this.#lobbies ??= new LobbiesClient(this.options));
-    }
-
-    #players: PlayersClient | undefined;
-
-    public get players(): PlayersClient {
-        return (this.#players ??= new PlayersClient(this.options));
     }
 
     #regions: RegionsClient | undefined;

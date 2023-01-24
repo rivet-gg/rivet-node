@@ -1,6 +1,6 @@
 {
     "name": "@fern-api/rivet",
-    "version": "0.0.38",
+    "version": "0.0.53",
     "repository": "https://github.com/rivet-gg/rivet-node",
     "files": [
         "dist",

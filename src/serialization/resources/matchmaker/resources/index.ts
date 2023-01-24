@@ -4,4 +4,3 @@ export * as lobbies from "./lobbies";
 export * from "./lobbies/types";
 export * as regions from "./regions";
 export * from "./regions/types";
-export * as players from "./players";
