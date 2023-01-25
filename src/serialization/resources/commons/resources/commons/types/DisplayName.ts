@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetApi } from "@fern-api/rivet";
+import { RivetApi } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const DisplayName: core.serialization.Schema<serializers.commons.DisplayName.Raw, RivetApi.commons.DisplayName> =

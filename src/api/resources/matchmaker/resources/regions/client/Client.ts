@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { RivetApi } from "@fern-api/rivet";
+import { RivetApi } from "@rivet-gg/api";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";

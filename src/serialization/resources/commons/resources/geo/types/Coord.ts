@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetApi } from "@fern-api/rivet";
+import { RivetApi } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const Coord: core.serialization.ObjectSchema<serializers.commons.Coord.Raw, RivetApi.commons.Coord> =
