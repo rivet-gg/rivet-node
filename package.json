@@ -1,6 +1,6 @@
 {
     "name": "@rivet-gg/api",
-    "version": "0.0.1-rc5",
+    "version": "v0.0.1-rc8",
     "repository": "https://github.com/rivet-gg/rivet-node",
     "files": [
         "dist",
@@ -51,7 +51,7 @@
         "@types/node": "17.0.33",
         "esbuild": "0.16.15",
         "prettier": "2.7.1",
-        "tsc-alias": "^1.7.1",
+        "tsc-alias": "1.7.1",
         "typescript": "4.6.4"
     },
     "packageManager": "yarn@3.2.4"

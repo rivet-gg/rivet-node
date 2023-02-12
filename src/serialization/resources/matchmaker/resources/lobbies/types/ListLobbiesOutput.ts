@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetApi } from "@rivet-gg/api";
+import { Rivet } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const ListLobbiesOutput: core.serialization.ObjectSchema<
     serializers.matchmaker.ListLobbiesOutput.Raw,
-    RivetApi.matchmaker.ListLobbiesOutput
+    Rivet.matchmaker.ListLobbiesOutput
 > = core.serialization.object({
     gameModes: core.serialization.property(
         "game_modes",

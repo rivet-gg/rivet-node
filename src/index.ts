@@ -1,4 +1,4 @@
-export * as RivetApi from "./api";
-export { RivetApiClient } from "./Client";
-export { RivetApiEnvironment, RivetApiEnvironmentUrls } from "./environments";
-export { RivetApiError, RivetApiTimeoutError } from "./errors";
+export * as Rivet from "./api";
+export { RivetClient } from "./Client";
+export { RivetEnvironment, RivetEnvironmentUrls } from "./environments";
+export { RivetError, RivetTimeoutError } from "./errors";

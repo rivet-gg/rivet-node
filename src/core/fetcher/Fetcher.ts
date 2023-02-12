@@ -15,6 +15,7 @@ export declare namespace Fetcher {
         queryParameters?: URLSearchParams;
         body?: unknown;
         timeoutMs?: number;
+        withCredentials?: boolean;
     }
 
     export type Error = FailedStatusCodeError | NonJsonError | TimeoutError | UnknownError;
@@ -22,7 +23,6 @@ export declare namespace Fetcher {
     export interface FailedStatusCodeError {
         reason: "status-code";
         statusCode: number;
-        rawBody: string | undefined;
         body: unknown;
     }
 
@@ -68,7 +68,7 @@ export const fetcher: FetchFunction = async (args) => {
             transitional: {
                 clarifyTimeoutError: true,
             },
-            withCredentials: true,
+            withCredentials: args.withCredentials,
         });
 
         let body: unknown;
@@ -98,7 +98,6 @@ export const fetcher: FetchFunction = async (args) => {
                 error: {
                     reason: "status-code",
                     statusCode: response.status,
-                    rawBody: response.data,
                     body,
                 },
             };

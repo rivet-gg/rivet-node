@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { RivetApi } from "@rivet-gg/api";
+import { Rivet } from "@rivet-gg/api";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.RivetApiEnvironment | environments.RivetApiEnvironmentUrls;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -24,41 +24,39 @@ export class Client {
      * Does not shutdown the lobby.
      *
      */
-    public async setClosed(request: RivetApi.matchmaker.SetLobbyClosedInput): Promise<void> {
+    public async setClosed(request: Rivet.matchmaker.SetLobbyClosedInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetApiEnvironment.Production).Matchmaking,
+                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
                 "/lobbies/closed"
             ),
             method: "PUT",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.matchmaker.lobbies.setClosed.Request.json({
-                isClosed: request.isClosed,
-            }),
+            body: await serializers.matchmaker.SetLobbyClosedInput.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.RivetApiError({
+            throw new errors.RivetError({
                 statusCode: _response.error.statusCode,
-                responseBody: _response.error.rawBody,
+                body: _response.error.body,
             });
         }
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     statusCode: _response.error.statusCode,
-                    responseBody: _response.error.rawBody,
+                    body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.RivetApiTimeoutError();
+                throw new errors.RivetTimeoutError();
             case "unknown":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -70,47 +68,44 @@ export class Client {
      * a new lobby will be created.
      *
      */
-    public async find(request: RivetApi.matchmaker.FindLobbyInput): Promise<RivetApi.matchmaker.FindLobbyOutput> {
+    public async find(request: Rivet.matchmaker.FindLobbyInput): Promise<Rivet.matchmaker.FindLobbyOutput> {
+        const { origin, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetApiEnvironment.Production).Matchmaking,
+                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
                 "/lobbies/find"
             ),
             method: "POST",
             headers: {
-                origin: request.origin,
+                origin: origin,
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.matchmaker.lobbies.find.Request.json({
-                gameModes: request.gameModes,
-                regions: request.regions,
-                preventAutoCreateLobby: request.preventAutoCreateLobby,
-                captcha: request.captcha,
-            }),
+            body: await serializers.matchmaker.FindLobbyInput.jsonOrThrow(_body),
         });
         if (_response.ok) {
-            return await serializers.matchmaker.lobbies.find.Response.parse(
-                _response.body as serializers.matchmaker.lobbies.find.Response.Raw
+            return await serializers.matchmaker.FindLobbyOutput.parseOrThrow(
+                _response.body as serializers.matchmaker.FindLobbyOutput.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.RivetApiError({
+            throw new errors.RivetError({
                 statusCode: _response.error.statusCode,
-                responseBody: _response.error.rawBody,
+                body: _response.error.body,
             });
         }
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     statusCode: _response.error.statusCode,
-                    responseBody: _response.error.rawBody,
+                    body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.RivetApiTimeoutError();
+                throw new errors.RivetTimeoutError();
             case "unknown":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -122,44 +117,42 @@ export class Client {
      * lobby group.
      *
      */
-    public async join(request: RivetApi.matchmaker.JoinLobbyInput): Promise<RivetApi.matchmaker.JoinLobbyOutput> {
+    public async join(request: Rivet.matchmaker.JoinLobbyInput): Promise<Rivet.matchmaker.JoinLobbyOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetApiEnvironment.Production).Matchmaking,
+                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
                 "/lobbies/join"
             ),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.matchmaker.lobbies.join.Request.json({
-                lobbyId: request.lobbyId,
-                captcha: request.captcha,
-            }),
+            body: await serializers.matchmaker.JoinLobbyInput.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.matchmaker.lobbies.join.Response.parse(
-                _response.body as serializers.matchmaker.lobbies.join.Response.Raw
+            return await serializers.matchmaker.JoinLobbyOutput.parseOrThrow(
+                _response.body as serializers.matchmaker.JoinLobbyOutput.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.RivetApiError({
+            throw new errors.RivetError({
                 statusCode: _response.error.statusCode,
-                responseBody: _response.error.rawBody,
+                body: _response.error.body,
             });
         }
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     statusCode: _response.error.statusCode,
-                    responseBody: _response.error.rawBody,
+                    body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.RivetApiTimeoutError();
+                throw new errors.RivetTimeoutError();
             case "unknown":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -168,10 +161,10 @@ export class Client {
     /**
      * Lists all open lobbies.
      */
-    public async list(): Promise<RivetApi.matchmaker.ListLobbiesOutput> {
+    public async list(): Promise<Rivet.matchmaker.ListLobbiesOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetApiEnvironment.Production).Matchmaking,
+                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
                 "/lobbies/list"
             ),
             method: "GET",
@@ -180,28 +173,29 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.matchmaker.lobbies.list.Response.parse(
-                _response.body as serializers.matchmaker.lobbies.list.Response.Raw
+            return await serializers.matchmaker.ListLobbiesOutput.parseOrThrow(
+                _response.body as serializers.matchmaker.ListLobbiesOutput.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.RivetApiError({
+            throw new errors.RivetError({
                 statusCode: _response.error.statusCode,
-                responseBody: _response.error.rawBody,
+                body: _response.error.body,
             });
         }
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     statusCode: _response.error.statusCode,
-                    responseBody: _response.error.rawBody,
+                    body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.RivetApiTimeoutError();
+                throw new errors.RivetTimeoutError();
             case "unknown":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     message: _response.error.errorMessage,
                 });
         }

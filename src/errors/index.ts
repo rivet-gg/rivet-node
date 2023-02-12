@@ -1,2 +1,2 @@
-export { RivetApiError } from "./RivetApiError";
-export { RivetApiTimeoutError } from "./RivetApiTimeoutError";
+export { RivetError } from "./RivetError";
+export { RivetTimeoutError } from "./RivetTimeoutError";

@@ -9,7 +9,7 @@ import { Client as RegionsClient } from "../resources/regions/client/Client";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.RivetApiEnvironment | environments.RivetApiEnvironmentUrls;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken>;
     }
 }

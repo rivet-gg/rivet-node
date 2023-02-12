@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { RivetApi } from "@rivet-gg/api";
+import { Rivet } from "@rivet-gg/api";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.RivetApiEnvironment | environments.RivetApiEnvironmentUrls;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -21,45 +21,42 @@ export class Client {
 
     /**
      * Returns a list of regions available to this namespace.
-     *
      * Regions are sorted by most optimal to least optimal. The player's IP address
      * is used to calculate the regions' optimality.
      *
      */
-    public async list(): Promise<RivetApi.matchmaker.ListRegionsOutput> {
+    public async list(): Promise<Rivet.matchmaker.ListRegionsOutput> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetApiEnvironment.Production).Matchmaking,
-                "/regions"
-            ),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker, "/regions"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
         });
         if (_response.ok) {
-            return await serializers.matchmaker.regions.list.Response.parse(
-                _response.body as serializers.matchmaker.regions.list.Response.Raw
+            return await serializers.matchmaker.ListRegionsOutput.parseOrThrow(
+                _response.body as serializers.matchmaker.ListRegionsOutput.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.RivetApiError({
+            throw new errors.RivetError({
                 statusCode: _response.error.statusCode,
-                responseBody: _response.error.rawBody,
+                body: _response.error.body,
             });
         }
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     statusCode: _response.error.statusCode,
-                    responseBody: _response.error.rawBody,
+                    body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.RivetApiTimeoutError();
+                throw new errors.RivetTimeoutError();
             case "unknown":
-                throw new errors.RivetApiError({
+                throw new errors.RivetError({
                     message: _response.error.errorMessage,
                 });
         }

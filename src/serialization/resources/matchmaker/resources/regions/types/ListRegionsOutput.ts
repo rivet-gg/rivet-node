@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetApi } from "@rivet-gg/api";
+import { Rivet } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const ListRegionsOutput: core.serialization.ObjectSchema<
     serializers.matchmaker.ListRegionsOutput.Raw,
-    RivetApi.matchmaker.ListRegionsOutput
+    Rivet.matchmaker.ListRegionsOutput
 > = core.serialization.object({
     regions: core.serialization.list(
         core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.RegionInfo)

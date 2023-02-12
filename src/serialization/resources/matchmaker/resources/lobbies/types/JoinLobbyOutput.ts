@@ -3,18 +3,25 @@
  */
 
 import * as serializers from "../../../../..";
-import { RivetApi } from "@rivet-gg/api";
+import { Rivet } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const JoinLobbyOutput: core.serialization.ObjectSchema<
     serializers.matchmaker.JoinLobbyOutput.Raw,
-    RivetApi.matchmaker.JoinLobbyOutput
+    Rivet.matchmaker.JoinLobbyOutput
 > = core.serialization.object({
-    lobby: core.serialization.lazyObject(async () => (await import("../../../../..")).commons.MatchmakerLobbyJoinInfo),
+    lobby: core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinLobby),
+    ports: core.serialization.record(
+        core.serialization.string(),
+        core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPort).optional()
+    ),
+    player: core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPlayer),
 });
 
 export declare namespace JoinLobbyOutput {
     interface Raw {
-        lobby: serializers.commons.MatchmakerLobbyJoinInfo.Raw;
+        lobby: serializers.matchmaker.JoinLobby.Raw;
+        ports: Record<string, serializers.matchmaker.JoinPort.Raw | null | undefined>;
+        player: serializers.matchmaker.JoinPlayer.Raw;
     }
 }
