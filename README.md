@@ -1,6 +1,6 @@
 # Rivet Node Library
 
-[![npm shield](https://img.shields.io/npm/v/@fern-api/rivet)](https://www.npmjs.com/package/@fern-api/rivet)
+[![npm shield](https://img.shields.io/npm/v/@rivet-gg/api)](https://www.npmjs.com/package/@fern-api/rivet)
 
 The Rivet Node.js library provides access to the Rivet API from JavaScript/TypeScript.
 
@@ -10,10 +10,10 @@ API documentation is available at <https://docs.rivet.gg/docs/api/>.
 
 ## Usage
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-wzb8cf?file=app.ts&view=editor)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-rr1yzn?file=app.ts&view=editor)
 
 ```typescript
-import { RivetApiClient } from '@fern-api/rivet';
+import { RivetApiClient } from '@rivet-gg/api';
 
 void main();
 
