@@ -4,12 +4,13 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Client as AuthClient } from "./api/resources/auth/client/Client";
 import { Client as ChatClient } from "./api/resources/chat/client/Client";
+import { Client as CloudClient } from "./api/resources/cloud/client/Client";
+import { Client as GroupClient } from "./api/resources/group/client/Client";
+import { Client as IdentityClient } from "./api/resources/identity/client/Client";
 import { Client as KvClient } from "./api/resources/kv/client/Client";
 import { Client as MatchmakerClient } from "./api/resources/matchmaker/client/Client";
 import { Client as PartyClient } from "./api/resources/party/client/Client";
-import { Client as IdentityClient } from "./api/resources/identity/client/Client";
 
 export declare namespace RivetClient {
     interface Options {
@@ -21,16 +22,28 @@ export declare namespace RivetClient {
 export class RivetClient {
     constructor(private readonly options: RivetClient.Options) {}
 
-    #auth: AuthClient | undefined;
-
-    public get auth(): AuthClient {
-        return (this.#auth ??= new AuthClient(this.options));
-    }
-
     #chat: ChatClient | undefined;
 
     public get chat(): ChatClient {
         return (this.#chat ??= new ChatClient(this.options));
+    }
+
+    #cloud: CloudClient | undefined;
+
+    public get cloud(): CloudClient {
+        return (this.#cloud ??= new CloudClient(this.options));
+    }
+
+    #group: GroupClient | undefined;
+
+    public get group(): GroupClient {
+        return (this.#group ??= new GroupClient(this.options));
+    }
+
+    #identity: IdentityClient | undefined;
+
+    public get identity(): IdentityClient {
+        return (this.#identity ??= new IdentityClient(this.options));
     }
 
     #kv: KvClient | undefined;
@@ -49,11 +62,5 @@ export class RivetClient {
 
     public get party(): PartyClient {
         return (this.#party ??= new PartyClient(this.options));
-    }
-
-    #identity: IdentityClient | undefined;
-
-    public get identity(): IdentityClient {
-        return (this.#identity ??= new IdentityClient(this.options));
     }
 }

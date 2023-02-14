@@ -1,0 +1,1 @@
+export { GetGameLinkInput } from "./GetGameLinkInput";

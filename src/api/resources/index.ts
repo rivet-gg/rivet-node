@@ -1,6 +1,6 @@
-export * as auth from "./auth";
 export * as captcha from "./captcha";
 export * as chat from "./chat";
+export * as cloud from "./cloud";
 export * as common from "./common";
 export * from "./common/types";
 export * as game from "./game";
@@ -10,3 +10,4 @@ export * as identity from "./identity";
 export * as kv from "./kv";
 export * as matchmaker from "./matchmaker";
 export * as party from "./party";
+export * as upload from "./upload";

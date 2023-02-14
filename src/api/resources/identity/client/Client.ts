@@ -8,6 +8,8 @@ import { Rivet } from "@rivet-gg/api";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
+import { Client as EventsClient } from "../resources/events/client/Client";
+import { Client as LinksClient } from "../resources/links/client/Client";
 
 export declare namespace Client {
     interface Options {
@@ -70,5 +72,855 @@ export class Client {
                     message: _response.error.errorMessage,
                 });
         }
+    }
+
+    /**
+     * Fetches an identity profile.
+     */
+    public async getProfile(
+        identityId: string,
+        request: Rivet.identity.GetProfileInput = {}
+    ): Promise<Rivet.identity.GetProfileOutput> {
+        const { watchIndex } = request;
+        const _queryParams = new URLSearchParams();
+        if (watchIndex != null) {
+            _queryParams.append("watch_index", watchIndex);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                `/identities/${identityId}/profile`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.GetProfileOutput.parseOrThrow(
+                _response.body as serializers.identity.GetProfileOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Fetches the current identity's profile.
+     */
+    public async getSelfProfile(
+        request: Rivet.identity.GetSelfProfileInput = {}
+    ): Promise<Rivet.identity.GetProfileOutput> {
+        const { watchIndex } = request;
+        const _queryParams = new URLSearchParams();
+        if (watchIndex != null) {
+            _queryParams.append("watch_index", watchIndex);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/self/profile"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.GetProfileOutput.parseOrThrow(
+                _response.body as serializers.identity.GetProfileOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Fetches a list of identity handles.
+     */
+    public async getHandles(request: Rivet.identity.GetHandlesInput): Promise<Rivet.identity.GetHandlesOutput> {
+        const { identityIds } = request;
+        const _queryParams = new URLSearchParams();
+        if (Array.isArray(identityIds)) {
+            for (const _item of identityIds) {
+                _queryParams.append("identity_ids", _item);
+            }
+        } else {
+            _queryParams.append("identity_ids", identityIds);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/batch/handle"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.GetHandlesOutput.parseOrThrow(
+                _response.body as serializers.identity.GetHandlesOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Fetches a list of identity summaries.
+     */
+    public async getSummaries(request: Rivet.identity.GetSummariesInput): Promise<Rivet.identity.GetSummariesOutput> {
+        const { identityIds } = request;
+        const _queryParams = new URLSearchParams();
+        if (Array.isArray(identityIds)) {
+            for (const _item of identityIds) {
+                _queryParams.append("identity_ids", _item);
+            }
+        } else {
+            _queryParams.append("identity_ids", identityIds);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/batch/summary"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.GetSummariesOutput.parseOrThrow(
+                _response.body as serializers.identity.GetSummariesOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Updates profile of the current identity.
+     */
+    public async updateProfile(request: Rivet.identity.UpdateProfileInput = {}): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/self/profile"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.UpdateProfileInput.jsonOrThrow(request),
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Validate contents of identity profile. Use to provide immediate feedback on profile changes before committing them.
+     */
+    public async validateProfile(request: Rivet.identity.ValidateProfileInput = {}): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/self/profile/validate"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.ValidateProfileInput.jsonOrThrow(request),
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Fuzzy search for identities.
+     */
+    public async search(request: Rivet.identity.SearchInput): Promise<Rivet.identity.SearchOutput> {
+        const { query, anchor, limit } = request;
+        const _queryParams = new URLSearchParams();
+        _queryParams.append("query", query);
+        if (anchor != null) {
+            _queryParams.append("anchor", anchor);
+        }
+
+        if (limit != null) {
+            _queryParams.append("limit", limit.toString());
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/search"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.SearchOutput.parseOrThrow(
+                _response.body as serializers.identity.SearchOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Sets the current identity's game activity. This activity will automatically be removed when the identity goes offline.
+     */
+    public async setGameActivity(request: Rivet.identity.SetGameActivityInput): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/self/activity"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.SetGameActivityInput.jsonOrThrow(request),
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Removes the current identity's game activity.
+     */
+    public async removeGameActivity(): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/self/activity"
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Updates the current identity's status.
+     */
+    public async updateStatus(request: Rivet.identity.UpdateStatusInput): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/identities/self/status"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.UpdateStatusInput.jsonOrThrow(request),
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Follows the given identity. In order for identities to be "friends", the other identity has to also follow this identity.
+     */
+    public async follow(identityId: string): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                `/identities/${identityId}/follow`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Unfollows the given identity.
+     */
+    public async unfollow(identityId: string): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                `/identities/${identityId}/follow`
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Prepares an avatar image upload. Complete upload with `CompleteIdentityAvatarUpload`.
+     */
+    public async prepareAvatarUpload(
+        request: Rivet.identity.PrepareAvatarUploadInput
+    ): Promise<Rivet.identity.PrepareAvatarUploadOutput> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/avatar-upload/prepare"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.PrepareAvatarUploadInput.jsonOrThrow(request),
+        });
+        if (_response.ok) {
+            return await serializers.identity.PrepareAvatarUploadOutput.parseOrThrow(
+                _response.body as serializers.identity.PrepareAvatarUploadOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Completes an avatar image upload. Must be called after the file upload process completes.
+     */
+    public async completeAvatarUpload(uploadId: string): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                `/identities/avatar-upload/${uploadId}/complete`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Creates an abuse report for an identity.
+     */
+    public async report(identityId: string, request: Rivet.identity.ReportIdentityInput): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                `/identities/${identityId}/report`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            body: await serializers.identity.ReportIdentityInput.jsonOrThrow(request),
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async listFollowers(
+        identityId: string,
+        request: Rivet.identity.ListFollowersInput = {}
+    ): Promise<Rivet.identity.ListFollowersOutput> {
+        const { anchor, limit } = request;
+        const _queryParams = new URLSearchParams();
+        if (anchor != null) {
+            _queryParams.append("anchor", anchor);
+        }
+
+        if (limit != null) {
+            _queryParams.append("limit", limit);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                `/identities/${identityId}/followers`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.ListFollowersOutput.parseOrThrow(
+                _response.body as serializers.identity.ListFollowersOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async listFriends(request: Rivet.identity.ListFriendsInput = {}): Promise<Rivet.identity.ListFriendsOutput> {
+        const { anchor, limit } = request;
+        const _queryParams = new URLSearchParams();
+        if (anchor != null) {
+            _queryParams.append("anchor", anchor);
+        }
+
+        if (limit != null) {
+            _queryParams.append("limit", limit);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                "/identities/self/friends"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.ListFriendsOutput.parseOrThrow(
+                _response.body as serializers.identity.ListFriendsOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async listMutualFriends(
+        identityId: string,
+        request: Rivet.identity.ListMutualFriendsInput = {}
+    ): Promise<Rivet.identity.ListMutualFriendsOutput> {
+        const { anchor, limit } = request;
+        const _queryParams = new URLSearchParams();
+        if (anchor != null) {
+            _queryParams.append("anchor", anchor);
+        }
+
+        if (limit != null) {
+            _queryParams.append("limit", limit);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                `/identities/${identityId}/mutual-friends`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.ListMutualFriendsOutput.parseOrThrow(
+                _response.body as serializers.identity.ListMutualFriendsOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    #events: EventsClient | undefined;
+
+    public get events(): EventsClient {
+        return (this.#events ??= new EventsClient(this.options));
+    }
+
+    #links: LinksClient | undefined;
+
+    public get links(): LinksClient {
+        return (this.#links ??= new LinksClient(this.options));
     }
 }

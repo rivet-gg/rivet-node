@@ -1,0 +1,1 @@
+export { GetDeviceLinkInput } from "./GetDeviceLinkInput";
