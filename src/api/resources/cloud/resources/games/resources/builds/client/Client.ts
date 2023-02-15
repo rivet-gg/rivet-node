@@ -25,7 +25,7 @@ export class Client {
     public async listGameBuilds(gameId: string): Promise<Rivet.cloud.games.ListGameBuildsOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/builds`
             ),
             method: "GET",
@@ -71,7 +71,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.CreateGameBuildOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/builds`
             ),
             method: "POST",

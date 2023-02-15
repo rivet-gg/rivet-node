@@ -25,7 +25,7 @@ export class Client {
     public async setPartyToIdle(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "/parties/self/activity"
             ),
             method: "DELETE",
@@ -59,9 +59,9 @@ export class Client {
         }
     }
 
-    #matchmaker: MatchmakerClient | undefined;
+    private _matchmaker: MatchmakerClient | undefined;
 
     public get matchmaker(): MatchmakerClient {
-        return (this.#matchmaker ??= new MatchmakerClient(this.options));
+        return (this._matchmaker ??= new MatchmakerClient(this.options));
     }
 }

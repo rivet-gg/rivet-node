@@ -25,7 +25,7 @@ export class Client {
     public async createJoinRequest(groupId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Group,
+                (this.options.environment ?? environments.RivetEnvironment.Production).group,
                 `/groups/${groupId}/join-request/`
             ),
             method: "POST",
@@ -69,7 +69,7 @@ export class Client {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Group,
+                (this.options.environment ?? environments.RivetEnvironment.Production).group,
                 `/groups/${groupId}/join-request//${identityId}`
             ),
             method: "POST",

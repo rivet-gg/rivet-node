@@ -36,7 +36,7 @@ export class Client {
         _queryParams.append("identity_link_token", identityLinkToken);
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities"
             ),
             method: "POST",
@@ -89,7 +89,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 `/identities/${identityId}/profile`
             ),
             method: "GET",
@@ -141,7 +141,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/self/profile"
             ),
             method: "GET",
@@ -195,7 +195,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/batch/handle"
             ),
             method: "GET",
@@ -249,7 +249,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/batch/summary"
             ),
             method: "GET",
@@ -293,7 +293,7 @@ export class Client {
     public async updateProfile(request: Rivet.identity.UpdateProfileInput = {}): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/self/profile"
             ),
             method: "POST",
@@ -334,7 +334,7 @@ export class Client {
     public async validateProfile(request: Rivet.identity.ValidateProfileInput = {}): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/self/profile/validate"
             ),
             method: "POST",
@@ -386,7 +386,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/search"
             ),
             method: "GET",
@@ -430,7 +430,7 @@ export class Client {
     public async setGameActivity(request: Rivet.identity.SetGameActivityInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/self/activity"
             ),
             method: "POST",
@@ -471,7 +471,7 @@ export class Client {
     public async removeGameActivity(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/self/activity"
             ),
             method: "DELETE",
@@ -511,7 +511,7 @@ export class Client {
     public async updateStatus(request: Rivet.identity.UpdateStatusInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/identities/self/status"
             ),
             method: "POST",
@@ -552,7 +552,7 @@ export class Client {
     public async follow(identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 `/identities/${identityId}/follow`
             ),
             method: "POST",
@@ -592,7 +592,7 @@ export class Client {
     public async unfollow(identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 `/identities/${identityId}/follow`
             ),
             method: "DELETE",
@@ -634,7 +634,7 @@ export class Client {
     ): Promise<Rivet.identity.PrepareAvatarUploadOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/avatar-upload/prepare"
             ),
             method: "POST",
@@ -678,7 +678,7 @@ export class Client {
     public async completeAvatarUpload(uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 `/identities/avatar-upload/${uploadId}/complete`
             ),
             method: "POST",
@@ -718,7 +718,7 @@ export class Client {
     public async report(identityId: string, request: Rivet.identity.ReportIdentityInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 `/identities/${identityId}/report`
             ),
             method: "POST",
@@ -769,7 +769,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 `/identities/${identityId}/followers`
             ),
             method: "GET",
@@ -807,6 +807,96 @@ export class Client {
         }
     }
 
+    public async listRecentFollowers(
+        request: Rivet.identity.ListRecentFollowersInput = {}
+    ): Promise<Rivet.identity.ListRecentFollowersOutput> {
+        const { count, watchIndex } = request;
+        const _queryParams = new URLSearchParams();
+        if (count != null) {
+            _queryParams.append("count", count.toString());
+        }
+
+        if (watchIndex != null) {
+            _queryParams.append("watch_index", watchIndex);
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
+                "/identities/self/recent-followers"
+            ),
+            method: "GET",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+            queryParameters: _queryParams,
+        });
+        if (_response.ok) {
+            return await serializers.identity.ListRecentFollowersOutput.parseOrThrow(
+                _response.body as serializers.identity.ListRecentFollowersOutput.Raw,
+                { allowUnknownKeys: true }
+            );
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async ignoreRecentFollower(identityId: string): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
+                `/identities/self/recent-followers/${identityId}/ignore`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+            },
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.RivetError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.RivetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.RivetTimeoutError();
+            case "unknown":
+                throw new errors.RivetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
     public async listFriends(request: Rivet.identity.ListFriendsInput = {}): Promise<Rivet.identity.ListFriendsOutput> {
         const { anchor, limit } = request;
         const _queryParams = new URLSearchParams();
@@ -820,7 +910,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/identities/self/friends"
             ),
             method: "GET",
@@ -874,7 +964,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 `/identities/${identityId}/mutual-friends`
             ),
             method: "GET",
@@ -912,15 +1002,15 @@ export class Client {
         }
     }
 
-    #events: EventsClient | undefined;
+    private _events: EventsClient | undefined;
 
     public get events(): EventsClient {
-        return (this.#events ??= new EventsClient(this.options));
+        return (this._events ??= new EventsClient(this.options));
     }
 
-    #links: LinksClient | undefined;
+    private _links: LinksClient | undefined;
 
     public get links(): LinksClient {
-        return (this.#links ??= new LinksClient(this.options));
+        return (this._links ??= new LinksClient(this.options));
     }
 }

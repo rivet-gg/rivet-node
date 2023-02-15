@@ -25,7 +25,7 @@ export class Client {
     public async findLobbyForParty(request: Rivet.party.activity.FindMatchmakerLobbyForPartyInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "/parties/self/activity/matchmaker/lobbies/find"
             ),
             method: "POST",
@@ -66,7 +66,7 @@ export class Client {
     public async joinLobbyForParty(request: Rivet.party.activity.JoinMatchmakerLobbyForPartyInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "/parties/self/activity/matchmaker/lobbies/join"
             ),
             method: "POST",
@@ -104,7 +104,7 @@ export class Client {
     public async requestPlayer(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "/parties/self/members/self/matchmaker/request-player"
             ),
             method: "POST",

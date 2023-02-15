@@ -25,7 +25,7 @@ export class Client {
     public async listGameCustomAvatars(gameId: string): Promise<Rivet.cloud.games.ListGameCustomAvatarsOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/avatars`
             ),
             method: "GET",
@@ -72,7 +72,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.PrepareCustomAvatarUploadOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/prepare`
             ),
             method: "POST",
@@ -116,7 +116,7 @@ export class Client {
     public async completeCustomAvatarUpload(gameId: string, uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/avatar-upload/${uploadId}/complete`
             ),
             method: "POST",

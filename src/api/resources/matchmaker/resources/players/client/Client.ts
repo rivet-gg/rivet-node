@@ -54,7 +54,7 @@ export class Client {
     public async connected(request: Rivet.matchmaker.PlayerConnectedInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/players/connected"
             ),
             method: "POST",
@@ -95,7 +95,7 @@ export class Client {
     public async disconnected(request: Rivet.matchmaker.PlayerDisconnectedInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/players/disconnected"
             ),
             method: "POST",

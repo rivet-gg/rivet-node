@@ -25,7 +25,7 @@ export class Client {
     public async listGameCdnSites(gameId: string): Promise<Rivet.cloud.games.ListGameCdnSitesOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/cdn/sites/`
             ),
             method: "GET",
@@ -71,7 +71,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.CreateGameCdnSiteOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/cdn/sites/`
             ),
             method: "POST",

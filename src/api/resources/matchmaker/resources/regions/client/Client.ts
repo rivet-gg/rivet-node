@@ -27,7 +27,7 @@ export class Client {
      */
     public async list(): Promise<Rivet.matchmaker.ListRegionsOutput> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker, "/regions"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).matchmaker, "/regions"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),

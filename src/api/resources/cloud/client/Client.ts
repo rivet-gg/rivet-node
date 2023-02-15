@@ -22,45 +22,45 @@ export declare namespace Client {
 export class Client {
     constructor(private readonly options: Client.Options) {}
 
-    #auth: AuthClient | undefined;
+    private _auth: AuthClient | undefined;
 
     public get auth(): AuthClient {
-        return (this.#auth ??= new AuthClient(this.options));
+        return (this._auth ??= new AuthClient(this.options));
     }
 
-    #devices: DevicesClient | undefined;
+    private _devices: DevicesClient | undefined;
 
     public get devices(): DevicesClient {
-        return (this.#devices ??= new DevicesClient(this.options));
+        return (this._devices ??= new DevicesClient(this.options));
     }
 
-    #games: GamesClient | undefined;
+    private _games: GamesClient | undefined;
 
     public get games(): GamesClient {
-        return (this.#games ??= new GamesClient(this.options));
+        return (this._games ??= new GamesClient(this.options));
     }
 
-    #groups: GroupsClient | undefined;
+    private _groups: GroupsClient | undefined;
 
     public get groups(): GroupsClient {
-        return (this.#groups ??= new GroupsClient(this.options));
+        return (this._groups ??= new GroupsClient(this.options));
     }
 
-    #logs: LogsClient | undefined;
+    private _logs: LogsClient | undefined;
 
     public get logs(): LogsClient {
-        return (this.#logs ??= new LogsClient(this.options));
+        return (this._logs ??= new LogsClient(this.options));
     }
 
-    #tiers: TiersClient | undefined;
+    private _tiers: TiersClient | undefined;
 
     public get tiers(): TiersClient {
-        return (this.#tiers ??= new TiersClient(this.options));
+        return (this._tiers ??= new TiersClient(this.options));
     }
 
-    #uploads: UploadsClient | undefined;
+    private _uploads: UploadsClient | undefined;
 
     public get uploads(): UploadsClient {
-        return (this.#uploads ??= new UploadsClient(this.options));
+        return (this._uploads ??= new UploadsClient(this.options));
     }
 }

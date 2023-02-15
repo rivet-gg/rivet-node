@@ -34,7 +34,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Kv, "/entries/batch"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -75,7 +75,7 @@ export class Client {
      */
     public async putBatch(request: Rivet.kv.PutBatchInput): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Kv, "/entries/batch"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
             method: "PUT",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -119,7 +119,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Kv, "/entries/batch"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
             method: "DELETE",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),

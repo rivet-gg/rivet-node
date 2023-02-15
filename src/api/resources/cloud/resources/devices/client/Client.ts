@@ -16,9 +16,9 @@ export declare namespace Client {
 export class Client {
     constructor(private readonly options: Client.Options) {}
 
-    #links: LinksClient | undefined;
+    private _links: LinksClient | undefined;
 
     public get links(): LinksClient {
-        return (this.#links ??= new LinksClient(this.options));
+        return (this._links ??= new LinksClient(this.options));
     }
 }

@@ -25,7 +25,7 @@ export class Client {
     public async getInvite(groupInviteCode: string): Promise<Rivet.group.GetInviteOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Group,
+                (this.options.environment ?? environments.RivetEnvironment.Production).group,
                 `invites/${groupInviteCode}`
             ),
             method: "GET",
@@ -68,7 +68,7 @@ export class Client {
     public async consumeInvite(groupInviteCode: string): Promise<Rivet.group.ConsumeInviteOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Group,
+                (this.options.environment ?? environments.RivetEnvironment.Production).group,
                 `invites/${groupInviteCode}/consume`
             ),
             method: "POST",
@@ -114,7 +114,7 @@ export class Client {
     ): Promise<Rivet.group.CreateInviteOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Group,
+                (this.options.environment ?? environments.RivetEnvironment.Production).group,
                 `groups/${groupId}/invites`
             ),
             method: "POST",

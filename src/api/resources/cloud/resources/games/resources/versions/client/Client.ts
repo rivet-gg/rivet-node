@@ -28,7 +28,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.CreateGameVersionOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/versions/`
             ),
             method: "POST",
@@ -75,7 +75,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.ValidateGameVersionOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/versions//validate`
             ),
             method: "POST",
@@ -122,7 +122,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.GetGameVersionByIdOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/versions//${versionId}`
             ),
             method: "GET",

@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "extendedDiagnostics": true,
         "strict": true,
         "target": "esnext",
         "module": "esnext",

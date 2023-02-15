@@ -23,7 +23,7 @@ export class Client {
     public async completeUpload(uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/uploads/${uploadId}/complete`
             ),
             method: "POST",

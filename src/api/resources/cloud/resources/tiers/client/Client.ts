@@ -24,7 +24,7 @@ export class Client {
      */
     public async getRegionTiers(): Promise<Rivet.cloud.GetRegionTiersOutput> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Cloud, "/region-tiers"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).cloud, "/region-tiers"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),

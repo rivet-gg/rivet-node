@@ -34,7 +34,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Party, "invites"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).party, "invites"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -75,7 +75,7 @@ export class Client {
      */
     public async create(request: Rivet.party.CreateInput): Promise<Rivet.party.CreateOutput> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Party, "parties"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).party, "parties"),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -116,7 +116,7 @@ export class Client {
      */
     public async join(request: Rivet.party.JoinInput): Promise<Rivet.party.JoinOutput> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Party, "parties/join"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).party, "parties/join"),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -158,7 +158,7 @@ export class Client {
     public async createInvite(request: Rivet.party.CreateInviteInput): Promise<Rivet.party.CreateInviteOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "parties/self/invites"
             ),
             method: "POST",
@@ -203,7 +203,7 @@ export class Client {
     public async revokeInvite(inviteId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 `parties/self/invites/${inviteId}`
             ),
             method: "DELETE",
@@ -243,7 +243,7 @@ export class Client {
     public async leave(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "parties/self/leave"
             ),
             method: "POST",
@@ -284,7 +284,7 @@ export class Client {
     public async kickMember(identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 `parties/self/members/${identityId}/kick`
             ),
             method: "POST",
@@ -325,7 +325,7 @@ export class Client {
     public async transferOwnership(identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 `parties/self/members/${identityId}/transfer-ownership`
             ),
             method: "POST",
@@ -373,7 +373,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "parties/self/profile"
             ),
             method: "GET",
@@ -419,7 +419,7 @@ export class Client {
     public async setPublicity(request: Rivet.party.SetPublicityInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "parties/self/publicity"
             ),
             method: "PUT",
@@ -468,7 +468,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 "parties/self/summary"
             ),
             method: "GET",
@@ -509,7 +509,7 @@ export class Client {
     public async sendJoinRequest(partyId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 `parties/${partyId}/join-request/send`
             ),
             method: "POST",
@@ -558,7 +558,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 `parties/${partyId}/profile`
             ),
             method: "GET",
@@ -611,7 +611,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Party,
+                (this.options.environment ?? environments.RivetEnvironment.Production).party,
                 `parties/${partyId}/summary`
             ),
             method: "GET",

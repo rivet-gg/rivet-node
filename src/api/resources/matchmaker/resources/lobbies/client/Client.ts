@@ -25,7 +25,7 @@ export class Client {
     public async ready(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/ready"
             ),
             method: "POST",
@@ -67,7 +67,7 @@ export class Client {
     public async setClosed(request: Rivet.matchmaker.SetLobbyClosedInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/closed"
             ),
             method: "PUT",
@@ -112,7 +112,7 @@ export class Client {
         const { origin, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/find"
             ),
             method: "POST",
@@ -160,7 +160,7 @@ export class Client {
     public async join(request: Rivet.matchmaker.JoinLobbyInput): Promise<Rivet.matchmaker.JoinLobbyOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/join"
             ),
             method: "POST",
@@ -204,7 +204,7 @@ export class Client {
     public async list(): Promise<Rivet.matchmaker.ListLobbiesOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/list"
             ),
             method: "GET",

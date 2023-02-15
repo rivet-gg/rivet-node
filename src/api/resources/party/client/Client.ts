@@ -17,15 +17,15 @@ export declare namespace Client {
 export class Client {
     constructor(private readonly options: Client.Options) {}
 
-    #activity: ActivityClient | undefined;
+    private _activity: ActivityClient | undefined;
 
     public get activity(): ActivityClient {
-        return (this.#activity ??= new ActivityClient(this.options));
+        return (this._activity ??= new ActivityClient(this.options));
     }
 
-    #parties: PartiesClient | undefined;
+    private _parties: PartiesClient | undefined;
 
     public get parties(): PartiesClient {
-        return (this.#parties ??= new PartiesClient(this.options));
+        return (this._parties ??= new PartiesClient(this.options));
     }
 }

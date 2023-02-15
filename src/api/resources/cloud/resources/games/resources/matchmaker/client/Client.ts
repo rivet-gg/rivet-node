@@ -28,7 +28,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.ExportMatchmakerLobbyHistoryOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/matchmaker/lobbies//export-history`
             ),
             method: "POST",
@@ -75,7 +75,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.DeleteMatchmakerLobbyOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/matchmaker/lobbies//${lobbyId}`
             ),
             method: "DELETE",
@@ -129,7 +129,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/matchmaker/lobbies//${lobbyId}/logs`
             ),
             method: "GET",
@@ -177,7 +177,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.ExportLobbyLogsOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/matchmaker/lobbies//${lobbyId}/logs/export`
             ),
             method: "POST",

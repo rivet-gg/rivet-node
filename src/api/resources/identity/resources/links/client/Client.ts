@@ -37,7 +37,7 @@ export class Client {
     public async prepare(): Promise<Rivet.identity.PrepareGameLinkOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/game-links"
             ),
             method: "POST",
@@ -87,7 +87,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/game-links"
             ),
             method: "GET",

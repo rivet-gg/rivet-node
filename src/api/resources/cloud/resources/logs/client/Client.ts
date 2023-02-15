@@ -25,7 +25,7 @@ export class Client {
     public async getRayPerfLogs(rayId: string): Promise<Rivet.cloud.GetRayPerfLogsOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/rays/${rayId}/perf`
             ),
             method: "GET",

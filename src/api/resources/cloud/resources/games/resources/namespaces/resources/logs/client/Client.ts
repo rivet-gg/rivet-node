@@ -35,7 +35,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/namespaces/${namespaceId}/logs/lobbies`
             ),
             method: "GET",
@@ -83,7 +83,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.GetNamespaceLobbyOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/namespaces/${namespaceId}/logs/lobbies/${lobbyId}`
             ),
             method: "GET",

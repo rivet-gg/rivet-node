@@ -25,7 +25,7 @@ export class Client {
     public async getDirectThread(identityId: string): Promise<Rivet.chat.GetDirectThreadOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Chat,
+                (this.options.environment ?? environments.RivetEnvironment.Production).chat,
                 `/identities/${identityId}/thread`
             ),
             method: "GET",

@@ -5,5 +5,6 @@ export * from "./GetSummariesOutput";
 export * from "./SearchOutput";
 export * from "./PrepareAvatarUploadOutput";
 export * from "./ListFollowersOutput";
+export * from "./ListRecentFollowersOutput";
 export * from "./ListFriendsOutput";
 export * from "./ListMutualFriendsOutput";

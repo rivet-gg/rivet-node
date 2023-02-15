@@ -25,7 +25,7 @@ export class Client {
     public async createCloudToken(gameId: string): Promise<Rivet.cloud.games.CreateCloudTokenOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/tokens/cloud`
             ),
             method: "POST",

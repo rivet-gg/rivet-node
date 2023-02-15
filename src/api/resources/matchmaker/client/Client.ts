@@ -18,21 +18,21 @@ export declare namespace Client {
 export class Client {
     constructor(private readonly options: Client.Options) {}
 
-    #lobbies: LobbiesClient | undefined;
+    private _lobbies: LobbiesClient | undefined;
 
     public get lobbies(): LobbiesClient {
-        return (this.#lobbies ??= new LobbiesClient(this.options));
+        return (this._lobbies ??= new LobbiesClient(this.options));
     }
 
-    #players: PlayersClient | undefined;
+    private _players: PlayersClient | undefined;
 
     public get players(): PlayersClient {
-        return (this.#players ??= new PlayersClient(this.options));
+        return (this._players ??= new PlayersClient(this.options));
     }
 
-    #regions: RegionsClient | undefined;
+    private _regions: RegionsClient | undefined;
 
     public get regions(): RegionsClient {
-        return (this.#regions ??= new RegionsClient(this.options));
+        return (this._regions ??= new RegionsClient(this.options));
     }
 }

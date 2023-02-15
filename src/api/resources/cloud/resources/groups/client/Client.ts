@@ -25,7 +25,7 @@ export class Client {
     public async validateGroup(request: Rivet.cloud.ValidateGroupInput): Promise<Rivet.cloud.ValidateGroupOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 "/groups/validate"
             ),
             method: "POST",
@@ -82,7 +82,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/groups/${groupId}/billing`
             ),
             method: "GET",
@@ -139,7 +139,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/groups/${groupId}/billing/invoices`
             ),
             method: "GET",
@@ -192,7 +192,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/groups/${groupId}/billing/payments`
             ),
             method: "GET",
@@ -245,7 +245,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/groups/${groupId}/billing/transfers`
             ),
             method: "GET",
@@ -292,7 +292,7 @@ export class Client {
     ): Promise<Rivet.cloud.GroupBillingCheckoutOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/groups/${groupId}/checkout`
             ),
             method: "POST",
@@ -336,7 +336,7 @@ export class Client {
     public async convertGroup(groupId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/groups/${groupId}/convert`
             ),
             method: "POST",

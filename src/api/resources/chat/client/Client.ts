@@ -25,7 +25,7 @@ export class Client {
      */
     public async sendMessage(request: Rivet.chat.SendMessageInput): Promise<Rivet.chat.SendMessageOutput> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Chat, "messages"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).chat, "messages"),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -82,7 +82,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Chat,
+                (this.options.environment ?? environments.RivetEnvironment.Production).chat,
                 `threads/${threadId}/history`
             ),
             method: "GET",
@@ -136,7 +136,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Chat,
+                (this.options.environment ?? environments.RivetEnvironment.Production).chat,
                 `threads/${threadId}/live`
             ),
             method: "GET",
@@ -180,7 +180,7 @@ export class Client {
     public async setThreadRead(threadId: string, request: Rivet.chat.SetThreadReadInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Chat,
+                (this.options.environment ?? environments.RivetEnvironment.Production).chat,
                 `threads/${threadId}/read`
             ),
             method: "POST",
@@ -221,7 +221,7 @@ export class Client {
     public async getThreadTopic(threadId: string): Promise<Rivet.chat.GetThreadTopicOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Chat,
+                (this.options.environment ?? environments.RivetEnvironment.Production).chat,
                 `threads/${threadId}/topic`
             ),
             method: "GET",
@@ -264,7 +264,7 @@ export class Client {
     public async setTypingStatus(threadId: string, request: Rivet.chat.SetTypingStatusInput): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Chat,
+                (this.options.environment ?? environments.RivetEnvironment.Production).chat,
                 `threads/${threadId}/typing-status`
             ),
             method: "PUT",
@@ -299,9 +299,9 @@ export class Client {
         }
     }
 
-    #identity: IdentityClient | undefined;
+    private _identity: IdentityClient | undefined;
 
     public get identity(): IdentityClient {
-        return (this.#identity ??= new IdentityClient(this.options));
+        return (this._identity ??= new IdentityClient(this.options));
     }
 }

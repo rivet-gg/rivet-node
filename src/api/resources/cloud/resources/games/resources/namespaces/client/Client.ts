@@ -30,7 +30,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.CreateGameNamespaceOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces`
             ),
             method: "POST",
@@ -77,7 +77,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.ValidateGameNamespaceOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/validate`
             ),
             method: "POST",
@@ -124,7 +124,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.GetGameNamespaceByIdOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}`
             ),
             method: "GET",
@@ -171,7 +171,7 @@ export class Client {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/auth-user`
             ),
             method: "POST",
@@ -212,7 +212,7 @@ export class Client {
     public async removeNamespaceCdnAuthUser(gameId: string, namespaceId: string, user: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/auth-user/${user}`
             ),
             method: "DELETE",
@@ -256,7 +256,7 @@ export class Client {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/cdn-auth`
             ),
             method: "PUT",
@@ -301,7 +301,7 @@ export class Client {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/domain-public-auth`
             ),
             method: "PUT",
@@ -346,7 +346,7 @@ export class Client {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/domains`
             ),
             method: "POST",
@@ -387,7 +387,7 @@ export class Client {
     public async removeNamespaceDomain(gameId: string, namespaceId: string, domain: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/domains/${domain}`
             ),
             method: "DELETE",
@@ -431,7 +431,7 @@ export class Client {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/mm-config`
             ),
             method: "POST",
@@ -478,7 +478,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.ValidateGameNamespaceMatchmakerConfigOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/mm-config/validate`
             ),
             method: "POST",
@@ -528,7 +528,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.CreateGameNamespaceTokenDevelopmentOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/tokens/development`
             ),
             method: "POST",
@@ -578,7 +578,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.ValidateGameNamespaceTokenDevelopmentOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/tokens/development/validate`
             ),
             method: "POST",
@@ -627,7 +627,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.CreateGameNamespaceTokenPublicOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/tokens/public`
             ),
             method: "POST",
@@ -674,7 +674,7 @@ export class Client {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/version`
             ),
             method: "PUT",
@@ -709,15 +709,15 @@ export class Client {
         }
     }
 
-    #analytics: AnalyticsClient | undefined;
+    private _analytics: AnalyticsClient | undefined;
 
     public get analytics(): AnalyticsClient {
-        return (this.#analytics ??= new AnalyticsClient(this.options));
+        return (this._analytics ??= new AnalyticsClient(this.options));
     }
 
-    #logs: LogsClient | undefined;
+    private _logs: LogsClient | undefined;
 
     public get logs(): LogsClient {
-        return (this.#logs ??= new LogsClient(this.options));
+        return (this._logs ??= new LogsClient(this.options));
     }
 }

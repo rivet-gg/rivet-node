@@ -22,45 +22,45 @@ export declare namespace RivetClient {
 export class RivetClient {
     constructor(private readonly options: RivetClient.Options) {}
 
-    #chat: ChatClient | undefined;
+    private _chat: ChatClient | undefined;
 
     public get chat(): ChatClient {
-        return (this.#chat ??= new ChatClient(this.options));
+        return (this._chat ??= new ChatClient(this.options));
     }
 
-    #cloud: CloudClient | undefined;
+    private _cloud: CloudClient | undefined;
 
     public get cloud(): CloudClient {
-        return (this.#cloud ??= new CloudClient(this.options));
+        return (this._cloud ??= new CloudClient(this.options));
     }
 
-    #group: GroupClient | undefined;
+    private _group: GroupClient | undefined;
 
     public get group(): GroupClient {
-        return (this.#group ??= new GroupClient(this.options));
+        return (this._group ??= new GroupClient(this.options));
     }
 
-    #identity: IdentityClient | undefined;
+    private _identity: IdentityClient | undefined;
 
     public get identity(): IdentityClient {
-        return (this.#identity ??= new IdentityClient(this.options));
+        return (this._identity ??= new IdentityClient(this.options));
     }
 
-    #kv: KvClient | undefined;
+    private _kv: KvClient | undefined;
 
     public get kv(): KvClient {
-        return (this.#kv ??= new KvClient(this.options));
+        return (this._kv ??= new KvClient(this.options));
     }
 
-    #matchmaker: MatchmakerClient | undefined;
+    private _matchmaker: MatchmakerClient | undefined;
 
     public get matchmaker(): MatchmakerClient {
-        return (this.#matchmaker ??= new MatchmakerClient(this.options));
+        return (this._matchmaker ??= new MatchmakerClient(this.options));
     }
 
-    #party: PartyClient | undefined;
+    private _party: PartyClient | undefined;
 
     public get party(): PartyClient {
-        return (this.#party ??= new PartyClient(this.options));
+        return (this._party ??= new PartyClient(this.options));
     }
 }

@@ -28,7 +28,7 @@ export class Client {
     ): Promise<Rivet.cloud.games.namespaces.GetNamespaceAnalyticsMatchmakerLiveOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/namespaces/${namespaceId}/analytics//matchmaker/live`
             ),
             method: "GET",

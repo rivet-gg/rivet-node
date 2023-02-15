@@ -31,7 +31,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/events/live"
             ),
             method: "GET",

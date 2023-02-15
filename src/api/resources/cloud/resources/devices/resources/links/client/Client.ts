@@ -22,7 +22,7 @@ export class Client {
     public async prepare(): Promise<Rivet.cloud.devices.PrepareDeviceLinkOutput> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 "/devices/links"
             ),
             method: "POST",
@@ -71,7 +71,7 @@ export class Client {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).Cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 "/devices/links"
             ),
             method: "GET",

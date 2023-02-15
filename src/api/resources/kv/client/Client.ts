@@ -36,7 +36,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Kv, "/entries"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -76,7 +76,7 @@ export class Client {
      */
     public async put(request: Rivet.kv.PutInput): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Kv, "/entries"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
             method: "PUT",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -121,7 +121,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Kv, "/entries"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
             method: "DELETE",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -154,9 +154,9 @@ export class Client {
         }
     }
 
-    #batch: BatchClient | undefined;
+    private _batch: BatchClient | undefined;
 
     public get batch(): BatchClient {
-        return (this.#batch ??= new BatchClient(this.options));
+        return (this._batch ??= new BatchClient(this.options));
     }
 }

@@ -24,7 +24,7 @@ export class Client {
      */
     public async inspect(): Promise<Rivet.cloud.InspectOutput> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).Cloud, "/auth/inspect"),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).cloud, "/auth/inspect"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),

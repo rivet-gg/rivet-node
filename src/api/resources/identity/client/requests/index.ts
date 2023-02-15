@@ -11,5 +11,6 @@ export { UpdateStatusInput } from "./UpdateStatusInput";
 export { PrepareAvatarUploadInput } from "./PrepareAvatarUploadInput";
 export { ReportIdentityInput } from "./ReportIdentityInput";
 export { ListFollowersInput } from "./ListFollowersInput";
+export { ListRecentFollowersInput } from "./ListRecentFollowersInput";
 export { ListFriendsInput } from "./ListFriendsInput";
 export { ListMutualFriendsInput } from "./ListMutualFriendsInput";

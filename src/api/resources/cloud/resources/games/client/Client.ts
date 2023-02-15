@@ -23,51 +23,51 @@ export declare namespace Client {
 export class Client {
     constructor(private readonly options: Client.Options) {}
 
-    #avatars: AvatarsClient | undefined;
+    private _avatars: AvatarsClient | undefined;
 
     public get avatars(): AvatarsClient {
-        return (this.#avatars ??= new AvatarsClient(this.options));
+        return (this._avatars ??= new AvatarsClient(this.options));
     }
 
-    #builds: BuildsClient | undefined;
+    private _builds: BuildsClient | undefined;
 
     public get builds(): BuildsClient {
-        return (this.#builds ??= new BuildsClient(this.options));
+        return (this._builds ??= new BuildsClient(this.options));
     }
 
-    #cdn: CdnClient | undefined;
+    private _cdn: CdnClient | undefined;
 
     public get cdn(): CdnClient {
-        return (this.#cdn ??= new CdnClient(this.options));
+        return (this._cdn ??= new CdnClient(this.options));
     }
 
-    #games: GamesClient | undefined;
+    private _games: GamesClient | undefined;
 
     public get games(): GamesClient {
-        return (this.#games ??= new GamesClient(this.options));
+        return (this._games ??= new GamesClient(this.options));
     }
 
-    #matchmaker: MatchmakerClient | undefined;
+    private _matchmaker: MatchmakerClient | undefined;
 
     public get matchmaker(): MatchmakerClient {
-        return (this.#matchmaker ??= new MatchmakerClient(this.options));
+        return (this._matchmaker ??= new MatchmakerClient(this.options));
     }
 
-    #namespaces: NamespacesClient | undefined;
+    private _namespaces: NamespacesClient | undefined;
 
     public get namespaces(): NamespacesClient {
-        return (this.#namespaces ??= new NamespacesClient(this.options));
+        return (this._namespaces ??= new NamespacesClient(this.options));
     }
 
-    #tokens: TokensClient | undefined;
+    private _tokens: TokensClient | undefined;
 
     public get tokens(): TokensClient {
-        return (this.#tokens ??= new TokensClient(this.options));
+        return (this._tokens ??= new TokensClient(this.options));
     }
 
-    #versions: VersionsClient | undefined;
+    private _versions: VersionsClient | undefined;
 
     public get versions(): VersionsClient {
-        return (this.#versions ??= new VersionsClient(this.options));
+        return (this._versions ??= new VersionsClient(this.options));
     }
 }
