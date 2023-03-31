@@ -14,5 +14,5 @@ export interface LobbyGroupRuntimeDockerPort {
     /** The port number to connect to. */
     targetPort?: number;
     portRange?: Rivet.cloud.version.matchmaker.PortRange;
-    proxyProtocol: Rivet.cloud.version.matchmaker.ProxyProtocol;
+    proxyProtocol: Rivet.cloud.version.matchmaker.PortProtocol;
 }

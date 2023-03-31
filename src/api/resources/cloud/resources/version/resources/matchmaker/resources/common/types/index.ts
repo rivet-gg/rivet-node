@@ -1,5 +1,6 @@
 export * from "./PortRange";
-export * from "./ProxyProtocol";
+export * from "./PortProtocol";
+export * from "./ProxyKind";
 export * from "./Captcha";
 export * from "./CaptchaHcaptcha";
 export * from "./CaptchaHcaptchaLevel";

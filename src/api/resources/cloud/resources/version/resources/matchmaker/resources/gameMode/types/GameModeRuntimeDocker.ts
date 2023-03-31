@@ -10,9 +10,11 @@ import { Rivet } from "@rivet-gg/api";
 export interface GameModeRuntimeDocker {
     /** Client-side configuration */
     dockerfile?: string;
+    /** Client-side configuration */
     image?: string;
+    imageId?: string;
     args?: string[];
-    env?: Record<string, string | undefined>;
+    env?: Record<string, string>;
     networkMode?: Rivet.cloud.version.matchmaker.NetworkMode;
-    ports?: Record<string, Rivet.cloud.version.matchmaker.GameModeRuntimeDockerPort | undefined>;
+    ports?: Record<string, Rivet.cloud.version.matchmaker.GameModeRuntimeDockerPort>;
 }

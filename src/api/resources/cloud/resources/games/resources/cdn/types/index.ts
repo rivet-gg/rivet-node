@@ -1,3 +1,3 @@
-export * from "./ListGameCdnSitesOutput";
-export * from "./CreateGameCdnSiteInput";
-export * from "./CreateGameCdnSiteOutput";
+export * from "./ListGameCdnSitesResponse";
+export * from "./CreateGameCdnSiteRequest";
+export * from "./CreateGameCdnSiteResponse";

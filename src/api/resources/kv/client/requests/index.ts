@@ -1,2 +1,2 @@
-export { GetOperationInput } from "./GetOperationInput";
-export { DeleteOperationInput } from "./DeleteOperationInput";
+export { GetOperationRequest } from "./GetOperationRequest";
+export { DeleteOperationRequest } from "./DeleteOperationRequest";

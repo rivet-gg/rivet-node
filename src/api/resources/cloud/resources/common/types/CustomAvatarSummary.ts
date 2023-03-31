@@ -6,7 +6,6 @@
  * A custom avatar summary.
  */
 export interface CustomAvatarSummary {
-    /** A universally unique identifier. */
     uploadId: string;
     /** Represent a resource's readable display name. */
     displayName: string;

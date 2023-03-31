@@ -5,7 +5,6 @@
 import { Rivet } from "@rivet-gg/api";
 
 export interface Profile {
-    /** A universally unique identifier. */
     partyId: string;
     /** RFC3339 timestamp. */
     createTs: Date;
@@ -16,7 +15,6 @@ export interface Profile {
     partySize?: number;
     /** A list of party members. */
     members: Rivet.party.MemberSummary[];
-    /** A universally unique identifier. */
     threadId: string;
     /** A list of party invites. */
     invites: Rivet.party.Invite[];

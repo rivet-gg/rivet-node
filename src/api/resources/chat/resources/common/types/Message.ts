@@ -7,5 +7,6 @@ import { Rivet } from "@rivet-gg/api";
 export interface Message {
     chatMessageId: string;
     threadId: string;
-    sendTs: Rivet.Timestamp;
+    sendTs: Date;
+    body: Rivet.chat.MessageBody;
 }

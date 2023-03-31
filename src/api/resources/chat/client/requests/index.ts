@@ -1,2 +1,2 @@
-export { GetThreadHistoryInput } from "./GetThreadHistoryInput";
-export { WatchThreadInput } from "./WatchThreadInput";
+export { GetThreadHistoryRequest } from "./GetThreadHistoryRequest";
+export { WatchThreadRequest } from "./WatchThreadRequest";

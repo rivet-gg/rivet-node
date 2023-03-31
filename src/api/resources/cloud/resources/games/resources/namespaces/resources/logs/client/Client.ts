@@ -9,28 +9,34 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../../../../../serialization";
 import * as errors from "../../../../../../../../../../errors";
 
-export declare namespace Client {
+export declare namespace Logs {
     interface Options {
         environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Logs {
+    constructor(private readonly options: Logs.Options) {}
 
     /**
      * Returns a list of lobbies for the given game namespace.
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async listNamespaceLobbies(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.ListNamespaceLobbiesInput = {}
-    ): Promise<Rivet.cloud.games.namespaces.ListNamespaceLobbiesOutput> {
+        request: Rivet.cloud.games.namespaces.ListNamespaceLobbiesRequest = {}
+    ): Promise<Rivet.cloud.games.namespaces.ListNamespaceLobbiesResponse> {
         const { beforeCreateTs } = request;
         const _queryParams = new URLSearchParams();
         if (beforeCreateTs != null) {
-            _queryParams.append("before_create_ts", beforeCreateTs);
+            _queryParams.append("before_create_ts", beforeCreateTs.toISOString());
         }
 
         const _response = await core.fetcher({
@@ -40,22 +46,75 @@ export class Client {
             ),
             method: "GET",
             headers: {
-                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+                Authorization: await this._getAuthorizationHeader(),
             },
+            contentType: "application/json",
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.cloud.games.namespaces.ListNamespaceLobbiesOutput.parseOrThrow(
-                _response.body as serializers.cloud.games.namespaces.ListNamespaceLobbiesOutput.Raw,
-                { allowUnknownKeys: true }
-            );
+            return await serializers.cloud.games.namespaces.ListNamespaceLobbiesResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.RivetError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Rivet.InternalError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 429:
+                    throw new Rivet.RateLimitError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 403:
+                    throw new Rivet.ForbiddenError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 408:
+                    throw new Rivet.UnauthorizedError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Rivet.NotFoundError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 400:
+                    throw new Rivet.BadRequestError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.RivetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -75,12 +134,18 @@ export class Client {
 
     /**
      * Returns a lobby from the given game namespace.
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async getNamespaceLobby(
         gameId: string,
         namespaceId: string,
         lobbyId: string
-    ): Promise<Rivet.cloud.games.namespaces.GetNamespaceLobbyOutput> {
+    ): Promise<Rivet.cloud.games.namespaces.GetNamespaceLobbyResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
@@ -88,21 +153,74 @@ export class Client {
             ),
             method: "GET",
             headers: {
-                Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
+                Authorization: await this._getAuthorizationHeader(),
             },
+            contentType: "application/json",
         });
         if (_response.ok) {
-            return await serializers.cloud.games.namespaces.GetNamespaceLobbyOutput.parseOrThrow(
-                _response.body as serializers.cloud.games.namespaces.GetNamespaceLobbyOutput.Raw,
-                { allowUnknownKeys: true }
-            );
+            return await serializers.cloud.games.namespaces.GetNamespaceLobbyResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.RivetError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Rivet.InternalError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 429:
+                    throw new Rivet.RateLimitError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 403:
+                    throw new Rivet.ForbiddenError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 408:
+                    throw new Rivet.UnauthorizedError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Rivet.NotFoundError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 400:
+                    throw new Rivet.BadRequestError(
+                        await serializers.ErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.RivetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -118,5 +236,14 @@ export class Client {
                     message: _response.error.errorMessage,
                 });
         }
+    }
+
+    private async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this.options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

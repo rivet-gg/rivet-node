@@ -12,10 +12,7 @@ export interface Config {
     buildCommand?: string;
     /** Client-side configuration */
     buildOutput?: string;
-    /** A universally unique identifier. */
-    site?: string;
+    siteId?: string;
     /** Multiple CDN version routes. */
     routes?: Rivet.cloud.version.cdn.Route[];
-    /** **Deprecated** */
-    siteId?: string;
 }

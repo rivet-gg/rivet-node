@@ -1,1 +1,1 @@
-export * from "./ResolveJoinRequestInput";
+export * from "./ResolveJoinRequestRequest";

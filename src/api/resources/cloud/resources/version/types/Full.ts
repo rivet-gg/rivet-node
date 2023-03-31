@@ -8,7 +8,6 @@ import { Rivet } from "@rivet-gg/api";
  * A full version.
  */
 export interface Full {
-    /** A universally unique identifier. */
     versionId: string;
     /** RFC3339 timestamp. */
     createTs: Date;

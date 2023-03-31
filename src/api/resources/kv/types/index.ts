@@ -1,2 +1,2 @@
-export * from "./GetOutput";
-export * from "./PutInput";
+export * from "./GetResponse";
+export * from "./PutRequest";

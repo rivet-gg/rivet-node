@@ -4,35 +4,35 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Client as LobbiesClient } from "../resources/lobbies/client/Client";
-import { Client as PlayersClient } from "../resources/players/client/Client";
-import { Client as RegionsClient } from "../resources/regions/client/Client";
+import { Lobbies } from "../resources/lobbies/client/Client";
+import { Players } from "../resources/players/client/Client";
+import { Regions } from "../resources/regions/client/Client";
 
-export declare namespace Client {
+export declare namespace Matchmaker {
     interface Options {
         environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Matchmaker {
+    constructor(private readonly options: Matchmaker.Options) {}
 
-    private _lobbies: LobbiesClient | undefined;
+    private _lobbies: Lobbies | undefined;
 
-    public get lobbies(): LobbiesClient {
-        return (this._lobbies ??= new LobbiesClient(this.options));
+    public get lobbies(): Lobbies {
+        return (this._lobbies ??= new Lobbies(this.options));
     }
 
-    private _players: PlayersClient | undefined;
+    private _players: Players | undefined;
 
-    public get players(): PlayersClient {
-        return (this._players ??= new PlayersClient(this.options));
+    public get players(): Players {
+        return (this._players ??= new Players(this.options));
     }
 
-    private _regions: RegionsClient | undefined;
+    private _regions: Regions | undefined;
 
-    public get regions(): RegionsClient {
-        return (this._regions ??= new RegionsClient(this.options));
+    public get regions(): Regions {
+        return (this._regions ??= new Regions(this.options));
     }
 }

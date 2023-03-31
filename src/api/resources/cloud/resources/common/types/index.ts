@@ -37,3 +37,4 @@ export * from "./CdnNamespaceDomainVerificationMethodHttp";
 export * from "./CdnNamespaceDomainVerificationStatus";
 export * from "./CdnNamespaceAuthUser";
 export * from "./MatchmakerDevelopmentPort";
+export * from "./NamespaceVersion";

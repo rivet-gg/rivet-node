@@ -1,2 +1,2 @@
-export { GetBatchInput } from "./GetBatchInput";
-export { DeleteBatchInput } from "./DeleteBatchInput";
+export { GetBatchRequest } from "./GetBatchRequest";
+export { DeleteBatchRequest } from "./DeleteBatchRequest";

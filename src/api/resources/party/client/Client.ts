@@ -4,28 +4,28 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Client as ActivityClient } from "../resources/activity/client/Client";
-import { Client as PartiesClient } from "../resources/parties/client/Client";
+import { Activity } from "../resources/activity/client/Client";
+import { Parties } from "../resources/parties/client/Client";
 
-export declare namespace Client {
+export declare namespace Party {
     interface Options {
         environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Party {
+    constructor(private readonly options: Party.Options) {}
 
-    private _activity: ActivityClient | undefined;
+    private _activity: Activity | undefined;
 
-    public get activity(): ActivityClient {
-        return (this._activity ??= new ActivityClient(this.options));
+    public get activity(): Activity {
+        return (this._activity ??= new Activity(this.options));
     }
 
-    private _parties: PartiesClient | undefined;
+    private _parties: Parties | undefined;
 
-    public get parties(): PartiesClient {
-        return (this._parties ??= new PartiesClient(this.options));
+    public get parties(): Parties {
+        return (this._parties ??= new Parties(this.options));
     }
 }

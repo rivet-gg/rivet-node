@@ -6,7 +6,7 @@ import { Rivet } from "@rivet-gg/api";
 
 export interface Summary {
     groupId: string;
-    dispayName: Rivet.DisplayName;
+    displayName: Rivet.DisplayName;
     /** The URL of this group's avatar image. */
     avatarUrl?: string;
     external: Rivet.group.ExternalLinks;
@@ -14,7 +14,8 @@ export interface Summary {
     isDeveloper: boolean;
     bio: Rivet.Bio;
     /** Whether or not the current identity is a member of this group. */
-    isCurrentlyIdentityMember: boolean;
+    isCurrentIdentityMember: boolean;
     publicity: Rivet.group.Publicity;
     memberCount: number;
+    ownerIdentityId: string;
 }

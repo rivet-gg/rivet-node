@@ -11,9 +11,13 @@ export interface GameModeRuntimeDockerPort {
     /** The port number to connect to. */
     port?: number;
     portRange?: Rivet.cloud.version.matchmaker.PortRange;
-    protocol?: Rivet.cloud.version.matchmaker.ProxyProtocol;
+    protocol?: Rivet.cloud.version.matchmaker.PortProtocol;
+    /** How this port should be proxied. Defaults to 'game-guard`. */
+    proxy?: Rivet.cloud.version.matchmaker.ProxyKind;
     /** Client-side configuration */
     devPort?: number;
     /** Client-side configuration */
-    devProtocol?: Rivet.cloud.version.matchmaker.ProxyProtocol;
+    devPortRange?: Rivet.cloud.version.matchmaker.PortRange;
+    /** Client-side configuration */
+    devProtocol?: Rivet.cloud.version.matchmaker.PortProtocol;
 }

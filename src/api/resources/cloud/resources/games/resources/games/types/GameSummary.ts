@@ -6,7 +6,6 @@
  * A game summary.
  */
 export interface GameSummary {
-    /** A universally unique identifier. */
     gameId: string;
     /** RFC3339 timestamp. */
     createTs: Date;
@@ -14,7 +13,6 @@ export interface GameSummary {
     nameId: string;
     /** Represent a resource's readable display name. */
     displayName: string;
-    /** A universally unique identifier. */
     developerGroupId: string;
     /** Unsigned 32 bit integer. */
     totalPlayerCount?: number;

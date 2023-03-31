@@ -10,17 +10,17 @@ export const GlobalEvent: core.serialization.ObjectSchema<
     serializers.identity.GlobalEvent.Raw,
     Rivet.identity.GlobalEvent
 > = core.serialization.object({
-    ts: core.serialization.lazy(async () => (await import("../../../../..")).Timestamp),
+    ts: core.serialization.date(),
     kind: core.serialization.lazyObject(async () => (await import("../../../../..")).identity.GlobalEventKind),
-    notification: core.serialization.lazyObject(
-        async () => (await import("../../../../..")).identity.GlobalEventNotification
-    ),
+    notification: core.serialization
+        .lazyObject(async () => (await import("../../../../..")).identity.GlobalEventNotification)
+        .optional(),
 });
 
 export declare namespace GlobalEvent {
     interface Raw {
-        ts: serializers.Timestamp.Raw;
+        ts: string;
         kind: serializers.identity.GlobalEventKind.Raw;
-        notification: serializers.identity.GlobalEventNotification.Raw;
+        notification?: serializers.identity.GlobalEventNotification.Raw | null;
     }
 }

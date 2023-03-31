@@ -1,4 +1,4 @@
-export { GetGroupBillingInput } from "./GetGroupBillingInput";
-export { GetGroupInvoicesListInput } from "./GetGroupInvoicesListInput";
-export { GetGroupPaymentsListInput } from "./GetGroupPaymentsListInput";
-export { GetGroupTransfersListInput } from "./GetGroupTransfersListInput";
+export { GetGroupBillingRequest } from "./GetGroupBillingRequest";
+export { GetGroupInvoicesListRequest } from "./GetGroupInvoicesListRequest";
+export { GetGroupPaymentsListRequest } from "./GetGroupPaymentsListRequest";
+export { GetGroupTransfersListRequest } from "./GetGroupTransfersListRequest";

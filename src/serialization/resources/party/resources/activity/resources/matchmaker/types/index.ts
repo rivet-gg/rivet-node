@@ -1,2 +1,2 @@
-export * from "./FindMatchmakerLobbyForPartyInput";
-export * from "./JoinMatchmakerLobbyForPartyInput";
+export * from "./FindMatchmakerLobbyForPartyRequest";
+export * from "./JoinMatchmakerLobbyForPartyRequest";

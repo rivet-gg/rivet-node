@@ -1,6 +1,8 @@
-export { UpdateProfileInput } from "./UpdateProfileInput";
-export { ValidateProfileInput } from "./ValidateProfileInput";
-export { SetGameActivityInput } from "./SetGameActivityInput";
-export { UpdateStatusInput } from "./UpdateStatusInput";
-export { PrepareAvatarUploadInput } from "./PrepareAvatarUploadInput";
-export { ReportIdentityInput } from "./ReportIdentityInput";
+export { SetupRequest } from "./SetupRequest";
+export { UpdateProfileRequest } from "./UpdateProfileRequest";
+export { ValidateProfileRequest } from "./ValidateProfileRequest";
+export { SetGameActivityRequest } from "./SetGameActivityRequest";
+export { UpdateStatusRequest } from "./UpdateStatusRequest";
+export { PrepareAvatarUploadRequest } from "./PrepareAvatarUploadRequest";
+export { SignupForBetaRequest } from "./SignupForBetaRequest";
+export { ReportRequest } from "./ReportRequest";

@@ -1,1 +1,1 @@
-export * from "./ListRegionsOutput";
+export * from "./ListRegionsResponse";

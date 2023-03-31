@@ -12,6 +12,5 @@ export interface LogsPerfSpan {
     startTs: Date;
     /** RFC3339 timestamp. */
     finishTs?: Date;
-    /** A universally unique identifier. */
     reqId?: string;
 }

@@ -18,13 +18,22 @@ export const GameModeRuntimeDockerPort: core.serialization.ObjectSchema<
             .optional()
     ),
     protocol: core.serialization
-        .lazy(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.ProxyProtocol)
+        .lazy(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.PortProtocol)
+        .optional(),
+    proxy: core.serialization
+        .lazy(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.ProxyKind)
         .optional(),
     devPort: core.serialization.property("dev_port", core.serialization.number().optional()),
+    devPortRange: core.serialization.property(
+        "dev_port_range",
+        core.serialization
+            .lazyObject(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.PortRange)
+            .optional()
+    ),
     devProtocol: core.serialization.property(
         "dev_protocol",
         core.serialization
-            .lazy(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.ProxyProtocol)
+            .lazy(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.PortProtocol)
             .optional()
     ),
 });
@@ -33,8 +42,10 @@ export declare namespace GameModeRuntimeDockerPort {
     interface Raw {
         port?: number | null;
         port_range?: serializers.cloud.version.matchmaker.PortRange.Raw | null;
-        protocol?: serializers.cloud.version.matchmaker.ProxyProtocol.Raw | null;
+        protocol?: serializers.cloud.version.matchmaker.PortProtocol.Raw | null;
+        proxy?: serializers.cloud.version.matchmaker.ProxyKind.Raw | null;
         dev_port?: number | null;
-        dev_protocol?: serializers.cloud.version.matchmaker.ProxyProtocol.Raw | null;
+        dev_port_range?: serializers.cloud.version.matchmaker.PortRange.Raw | null;
+        dev_protocol?: serializers.cloud.version.matchmaker.PortProtocol.Raw | null;
     }
 }

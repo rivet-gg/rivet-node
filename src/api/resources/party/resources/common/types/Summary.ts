@@ -6,7 +6,7 @@ import { Rivet } from "@rivet-gg/api";
 
 export interface Summary {
     partyId: string;
-    createTs: Rivet.Timestamp;
+    createTs: Date;
     activity: Rivet.party.Activity;
     external: Rivet.party.ExternalLinks;
     publicity: Rivet.party.Publicity;

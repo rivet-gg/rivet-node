@@ -14,17 +14,14 @@ export const GetGameLinkNewIdentity: core.serialization.ObjectSchema<
         "identity_token",
         core.serialization.lazy(async () => (await import("../../../../..")).Jwt)
     ),
-    identityTokenExpireTs: core.serialization.property(
-        "identity_token_expire_ts",
-        core.serialization.lazy(async () => (await import("../../../../..")).Timestamp)
-    ),
+    identityTokenExpireTs: core.serialization.property("identity_token_expire_ts", core.serialization.date()),
     identity: core.serialization.lazyObject(async () => (await import("../../../../..")).identity.Profile),
 });
 
 export declare namespace GetGameLinkNewIdentity {
     interface Raw {
         identity_token: serializers.Jwt.Raw;
-        identity_token_expire_ts: serializers.Timestamp.Raw;
+        identity_token_expire_ts: string;
         identity: serializers.identity.Profile.Raw;
     }
 }

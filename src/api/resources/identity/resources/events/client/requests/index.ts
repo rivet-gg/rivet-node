@@ -1,1 +1,1 @@
-export { WatchEventsInput } from "./WatchEventsInput";
+export { WatchEventsRequest } from "./WatchEventsRequest";

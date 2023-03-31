@@ -1,2 +1,2 @@
-export * from "./ListNamespaceLobbiesOutput";
-export * from "./GetNamespaceLobbyOutput";
+export * from "./ListNamespaceLobbiesResponse";
+export * from "./GetNamespaceLobbyResponse";

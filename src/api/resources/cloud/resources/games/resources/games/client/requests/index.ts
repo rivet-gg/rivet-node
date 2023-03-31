@@ -1,2 +1,2 @@
-export { GetGamesInput } from "./GetGamesInput";
-export { GetGameByIdInput } from "./GetGameByIdInput";
+export { GetGamesRequest } from "./GetGamesRequest";
+export { GetGameByIdRequest } from "./GetGameByIdRequest";

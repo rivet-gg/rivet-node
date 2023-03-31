@@ -4,21 +4,21 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { Client as LinksClient } from "../resources/links/client/Client";
+import { Links } from "../resources/links/client/Client";
 
-export declare namespace Client {
+export declare namespace Devices {
     interface Options {
         environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Devices {
+    constructor(private readonly options: Devices.Options) {}
 
-    private _links: LinksClient | undefined;
+    private _links: Links | undefined;
 
-    public get links(): LinksClient {
-        return (this._links ??= new LinksClient(this.options));
+    public get links(): Links {
+        return (this._links ??= new Links(this.options));
     }
 }

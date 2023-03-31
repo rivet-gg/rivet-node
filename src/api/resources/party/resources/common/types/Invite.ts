@@ -8,7 +8,6 @@ import { Rivet } from "@rivet-gg/api";
  * A party invite.
  */
 export interface Invite {
-    /** A universally unique identifier. */
     inviteId: string;
     /** RFC3339 timestamp. */
     createTs: Date;

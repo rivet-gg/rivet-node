@@ -6,9 +6,7 @@
  * A CDN site summary.
  */
 export interface CdnSiteSummary {
-    /** A universally unique identifier. */
     siteId: string;
-    /** A universally unique identifier. */
     uploadId: string;
     /** Represent a resource's readable display name. */
     displayName: string;

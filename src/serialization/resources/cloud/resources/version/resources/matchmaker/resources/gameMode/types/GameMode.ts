@@ -13,11 +13,9 @@ export const GameMode: core.serialization.ObjectSchema<
     regions: core.serialization
         .record(
             core.serialization.string(),
-            core.serialization
-                .lazyObject(
-                    async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeRegion
-                )
-                .optional()
+            core.serialization.lazyObject(
+                async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeRegion
+            )
         )
         .optional(),
     maxPlayers: core.serialization.property("max_players", core.serialization.number().optional()),
@@ -42,7 +40,7 @@ export const GameMode: core.serialization.ObjectSchema<
 
 export declare namespace GameMode {
     interface Raw {
-        regions?: Record<string, serializers.cloud.version.matchmaker.GameModeRegion.Raw | null | undefined> | null;
+        regions?: Record<string, serializers.cloud.version.matchmaker.GameModeRegion.Raw> | null;
         max_players?: number | null;
         max_players_direct?: number | null;
         max_players_party?: number | null;

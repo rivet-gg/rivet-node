@@ -35,6 +35,6 @@ export const StatFormatMethod = {
     Float2: "float_2",
     Float3: "float_3",
     DurationMinute: "duration_minute",
-    DuractionSecond: "duration_second",
+    DurationSecond: "duration_second",
     DurationHundredthSecond: "duration_hundredth_second",
 } as const;

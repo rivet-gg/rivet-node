@@ -4,63 +4,63 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Client as ChatClient } from "./api/resources/chat/client/Client";
-import { Client as CloudClient } from "./api/resources/cloud/client/Client";
-import { Client as GroupClient } from "./api/resources/group/client/Client";
-import { Client as IdentityClient } from "./api/resources/identity/client/Client";
-import { Client as KvClient } from "./api/resources/kv/client/Client";
-import { Client as MatchmakerClient } from "./api/resources/matchmaker/client/Client";
-import { Client as PartyClient } from "./api/resources/party/client/Client";
+import { Chat } from "./api/resources/chat/client/Client";
+import { Cloud } from "./api/resources/cloud/client/Client";
+import { Group } from "./api/resources/group/client/Client";
+import { Identity } from "./api/resources/identity/client/Client";
+import { Kv } from "./api/resources/kv/client/Client";
+import { Party } from "./api/resources/party/client/Client";
+import { Matchmaker } from "./api/resources/matchmaker/client/Client";
 
 export declare namespace RivetClient {
     interface Options {
         environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
 export class RivetClient {
     constructor(private readonly options: RivetClient.Options) {}
 
-    private _chat: ChatClient | undefined;
+    private _chat: Chat | undefined;
 
-    public get chat(): ChatClient {
-        return (this._chat ??= new ChatClient(this.options));
+    public get chat(): Chat {
+        return (this._chat ??= new Chat(this.options));
     }
 
-    private _cloud: CloudClient | undefined;
+    private _cloud: Cloud | undefined;
 
-    public get cloud(): CloudClient {
-        return (this._cloud ??= new CloudClient(this.options));
+    public get cloud(): Cloud {
+        return (this._cloud ??= new Cloud(this.options));
     }
 
-    private _group: GroupClient | undefined;
+    private _group: Group | undefined;
 
-    public get group(): GroupClient {
-        return (this._group ??= new GroupClient(this.options));
+    public get group(): Group {
+        return (this._group ??= new Group(this.options));
     }
 
-    private _identity: IdentityClient | undefined;
+    private _identity: Identity | undefined;
 
-    public get identity(): IdentityClient {
-        return (this._identity ??= new IdentityClient(this.options));
+    public get identity(): Identity {
+        return (this._identity ??= new Identity(this.options));
     }
 
-    private _kv: KvClient | undefined;
+    private _kv: Kv | undefined;
 
-    public get kv(): KvClient {
-        return (this._kv ??= new KvClient(this.options));
+    public get kv(): Kv {
+        return (this._kv ??= new Kv(this.options));
     }
 
-    private _matchmaker: MatchmakerClient | undefined;
+    private _party: Party | undefined;
 
-    public get matchmaker(): MatchmakerClient {
-        return (this._matchmaker ??= new MatchmakerClient(this.options));
+    public get party(): Party {
+        return (this._party ??= new Party(this.options));
     }
 
-    private _party: PartyClient | undefined;
+    private _matchmaker: Matchmaker | undefined;
 
-    public get party(): PartyClient {
-        return (this._party ??= new PartyClient(this.options));
+    public get matchmaker(): Matchmaker {
+        return (this._matchmaker ??= new Matchmaker(this.options));
     }
 }

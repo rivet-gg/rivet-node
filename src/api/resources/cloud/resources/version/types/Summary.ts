@@ -6,7 +6,6 @@
  * A version summary.
  */
 export interface Summary {
-    /** A universally unique identifier. */
     versionId: string;
     /** RFC3339 timestamp. */
     createTs: Date;

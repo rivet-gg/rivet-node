@@ -3,6 +3,7 @@
  */
 
 export interface RivetEnvironmentUrls {
+    admin: string;
     auth: string;
     chat: string;
     cloud: string;
@@ -17,6 +18,7 @@ export interface RivetEnvironmentUrls {
 
 export const RivetEnvironment = {
     Production: {
+        admin: "https://admin.api.rivet.gg/v1",
         auth: "https://auth.api.rivet.gg/v1",
         chat: "https://chat.api.rivet.gg/v1",
         cloud: "https://cloud.api.rivet.gg/v1",

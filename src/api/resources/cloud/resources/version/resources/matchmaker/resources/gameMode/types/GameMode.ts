@@ -8,7 +8,7 @@ import { Rivet } from "@rivet-gg/api";
  * A game mode.
  */
 export interface GameMode {
-    regions?: Record<string, Rivet.cloud.version.matchmaker.GameModeRegion | undefined>;
+    regions?: Record<string, Rivet.cloud.version.matchmaker.GameModeRegion>;
     maxPlayers?: number;
     maxPlayersDirect?: number;
     maxPlayersParty?: number;

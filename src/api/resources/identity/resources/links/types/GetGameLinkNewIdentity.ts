@@ -6,6 +6,6 @@ import { Rivet } from "@rivet-gg/api";
 
 export interface GetGameLinkNewIdentity {
     identityToken: Rivet.Jwt;
-    identityTokenExpireTs: Rivet.Timestamp;
+    identityTokenExpireTs: Date;
     identity: Rivet.identity.Profile;
 }

@@ -17,8 +17,8 @@ export const Handle: core.serialization.ObjectSchema<serializers.game.Handle.Raw
             "display_name",
             core.serialization.lazy(async () => (await import("../../../../..")).DisplayName)
         ),
-        logoUrl: core.serialization.property("logo_url", core.serialization.string()),
-        bannerUrl: core.serialization.property("banner_url", core.serialization.string()),
+        logoUrl: core.serialization.property("logo_url", core.serialization.string().optional()),
+        bannerUrl: core.serialization.property("banner_url", core.serialization.string().optional()),
     });
 
 export declare namespace Handle {
@@ -26,7 +26,7 @@ export declare namespace Handle {
         game_id: string;
         name_id: serializers.Identifier.Raw;
         display_name: serializers.DisplayName.Raw;
-        logo_url: string;
-        banner_url: string;
+        logo_url?: string | null;
+        banner_url?: string | null;
     }
 }

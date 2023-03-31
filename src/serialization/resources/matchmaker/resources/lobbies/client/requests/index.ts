@@ -1,3 +1,3 @@
-export { SetLobbyClosedInput } from "./SetLobbyClosedInput";
-export { FindLobbyInput } from "./FindLobbyInput";
-export { JoinLobbyInput } from "./JoinLobbyInput";
+export { SetLobbyClosedRequest } from "./SetLobbyClosedRequest";
+export { FindLobbyRequest } from "./FindLobbyRequest";
+export { JoinLobbyRequest } from "./JoinLobbyRequest";

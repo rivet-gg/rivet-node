@@ -14,7 +14,7 @@ export const JoinLobby: core.serialization.ObjectSchema<
     region: core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinRegion),
     ports: core.serialization.record(
         core.serialization.string(),
-        core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPort).optional()
+        core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPort)
     ),
     player: core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPlayer),
 });
@@ -23,7 +23,7 @@ export declare namespace JoinLobby {
     interface Raw {
         lobby_id: string;
         region: serializers.matchmaker.JoinRegion.Raw;
-        ports: Record<string, serializers.matchmaker.JoinPort.Raw | null | undefined>;
+        ports: Record<string, serializers.matchmaker.JoinPort.Raw>;
         player: serializers.matchmaker.JoinPlayer.Raw;
     }
 }

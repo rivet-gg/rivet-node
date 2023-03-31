@@ -1,1 +1,1 @@
-export { ListNamespaceLobbiesInput } from "./ListNamespaceLobbiesInput";
+export { ListNamespaceLobbiesRequest } from "./ListNamespaceLobbiesRequest";

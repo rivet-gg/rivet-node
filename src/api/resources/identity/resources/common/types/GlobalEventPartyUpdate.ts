@@ -5,5 +5,5 @@
 import { Rivet } from "@rivet-gg/api";
 
 export interface GlobalEventPartyUpdate {
-    party: Rivet.party.Summary;
+    party?: Rivet.party.Summary;
 }

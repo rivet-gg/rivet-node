@@ -6,6 +6,6 @@ import { Rivet } from "@rivet-gg/api";
 
 export interface GlobalEventMatchmakerLobbyJoin {
     lobby: Rivet.matchmaker.JoinLobby;
-    ports: Record<string, Rivet.matchmaker.JoinPort | undefined>;
+    ports: Record<string, Rivet.matchmaker.JoinPort>;
     player: Rivet.matchmaker.JoinPlayer;
 }

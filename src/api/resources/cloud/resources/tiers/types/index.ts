@@ -1,1 +1,1 @@
-export * from "./GetRegionTiersOutput";
+export * from "./GetRegionTiersResponse";

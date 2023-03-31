@@ -1,3 +1,3 @@
-export * from "./ListGameBuildsOutput";
-export * from "./CreateGameBuildInput";
-export * from "./CreateGameBuildOutput";
+export * from "./ListGameBuildsResponse";
+export * from "./CreateGameBuildRequest";
+export * from "./CreateGameBuildResponse";

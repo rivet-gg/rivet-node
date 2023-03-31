@@ -8,7 +8,7 @@ import { Rivet } from "@rivet-gg/api";
  * An event relevant to the current identity.
  */
 export interface GlobalEvent {
-    ts: Rivet.Timestamp;
+    ts: Date;
     kind: Rivet.identity.GlobalEventKind;
-    notification: Rivet.identity.GlobalEventNotification;
+    notification?: Rivet.identity.GlobalEventNotification;
 }

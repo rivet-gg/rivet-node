@@ -8,7 +8,6 @@ import { Rivet } from "@rivet-gg/api";
  * A list of group profiles.
  */
 export interface Profile {
-    /** A universally unique identifier. */
     groupId: string;
     /** Represent a resource's readable display name. */
     displayName: string;
@@ -30,8 +29,6 @@ export interface Profile {
     joinRequests: Rivet.group.JoinRequest[];
     /** Whether or not the current identity is currently requesting to join this group. */
     isCurrentIdentityRequestingJoin?: boolean;
-    /** A universally unique identifier. */
     ownerIdentityId: string;
-    /** A universally unique identifier. */
     threadId?: string;
 }

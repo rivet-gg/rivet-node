@@ -1,1 +1,1 @@
-export * from "./GetDirectThreadOutput";
+export * from "./GetDirectThreadResponse";

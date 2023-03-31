@@ -1,1 +1,1 @@
-export * from "./WatchEventsOutput";
+export * from "./WatchEventsResponse";

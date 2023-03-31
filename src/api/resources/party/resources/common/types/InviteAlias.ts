@@ -6,7 +6,6 @@
  * An alias used to join a given party.
  */
 export interface InviteAlias {
-    /** A universally unique identifier. */
     namespaceId: string;
     /** The alias used to join a given party. */
     alias: string;

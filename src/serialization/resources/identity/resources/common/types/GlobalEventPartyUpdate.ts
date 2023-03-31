@@ -10,11 +10,11 @@ export const GlobalEventPartyUpdate: core.serialization.ObjectSchema<
     serializers.identity.GlobalEventPartyUpdate.Raw,
     Rivet.identity.GlobalEventPartyUpdate
 > = core.serialization.object({
-    party: core.serialization.lazyObject(async () => (await import("../../../../..")).party.Summary),
+    party: core.serialization.lazyObject(async () => (await import("../../../../..")).party.Summary).optional(),
 });
 
 export declare namespace GlobalEventPartyUpdate {
     interface Raw {
-        party: serializers.party.Summary.Raw;
+        party?: serializers.party.Summary.Raw | null;
     }
 }

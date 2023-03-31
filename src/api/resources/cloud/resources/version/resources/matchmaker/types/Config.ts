@@ -9,11 +9,11 @@ import { Rivet } from "@rivet-gg/api";
  */
 export interface Config {
     /** A list of game modes. */
-    gameModes?: Record<string, Rivet.cloud.version.matchmaker.GameMode | undefined>;
+    gameModes?: Record<string, Rivet.cloud.version.matchmaker.GameMode>;
     captcha?: Rivet.cloud.version.matchmaker.Captcha;
     /** Client-side configuration */
     devHostname?: string;
-    regions?: Record<string, Rivet.cloud.version.matchmaker.GameModeRegion | undefined>;
+    regions?: Record<string, Rivet.cloud.version.matchmaker.GameModeRegion>;
     maxPlayers?: number;
     maxPlayersDirect?: number;
     maxPlayersParty?: number;

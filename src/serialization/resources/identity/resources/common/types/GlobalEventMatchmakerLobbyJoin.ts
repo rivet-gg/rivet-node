@@ -13,7 +13,7 @@ export const GlobalEventMatchmakerLobbyJoin: core.serialization.ObjectSchema<
     lobby: core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinLobby),
     ports: core.serialization.record(
         core.serialization.string(),
-        core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPort).optional()
+        core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPort)
     ),
     player: core.serialization.lazyObject(async () => (await import("../../../../..")).matchmaker.JoinPlayer),
 });
@@ -21,7 +21,7 @@ export const GlobalEventMatchmakerLobbyJoin: core.serialization.ObjectSchema<
 export declare namespace GlobalEventMatchmakerLobbyJoin {
     interface Raw {
         lobby: serializers.matchmaker.JoinLobby.Raw;
-        ports: Record<string, serializers.matchmaker.JoinPort.Raw | null | undefined>;
+        ports: Record<string, serializers.matchmaker.JoinPort.Raw>;
         player: serializers.matchmaker.JoinPlayer.Raw;
     }
 }

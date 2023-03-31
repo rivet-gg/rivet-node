@@ -1,2 +1,2 @@
-export * from "./GetBatchOutput";
-export * from "./PutBatchInput";
+export * from "./GetBatchResponse";
+export * from "./PutBatchRequest";

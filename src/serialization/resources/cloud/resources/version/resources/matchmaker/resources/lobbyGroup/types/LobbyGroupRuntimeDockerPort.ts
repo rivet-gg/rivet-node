@@ -21,7 +21,7 @@ export const LobbyGroupRuntimeDockerPort: core.serialization.ObjectSchema<
     proxyProtocol: core.serialization.property(
         "proxy_protocol",
         core.serialization.lazy(
-            async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.ProxyProtocol
+            async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.PortProtocol
         )
     ),
 });
@@ -31,6 +31,6 @@ export declare namespace LobbyGroupRuntimeDockerPort {
         label: string;
         target_port?: number | null;
         port_range?: serializers.cloud.version.matchmaker.PortRange.Raw | null;
-        proxy_protocol: serializers.cloud.version.matchmaker.ProxyProtocol.Raw;
+        proxy_protocol: serializers.cloud.version.matchmaker.PortProtocol.Raw;
     }
 }

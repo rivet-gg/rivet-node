@@ -1,6 +1,6 @@
 {
     "name": "@rivet-gg/api",
-    "version": "v0.0.1-rc15",
+    "version": "v0.0.1-rc17",
     "private": false,
     "repository": "https://github.com/rivet-gg/rivet-node",
     "files": [
@@ -42,11 +42,8 @@
     "dependencies": {
         "url-join": "4.0.1",
         "@types/url-join": "4.0.1",
-        "basic-auth": "^2.0.1",
-        "@types/basic-auth": "^1.1.3",
-        "js-base64": "^3.7.2",
-        "buffer": "^6.0.3",
-        "axios": "^0.27.2"
+        "js-base64": "3.7.2",
+        "axios": "0.27.2"
     },
     "devDependencies": {
         "@types/node": "17.0.33",

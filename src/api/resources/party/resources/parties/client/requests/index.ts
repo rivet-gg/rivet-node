@@ -1,5 +1,5 @@
-export { GetInviteInput } from "./GetInviteInput";
-export { GetSelfProfileInput } from "./GetSelfProfileInput";
-export { GetSelfSummaryInput } from "./GetSelfSummaryInput";
-export { GetProfileInput } from "./GetProfileInput";
-export { GetSummaryInput } from "./GetSummaryInput";
+export { GetInviteRequest } from "./GetInviteRequest";
+export { GetSelfProfileRequest } from "./GetSelfProfileRequest";
+export { GetSelfSummaryRequest } from "./GetSelfSummaryRequest";
+export { GetProfileRequest } from "./GetProfileRequest";
+export { GetSummaryRequest } from "./GetSummaryRequest";

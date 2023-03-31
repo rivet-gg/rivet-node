@@ -1,1 +1,1 @@
-export * from "./GetRayPerfLogsOutput";
+export * from "./GetRayPerfLogsResponse";

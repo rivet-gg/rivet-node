@@ -1,2 +1,2 @@
-export * from "./PrepareDeviceLinkOutput";
-export * from "./GetDeviceLinkOutput";
+export * from "./PrepareDeviceLinkResponse";
+export * from "./GetDeviceLinkResponse";

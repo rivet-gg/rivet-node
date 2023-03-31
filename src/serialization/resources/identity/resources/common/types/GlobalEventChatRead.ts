@@ -11,15 +11,12 @@ export const GlobalEventChatRead: core.serialization.ObjectSchema<
     Rivet.identity.GlobalEventChatRead
 > = core.serialization.object({
     threadId: core.serialization.property("thread_id", core.serialization.string()),
-    readTs: core.serialization.property(
-        "read_ts",
-        core.serialization.lazy(async () => (await import("../../../../..")).Timestamp)
-    ),
+    readTs: core.serialization.property("read_ts", core.serialization.date()),
 });
 
 export declare namespace GlobalEventChatRead {
     interface Raw {
         thread_id: string;
-        read_ts: serializers.Timestamp.Raw;
+        read_ts: string;
     }
 }

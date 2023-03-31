@@ -10,8 +10,6 @@ export interface LogsPerfMark {
     label: string;
     /** RFC3339 timestamp. */
     ts: Date;
-    /** A universally unique identifier. */
     rayId?: string;
-    /** A universally unique identifier. */
     reqId?: string;
 }

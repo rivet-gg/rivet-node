@@ -9,19 +9,13 @@ import * as core from "../../../../../../core";
 export const Thread: core.serialization.ObjectSchema<serializers.chat.Thread.Raw, Rivet.chat.Thread> =
     core.serialization.object({
         threadId: core.serialization.property("thread_id", core.serialization.string()),
-        createTs: core.serialization.property(
-            "create_ts",
-            core.serialization.lazy(async () => (await import("../../../../..")).Timestamp)
-        ),
+        createTs: core.serialization.property("create_ts", core.serialization.date()),
         topic: core.serialization.lazyObject(async () => (await import("../../../../..")).chat.Topic),
         tailMessage: core.serialization.property(
             "tail_message",
             core.serialization.lazyObject(async () => (await import("../../../../..")).chat.Message).optional()
         ),
-        lastReadTs: core.serialization.property(
-            "last_read_ts",
-            core.serialization.lazy(async () => (await import("../../../../..")).Timestamp)
-        ),
+        lastReadTs: core.serialization.property("last_read_ts", core.serialization.date()),
         unreadCount: core.serialization.property("unread_count", core.serialization.number()),
         external: core.serialization.lazyObject(async () => (await import("../../../../..")).chat.ThreadExternalLinks),
     });
@@ -29,10 +23,10 @@ export const Thread: core.serialization.ObjectSchema<serializers.chat.Thread.Raw
 export declare namespace Thread {
     interface Raw {
         thread_id: string;
-        create_ts: serializers.Timestamp.Raw;
+        create_ts: string;
         topic: serializers.chat.Topic.Raw;
         tail_message?: serializers.chat.Message.Raw | null;
-        last_read_ts: serializers.Timestamp.Raw;
+        last_read_ts: string;
         unread_count: number;
         external: serializers.chat.ThreadExternalLinks.Raw;
     }

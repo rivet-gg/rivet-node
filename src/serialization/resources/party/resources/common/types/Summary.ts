@@ -9,10 +9,7 @@ import * as core from "../../../../../../core";
 export const Summary: core.serialization.ObjectSchema<serializers.party.Summary.Raw, Rivet.party.Summary> =
     core.serialization.object({
         partyId: core.serialization.property("party_id", core.serialization.string()),
-        createTs: core.serialization.property(
-            "create_ts",
-            core.serialization.lazy(async () => (await import("../../../../..")).Timestamp)
-        ),
+        createTs: core.serialization.property("create_ts", core.serialization.date()),
         activity: core.serialization.lazyObject(async () => (await import("../../../../..")).party.Activity),
         external: core.serialization.lazyObject(async () => (await import("../../../../..")).party.ExternalLinks),
         publicity: core.serialization.lazyObject(async () => (await import("../../../../..")).party.Publicity),
@@ -26,7 +23,7 @@ export const Summary: core.serialization.ObjectSchema<serializers.party.Summary.
 export declare namespace Summary {
     interface Raw {
         party_id: string;
-        create_ts: serializers.Timestamp.Raw;
+        create_ts: string;
         activity: serializers.party.Activity.Raw;
         external: serializers.party.ExternalLinks.Raw;
         publicity: serializers.party.Publicity.Raw;

@@ -23,6 +23,10 @@ export interface Profile {
     isAdmin: boolean;
     /** Whether or not this game user has been linked through the Rivet dashboard. */
     isGameLinked?: boolean;
+    /**
+     * **Deprecated**
+     *
+     */
     devState?: Rivet.identity.DevState;
     followerCount: number;
     followingCount: number;
@@ -31,9 +35,15 @@ export interface Profile {
     /** Whether or not this identity is both followng and is followed by the requestee's identity. */
     isFollowingMe: boolean;
     isMutualFollowing: boolean;
-    joinTs: Rivet.Timestamp;
+    joinTs: Date;
     bio: Rivet.Bio;
     linkedAccounts: Rivet.identity.LinkedAccount[];
     groups: Rivet.identity.Group[];
     games: Rivet.game.StatSummary[];
+    /**
+     * Whether or not this identity is awaiting account deletion. Only visible to when the requestee is
+     * this identity.
+     *
+     */
+    awaitingDeletion?: boolean;
 }

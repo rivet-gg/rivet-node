@@ -35,10 +35,7 @@ export const Profile: core.serialization.ObjectSchema<serializers.identity.Profi
         following: core.serialization.boolean(),
         isFollowingMe: core.serialization.property("is_following_me", core.serialization.boolean()),
         isMutualFollowing: core.serialization.property("is_mutual_following", core.serialization.boolean()),
-        joinTs: core.serialization.property(
-            "join_ts",
-            core.serialization.lazy(async () => (await import("../../../../..")).Timestamp)
-        ),
+        joinTs: core.serialization.property("join_ts", core.serialization.date()),
         bio: core.serialization.lazy(async () => (await import("../../../../..")).Bio),
         linkedAccounts: core.serialization.property(
             "linked_accounts",
@@ -52,6 +49,7 @@ export const Profile: core.serialization.ObjectSchema<serializers.identity.Profi
         games: core.serialization.list(
             core.serialization.lazyObject(async () => (await import("../../../../..")).game.StatSummary)
         ),
+        awaitingDeletion: core.serialization.property("awaiting_deletion", core.serialization.boolean().optional()),
     });
 
 export declare namespace Profile {
@@ -72,10 +70,11 @@ export declare namespace Profile {
         following: boolean;
         is_following_me: boolean;
         is_mutual_following: boolean;
-        join_ts: serializers.Timestamp.Raw;
+        join_ts: string;
         bio: serializers.Bio.Raw;
         linked_accounts: serializers.identity.LinkedAccount.Raw[];
         groups: serializers.identity.Group.Raw[];
         games: serializers.game.StatSummary.Raw[];
+        awaiting_deletion?: boolean | null;
     }
 }

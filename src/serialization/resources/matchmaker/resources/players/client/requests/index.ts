@@ -1,2 +1,2 @@
-export { PlayerConnectedInput } from "./PlayerConnectedInput";
-export { PlayerDisconnectedInput } from "./PlayerDisconnectedInput";
+export { PlayerConnectedRequest } from "./PlayerConnectedRequest";
+export { PlayerDisconnectedRequest } from "./PlayerDisconnectedRequest";

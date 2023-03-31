@@ -10,16 +10,15 @@ export const Message: core.serialization.ObjectSchema<serializers.chat.Message.R
     core.serialization.object({
         chatMessageId: core.serialization.property("chat_message_id", core.serialization.string()),
         threadId: core.serialization.property("thread_id", core.serialization.string()),
-        sendTs: core.serialization.property(
-            "send_ts",
-            core.serialization.lazy(async () => (await import("../../../../..")).Timestamp)
-        ),
+        sendTs: core.serialization.property("send_ts", core.serialization.date()),
+        body: core.serialization.lazyObject(async () => (await import("../../../../..")).chat.MessageBody),
     });
 
 export declare namespace Message {
     interface Raw {
         chat_message_id: string;
         thread_id: string;
-        send_ts: serializers.Timestamp.Raw;
+        send_ts: string;
+        body: serializers.chat.MessageBody.Raw;
     }
 }

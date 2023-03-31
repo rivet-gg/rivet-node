@@ -1,1 +1,1 @@
-export { GetGameLinkInput } from "./GetGameLinkInput";
+export { GetGameLinkRequest } from "./GetGameLinkRequest";

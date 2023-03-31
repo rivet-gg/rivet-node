@@ -8,6 +8,8 @@ export interface Handle {
     gameId: string;
     nameId: Rivet.Identifier;
     displayName: Rivet.DisplayName;
-    logoUrl: string;
-    bannerUrl: string;
+    /** The URL of this game's logo image. */
+    logoUrl?: string;
+    /** The URL of this game's banner image. */
+    bannerUrl?: string;
 }

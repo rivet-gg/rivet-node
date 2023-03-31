@@ -9,10 +9,10 @@ import { Rivet } from "@rivet-gg/api";
  */
 export interface Thread {
     threadId: string;
-    createTs: Rivet.Timestamp;
+    createTs: Date;
     topic: Rivet.chat.Topic;
     tailMessage?: Rivet.chat.Message;
-    lastReadTs: Rivet.Timestamp;
+    lastReadTs: Date;
     unreadCount: number;
     external: Rivet.chat.ThreadExternalLinks;
 }

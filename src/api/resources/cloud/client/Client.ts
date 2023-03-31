@@ -4,63 +4,63 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Client as AuthClient } from "../resources/auth/client/Client";
-import { Client as DevicesClient } from "../resources/devices/client/Client";
-import { Client as GamesClient } from "../resources/games/client/Client";
-import { Client as GroupsClient } from "../resources/groups/client/Client";
-import { Client as LogsClient } from "../resources/logs/client/Client";
-import { Client as TiersClient } from "../resources/tiers/client/Client";
-import { Client as UploadsClient } from "../resources/uploads/client/Client";
+import { Games } from "../resources/games/client/Client";
+import { Auth } from "../resources/auth/client/Client";
+import { Devices } from "../resources/devices/client/Client";
+import { Groups } from "../resources/groups/client/Client";
+import { Logs } from "../resources/logs/client/Client";
+import { Tiers } from "../resources/tiers/client/Client";
+import { Uploads } from "../resources/uploads/client/Client";
 
-export declare namespace Client {
+export declare namespace Cloud {
     interface Options {
         environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Cloud {
+    constructor(private readonly options: Cloud.Options) {}
 
-    private _auth: AuthClient | undefined;
+    private _games: Games | undefined;
 
-    public get auth(): AuthClient {
-        return (this._auth ??= new AuthClient(this.options));
+    public get games(): Games {
+        return (this._games ??= new Games(this.options));
     }
 
-    private _devices: DevicesClient | undefined;
+    private _auth: Auth | undefined;
 
-    public get devices(): DevicesClient {
-        return (this._devices ??= new DevicesClient(this.options));
+    public get auth(): Auth {
+        return (this._auth ??= new Auth(this.options));
     }
 
-    private _games: GamesClient | undefined;
+    private _devices: Devices | undefined;
 
-    public get games(): GamesClient {
-        return (this._games ??= new GamesClient(this.options));
+    public get devices(): Devices {
+        return (this._devices ??= new Devices(this.options));
     }
 
-    private _groups: GroupsClient | undefined;
+    private _groups: Groups | undefined;
 
-    public get groups(): GroupsClient {
-        return (this._groups ??= new GroupsClient(this.options));
+    public get groups(): Groups {
+        return (this._groups ??= new Groups(this.options));
     }
 
-    private _logs: LogsClient | undefined;
+    private _logs: Logs | undefined;
 
-    public get logs(): LogsClient {
-        return (this._logs ??= new LogsClient(this.options));
+    public get logs(): Logs {
+        return (this._logs ??= new Logs(this.options));
     }
 
-    private _tiers: TiersClient | undefined;
+    private _tiers: Tiers | undefined;
 
-    public get tiers(): TiersClient {
-        return (this._tiers ??= new TiersClient(this.options));
+    public get tiers(): Tiers {
+        return (this._tiers ??= new Tiers(this.options));
     }
 
-    private _uploads: UploadsClient | undefined;
+    private _uploads: Uploads | undefined;
 
-    public get uploads(): UploadsClient {
-        return (this._uploads ??= new UploadsClient(this.options));
+    public get uploads(): Uploads {
+        return (this._uploads ??= new Uploads(this.options));
     }
 }

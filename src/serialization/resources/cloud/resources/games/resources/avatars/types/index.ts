@@ -1,3 +1,3 @@
-export * from "./ListGameCustomAvatarsOutput";
-export * from "./PrepareCustomAvatarUploadInput";
-export * from "./PrepareCustomAvatarUploadOutput";
+export * from "./ListGameCustomAvatarsResponse";
+export * from "./PrepareCustomAvatarUploadRequest";
+export * from "./PrepareCustomAvatarUploadResponse";

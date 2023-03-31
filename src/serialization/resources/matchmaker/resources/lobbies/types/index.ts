@@ -1,3 +1,3 @@
-export * from "./FindLobbyOutput";
-export * from "./JoinLobbyOutput";
-export * from "./ListLobbiesOutput";
+export * from "./FindLobbyResponse";
+export * from "./JoinLobbyResponse";
+export * from "./ListLobbiesResponse";

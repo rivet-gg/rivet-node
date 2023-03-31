@@ -4,70 +4,70 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { Client as AvatarsClient } from "../resources/avatars/client/Client";
-import { Client as BuildsClient } from "../resources/builds/client/Client";
-import { Client as CdnClient } from "../resources/cdn/client/Client";
-import { Client as GamesClient } from "../resources/games/client/Client";
-import { Client as MatchmakerClient } from "../resources/matchmaker/client/Client";
-import { Client as NamespacesClient } from "../resources/namespaces/client/Client";
-import { Client as TokensClient } from "../resources/tokens/client/Client";
-import { Client as VersionsClient } from "../resources/versions/client/Client";
+import { Namespaces } from "../resources/namespaces/client/Client";
+import { Avatars } from "../resources/avatars/client/Client";
+import { Builds } from "../resources/builds/client/Client";
+import { Cdn } from "../resources/cdn/client/Client";
+import { Games as Games_ } from "../resources/games/client/Client";
+import { Matchmaker } from "../resources/matchmaker/client/Client";
+import { Tokens } from "../resources/tokens/client/Client";
+import { Versions } from "../resources/versions/client/Client";
 
-export declare namespace Client {
+export declare namespace Games {
     interface Options {
         environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Games {
+    constructor(private readonly options: Games.Options) {}
 
-    private _avatars: AvatarsClient | undefined;
+    private _namespaces: Namespaces | undefined;
 
-    public get avatars(): AvatarsClient {
-        return (this._avatars ??= new AvatarsClient(this.options));
+    public get namespaces(): Namespaces {
+        return (this._namespaces ??= new Namespaces(this.options));
     }
 
-    private _builds: BuildsClient | undefined;
+    private _avatars: Avatars | undefined;
 
-    public get builds(): BuildsClient {
-        return (this._builds ??= new BuildsClient(this.options));
+    public get avatars(): Avatars {
+        return (this._avatars ??= new Avatars(this.options));
     }
 
-    private _cdn: CdnClient | undefined;
+    private _builds: Builds | undefined;
 
-    public get cdn(): CdnClient {
-        return (this._cdn ??= new CdnClient(this.options));
+    public get builds(): Builds {
+        return (this._builds ??= new Builds(this.options));
     }
 
-    private _games: GamesClient | undefined;
+    private _cdn: Cdn | undefined;
 
-    public get games(): GamesClient {
-        return (this._games ??= new GamesClient(this.options));
+    public get cdn(): Cdn {
+        return (this._cdn ??= new Cdn(this.options));
     }
 
-    private _matchmaker: MatchmakerClient | undefined;
+    private _games: Games_ | undefined;
 
-    public get matchmaker(): MatchmakerClient {
-        return (this._matchmaker ??= new MatchmakerClient(this.options));
+    public get games(): Games_ {
+        return (this._games ??= new Games_(this.options));
     }
 
-    private _namespaces: NamespacesClient | undefined;
+    private _matchmaker: Matchmaker | undefined;
 
-    public get namespaces(): NamespacesClient {
-        return (this._namespaces ??= new NamespacesClient(this.options));
+    public get matchmaker(): Matchmaker {
+        return (this._matchmaker ??= new Matchmaker(this.options));
     }
 
-    private _tokens: TokensClient | undefined;
+    private _tokens: Tokens | undefined;
 
-    public get tokens(): TokensClient {
-        return (this._tokens ??= new TokensClient(this.options));
+    public get tokens(): Tokens {
+        return (this._tokens ??= new Tokens(this.options));
     }
 
-    private _versions: VersionsClient | undefined;
+    private _versions: Versions | undefined;
 
-    public get versions(): VersionsClient {
-        return (this._versions ??= new VersionsClient(this.options));
+    public get versions(): Versions {
+        return (this._versions ??= new Versions(this.options));
     }
 }

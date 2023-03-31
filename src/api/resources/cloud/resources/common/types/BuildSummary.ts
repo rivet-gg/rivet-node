@@ -6,9 +6,7 @@
  * A build summary.
  */
 export interface BuildSummary {
-    /** A universally unique identifier. */
     buildId: string;
-    /** A universally unique identifier. */
     uploadId: string;
     /** Represent a resource's readable display name. */
     displayName: string;

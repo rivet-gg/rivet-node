@@ -14,7 +14,6 @@ export interface SvcPerf {
     ts: Date;
     /** Unsigned 64 bit integer. */
     duration: number;
-    /** A universally unique identifier. */
     reqId?: string;
     /** A list of performance spans. */
     spans: Rivet.cloud.LogsPerfSpan[];

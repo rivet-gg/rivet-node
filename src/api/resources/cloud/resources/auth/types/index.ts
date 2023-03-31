@@ -1,1 +1,1 @@
-export * from "./InspectOutput";
+export * from "./InspectResponse";

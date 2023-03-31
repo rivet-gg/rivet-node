@@ -11,7 +11,7 @@ export interface JoinLobby {
     lobbyId: string;
     region: Rivet.matchmaker.JoinRegion;
     /** **Deprecated** */
-    ports: Record<string, Rivet.matchmaker.JoinPort | undefined>;
+    ports: Record<string, Rivet.matchmaker.JoinPort>;
     /** **Deprecated** */
     player: Rivet.matchmaker.JoinPlayer;
 }

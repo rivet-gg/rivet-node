@@ -1,1 +1,1 @@
-export { GetDeviceLinkInput } from "./GetDeviceLinkInput";
+export { GetDeviceLinkRequest } from "./GetDeviceLinkRequest";

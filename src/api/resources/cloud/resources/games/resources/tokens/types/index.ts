@@ -1,1 +1,1 @@
-export * from "./CreateCloudTokenOutput";
+export * from "./CreateCloudTokenResponse";

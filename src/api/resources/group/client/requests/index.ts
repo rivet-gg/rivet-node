@@ -1,6 +1,6 @@
-export { ListSuggestedInput } from "./ListSuggestedInput";
-export { SearchInput } from "./SearchInput";
-export { GetBansInput } from "./GetBansInput";
-export { GetJoinRequestsInput } from "./GetJoinRequestsInput";
-export { GetMembersInput } from "./GetMembersInput";
-export { GetProfileInput } from "./GetProfileInput";
+export { ListSuggestedRequest } from "./ListSuggestedRequest";
+export { SearchRequest } from "./SearchRequest";
+export { GetBansRequest } from "./GetBansRequest";
+export { GetJoinRequestsRequest } from "./GetJoinRequestsRequest";
+export { GetMembersRequest } from "./GetMembersRequest";
+export { GetProfileRequest } from "./GetProfileRequest";

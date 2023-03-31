@@ -3,6 +3,5 @@
  */
 
 export interface CustomAvatar {
-    /** A universally unique identifier. */
     uploadId: string;
 }

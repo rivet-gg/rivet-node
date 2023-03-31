@@ -6,6 +6,7 @@ export * from "./WatchQuery";
 export * from "./WatchResponse";
 export * from "./DisplayName";
 export * from "./AccountNumber";
-export * from "./Timestamp";
 export * from "./ValidationError";
 export * from "./EmptyObject";
+export * from "./ErrorMetadata";
+export * from "./ErrorBody";
