@@ -1,1 +1,1 @@
-export * from "./GetNamespaceAnalyticsMatchmakerLiveResponse";
+export * from "./GetAnalyticsMatchmakerLiveResponse";

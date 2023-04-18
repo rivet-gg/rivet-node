@@ -1,4 +1,4 @@
-export { GetGroupBillingRequest } from "./GetGroupBillingRequest";
-export { GetGroupInvoicesListRequest } from "./GetGroupInvoicesListRequest";
-export { GetGroupPaymentsListRequest } from "./GetGroupPaymentsListRequest";
-export { GetGroupTransfersListRequest } from "./GetGroupTransfersListRequest";
+export { GetBillingRequest } from "./GetBillingRequest";
+export { GetInvoicesListRequest } from "./GetInvoicesListRequest";
+export { GetPaymentsListRequest } from "./GetPaymentsListRequest";
+export { GetTransfersListRequest } from "./GetTransfersListRequest";

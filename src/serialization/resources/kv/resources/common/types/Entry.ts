@@ -8,13 +8,15 @@ import * as core from "../../../../../../core";
 
 export const Entry: core.serialization.ObjectSchema<serializers.kv.Entry.Raw, Rivet.kv.Entry> =
     core.serialization.object({
-        key: core.serialization.list(core.serialization.string()),
+        key: core.serialization.lazy(async () => (await import("../../../../..")).kv.Key),
+        value: core.serialization.lazy(async () => (await import("../../../../..")).kv.Value),
         deleted: core.serialization.boolean().optional(),
     });
 
 export declare namespace Entry {
     interface Raw {
-        key: string[];
+        key: serializers.kv.Key.Raw;
+        value?: serializers.kv.Value.Raw;
         deleted?: boolean | null;
     }
 }

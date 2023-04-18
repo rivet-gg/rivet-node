@@ -9,12 +9,14 @@ import * as core from "../../../../core";
 export const PutRequest: core.serialization.ObjectSchema<serializers.kv.PutRequest.Raw, Rivet.kv.PutRequest> =
     core.serialization.object({
         namespaceId: core.serialization.property("namespace_id", core.serialization.string().optional()),
-        key: core.serialization.string(),
+        key: core.serialization.lazy(async () => (await import("../../..")).kv.Key),
+        value: core.serialization.lazy(async () => (await import("../../..")).kv.Value),
     });
 
 export declare namespace PutRequest {
     interface Raw {
         namespace_id?: string | null;
-        key: string;
+        key: serializers.kv.Key.Raw;
+        value?: serializers.kv.Value.Raw;
     }
 }

@@ -7,10 +7,19 @@ import { Rivet } from "@rivet-gg/api";
 export interface GetNamespaceLobbyResponse {
     lobby: Rivet.cloud.LogsLobbySummary;
     metrics?: Rivet.cloud.SvcMetrics;
-    /** A list of URLs. */
+    /**
+     * **Deprecated**
+     * A list of URLs.
+     */
     stdoutPresignedUrls: string[];
-    /** A list of URLs. */
+    /**
+     * **Deprecated**
+     * A list of URLs.
+     */
     stderrPresignedUrls: string[];
-    /** A list of service performance summaries. */
+    /**
+     * **Deprecated**
+     * A list of service performance summaries.
+     */
     perfLists: Rivet.cloud.SvcPerf[];
 }

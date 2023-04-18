@@ -28,10 +28,10 @@ export class Analytics {
      * @throws {Rivet.NotFoundError}
      * @throws {Rivet.BadRequestError}
      */
-    public async getNamespaceAnalyticsMatchmakerLive(
+    public async getAnalyticsMatchmakerLive(
         gameId: string,
         namespaceId: string
-    ): Promise<Rivet.cloud.games.namespaces.GetNamespaceAnalyticsMatchmakerLiveResponse> {
+    ): Promise<Rivet.cloud.games.namespaces.GetAnalyticsMatchmakerLiveResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
@@ -44,7 +44,7 @@ export class Analytics {
             contentType: "application/json",
         });
         if (_response.ok) {
-            return await serializers.cloud.games.namespaces.GetNamespaceAnalyticsMatchmakerLiveResponse.parseOrThrow(
+            return await serializers.cloud.games.namespaces.GetAnalyticsMatchmakerLiveResponse.parseOrThrow(
                 _response.body,
                 {
                     unrecognizedObjectKeys: "passthrough",

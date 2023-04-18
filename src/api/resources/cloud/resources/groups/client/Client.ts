@@ -28,7 +28,7 @@ export class Groups {
      * @throws {Rivet.NotFoundError}
      * @throws {Rivet.BadRequestError}
      */
-    public async validateGroup(request: Rivet.cloud.ValidateGroupRequest): Promise<Rivet.cloud.ValidateGroupResponse> {
+    public async validate(request: Rivet.cloud.ValidateGroupRequest): Promise<Rivet.cloud.ValidateGroupResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
@@ -133,18 +133,18 @@ export class Groups {
      * @throws {Rivet.NotFoundError}
      * @throws {Rivet.BadRequestError}
      */
-    public async getGroupBilling(
+    public async getBilling(
         groupId: string,
-        request: Rivet.cloud.GetGroupBillingRequest = {}
-    ): Promise<Rivet.cloud.GetGroupBillingResponse> {
+        request: Rivet.cloud.GetBillingRequest = {}
+    ): Promise<Rivet.cloud.GetBillingResponse> {
         const { queryStart, queryEnd } = request;
         const _queryParams = new URLSearchParams();
         if (queryStart != null) {
-            _queryParams.append("query_start", queryStart.toString());
+            _queryParams.append("query_start", queryStart.toISOString());
         }
 
         if (queryEnd != null) {
-            _queryParams.append("query_end", queryEnd.toString());
+            _queryParams.append("query_end", queryEnd.toISOString());
         }
 
         const _response = await core.fetcher({
@@ -160,7 +160,7 @@ export class Groups {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.cloud.GetGroupBillingResponse.parseOrThrow(_response.body, {
+            return await serializers.cloud.GetBillingResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -249,10 +249,10 @@ export class Groups {
      * @throws {Rivet.NotFoundError}
      * @throws {Rivet.BadRequestError}
      */
-    public async getGroupInvoicesList(
+    public async getInvoicesList(
         groupId: string,
-        request: Rivet.cloud.GetGroupInvoicesListRequest = {}
-    ): Promise<Rivet.cloud.GetGroupInvoicesListResponse> {
+        request: Rivet.cloud.GetInvoicesListRequest = {}
+    ): Promise<Rivet.cloud.GetInvoicesListResponse> {
         const { anchor, limit } = request;
         const _queryParams = new URLSearchParams();
         if (anchor != null) {
@@ -276,7 +276,7 @@ export class Groups {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.cloud.GetGroupInvoicesListResponse.parseOrThrow(_response.body, {
+            return await serializers.cloud.GetInvoicesListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -365,10 +365,10 @@ export class Groups {
      * @throws {Rivet.NotFoundError}
      * @throws {Rivet.BadRequestError}
      */
-    public async getGroupPaymentsList(
+    public async getPaymentsList(
         groupId: string,
-        request: Rivet.cloud.GetGroupPaymentsListRequest = {}
-    ): Promise<Rivet.cloud.GetGroupPaymentsListResponse> {
+        request: Rivet.cloud.GetPaymentsListRequest = {}
+    ): Promise<Rivet.cloud.GetPaymentsListResponse> {
         const { startPaymentId } = request;
         const _queryParams = new URLSearchParams();
         if (startPaymentId != null) {
@@ -388,7 +388,7 @@ export class Groups {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.cloud.GetGroupPaymentsListResponse.parseOrThrow(_response.body, {
+            return await serializers.cloud.GetPaymentsListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -477,10 +477,10 @@ export class Groups {
      * @throws {Rivet.NotFoundError}
      * @throws {Rivet.BadRequestError}
      */
-    public async getGroupTransfersList(
+    public async getTransfersList(
         groupId: string,
-        request: Rivet.cloud.GetGroupTransfersListRequest = {}
-    ): Promise<Rivet.cloud.GetGroupTransfersListResponse> {
+        request: Rivet.cloud.GetTransfersListRequest = {}
+    ): Promise<Rivet.cloud.GetTransfersListResponse> {
         const { startTransferId } = request;
         const _queryParams = new URLSearchParams();
         if (startTransferId != null) {
@@ -500,7 +500,7 @@ export class Groups {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.cloud.GetGroupTransfersListResponse.parseOrThrow(_response.body, {
+            return await serializers.cloud.GetTransfersListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -589,7 +589,7 @@ export class Groups {
      * @throws {Rivet.NotFoundError}
      * @throws {Rivet.BadRequestError}
      */
-    public async groupBillingCheckout(
+    public async billingCheckout(
         groupId: string,
         request: Rivet.cloud.GroupBillingCheckoutRequest
     ): Promise<Rivet.cloud.GroupBillingCheckoutResponse> {
