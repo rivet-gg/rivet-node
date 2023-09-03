@@ -10,8 +10,6 @@ API documentation is available at <https://rivet.gg/docs>.
 
 ## Usage
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-rr1yzn?file=app.ts&view=editor)
-
 ```typescript
 import { RivetClient } from '@rivet-gg/api';
 let rivet = new RivetClient({ token: process.env.RIVET_TOKEN });
