@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import * as Rivet from "../../../../../../api";
+import { Rivet } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const Presence: core.serialization.ObjectSchema<serializers.identity.Presence.Raw, Rivet.identity.Presence> =

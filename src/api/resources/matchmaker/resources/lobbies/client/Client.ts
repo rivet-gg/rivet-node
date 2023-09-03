@@ -4,51 +4,41 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Rivet from "../../../../..";
 import urlJoin from "url-join";
 import * as errors from "../../../../../../errors";
 import * as serializers from "../../../../../../serialization";
-import { default as URLSearchParams } from "@ungap/url-search-params";
+import { Rivet } from "@rivet-gg/api";
 
 export declare namespace Lobbies {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class Lobbies {
-    constructor(protected readonly _options: Lobbies.Options) {}
+    constructor(private readonly options: Lobbies.Options) {}
 
     /**
      * Marks the current lobby as ready to accept connections.  Players will not be able to connect to this lobby until the  lobby is flagged as ready.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async ready(requestOptions?: Lobbies.RequestOptions): Promise<void> {
+    public async ready(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/ready"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -62,7 +52,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -71,7 +60,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -80,7 +68,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -89,7 +76,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -98,7 +84,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -107,7 +92,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -139,35 +123,27 @@ export class Lobbies {
      * after setting the lobby to closed).
      * Does not shutdown the lobby.
      *
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async setClosed(
-        request: Rivet.matchmaker.SetLobbyClosedRequest,
-        requestOptions?: Lobbies.RequestOptions
-    ): Promise<void> {
+    public async setClosed(request: Rivet.matchmaker.SetLobbyClosedRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/closed"
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.matchmaker.SetLobbyClosedRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -181,7 +157,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -190,7 +165,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -199,7 +173,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -208,7 +181,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -217,7 +189,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -226,7 +197,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -253,35 +223,27 @@ export class Lobbies {
     }
 
     /**
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async setState(request?: unknown, requestOptions?: Lobbies.RequestOptions): Promise<void> {
+    public async setState(request?: unknown): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/state"
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            body:
-                request != null
-                    ? await serializers.matchmaker.lobbies.setState.Request.jsonOrThrow(request, {
-                          unrecognizedObjectKeys: "strip",
-                      })
-                    : undefined,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            body: await serializers.matchmaker.lobbies.setState.Request.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
         });
         if (_response.ok) {
             return;
@@ -295,7 +257,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -304,7 +265,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -313,7 +273,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -322,7 +281,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -331,7 +289,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -340,7 +297,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -367,36 +323,30 @@ export class Lobbies {
     }
 
     /**
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async getState(lobbyId: string, requestOptions?: Lobbies.RequestOptions): Promise<unknown | undefined> {
+    public async getState(lobbyId: string): Promise<unknown | undefined> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 `/lobbies/${lobbyId}/state`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.matchmaker.lobbies.getState.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -408,7 +358,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -417,7 +366,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -426,7 +374,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -435,7 +382,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -444,7 +390,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -453,7 +398,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -484,42 +428,33 @@ export class Lobbies {
      * If a lobby is not found and `prevent_auto_create_lobby` is `true`,
      * a new lobby will be created.
      *
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async find(
-        request: Rivet.matchmaker.FindLobbyRequest,
-        requestOptions?: Lobbies.RequestOptions
-    ): Promise<Rivet.matchmaker.FindLobbyResponse> {
+    public async find(request: Rivet.matchmaker.FindLobbyRequest): Promise<Rivet.matchmaker.FindLobbyResponse> {
         const { origin, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/find"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
-                origin: origin != null ? origin : undefined,
+                origin: origin,
             },
             contentType: "application/json",
             body: await serializers.matchmaker.FindLobbyRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.matchmaker.FindLobbyResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -531,7 +466,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -540,7 +474,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -549,7 +482,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -558,7 +490,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -567,7 +498,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -576,7 +506,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -607,42 +536,33 @@ export class Lobbies {
      * This request will use the direct player count configured for the
      * lobby group.
      *
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async join(
-        request: Rivet.matchmaker.JoinLobbyRequest,
-        requestOptions?: Lobbies.RequestOptions
-    ): Promise<Rivet.matchmaker.JoinLobbyResponse> {
+    public async join(request: Rivet.matchmaker.JoinLobbyRequest): Promise<Rivet.matchmaker.JoinLobbyResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/join"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.matchmaker.JoinLobbyRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.matchmaker.JoinLobbyResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -654,7 +574,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -663,7 +582,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -672,7 +590,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -681,7 +598,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -690,7 +606,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -699,7 +614,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -728,42 +642,33 @@ export class Lobbies {
     /**
      * Creates a custom lobby.
      *
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async create(
-        request: Rivet.matchmaker.CreateLobbyRequest,
-        requestOptions?: Lobbies.RequestOptions
-    ): Promise<Rivet.matchmaker.CreateLobbyResponse> {
+    public async create(request: Rivet.matchmaker.CreateLobbyRequest): Promise<Rivet.matchmaker.CreateLobbyResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/create"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.matchmaker.CreateLobbyRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.matchmaker.CreateLobbyResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -775,7 +680,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -784,7 +688,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -793,7 +696,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -802,7 +704,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -811,7 +712,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -820,7 +720,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -848,16 +747,15 @@ export class Lobbies {
 
     /**
      * Lists all open lobbies.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async list(
-        request: Rivet.matchmaker.ListLobbiesRequest = {},
-        requestOptions?: Lobbies.RequestOptions
+        request: Rivet.matchmaker.ListLobbiesRequest = {}
     ): Promise<Rivet.matchmaker.ListLobbiesResponse> {
         const { includeState } = request;
         const _queryParams = new URLSearchParams();
@@ -867,27 +765,21 @@ export class Lobbies {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .matchmaker,
+                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
                 "/lobbies/list"
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.matchmaker.ListLobbiesResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -899,7 +791,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -908,7 +799,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -917,7 +807,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -926,7 +815,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -935,7 +823,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -944,7 +831,6 @@ export class Lobbies {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -970,8 +856,8 @@ export class Lobbies {
         }
     }
 
-    protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this._options.token);
+    private async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

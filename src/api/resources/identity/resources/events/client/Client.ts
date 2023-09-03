@@ -4,39 +4,31 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Rivet from "../../../../..";
-import { default as URLSearchParams } from "@ungap/url-search-params";
+import { Rivet } from "@rivet-gg/api";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
 export declare namespace Events {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class Events {
-    constructor(protected readonly _options: Events.Options) {}
+    constructor(private readonly options: Events.Options) {}
 
     /**
      * Returns all events relative to the current identity.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async watch(
-        request: Rivet.identity.WatchEventsRequest = {},
-        requestOptions?: Events.RequestOptions
-    ): Promise<Rivet.identity.WatchEventsResponse> {
+    public async watch(request: Rivet.identity.WatchEventsRequest = {}): Promise<Rivet.identity.WatchEventsResponse> {
         const { watchIndex } = request;
         const _queryParams = new URLSearchParams();
         if (watchIndex != null) {
@@ -45,27 +37,21 @@ export class Events {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .identity,
+                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
                 "/events/live"
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.identity.WatchEventsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -77,7 +63,6 @@ export class Events {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -86,7 +71,6 @@ export class Events {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -95,7 +79,6 @@ export class Events {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -104,7 +87,6 @@ export class Events {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -113,7 +95,6 @@ export class Events {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -122,7 +103,6 @@ export class Events {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -148,8 +128,8 @@ export class Events {
         }
     }
 
-    protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this._options.token);
+    private async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

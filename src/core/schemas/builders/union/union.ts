@@ -1,9 +1,7 @@
 import { BaseSchema, MaybeValid, SchemaType } from "../../Schema";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-import { isPlainObject } from "../../utils/isPlainObject";
+import { isPlainObject, NOT_AN_OBJECT_ERROR_MESSAGE } from "../../utils/isPlainObject";
 import { keys } from "../../utils/keys";
 import { MaybePromise } from "../../utils/MaybePromise";
-import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
 import { enum_ } from "../enum";
 import { ObjectSchema } from "../object";
 import { getObjectLikeUtils, ObjectLikeSchema } from "../object-like";
@@ -33,13 +31,11 @@ export function union<D extends string | Discriminant<any, any>, U extends Union
                 transformDiscriminantValue: (discriminantValue) =>
                     discriminantValueSchema.parse(discriminantValue, {
                         allowUnrecognizedEnumValues: opts?.allowUnrecognizedUnionMembers,
-                        breadcrumbsPrefix: [...(opts?.breadcrumbsPrefix ?? []), rawDiscriminant],
                     }),
                 getAdditionalPropertiesSchema: (discriminantValue) => union[discriminantValue],
                 allowUnrecognizedUnionMembers: opts?.allowUnrecognizedUnionMembers,
                 transformAdditionalProperties: (additionalProperties, additionalPropertiesSchema) =>
                     additionalPropertiesSchema.parse(additionalProperties, opts),
-                breadcrumbsPrefix: opts?.breadcrumbsPrefix,
             });
         },
         json: async (parsed, opts) => {
@@ -50,20 +46,18 @@ export function union<D extends string | Discriminant<any, any>, U extends Union
                 transformDiscriminantValue: (discriminantValue) =>
                     discriminantValueSchema.json(discriminantValue, {
                         allowUnrecognizedEnumValues: opts?.allowUnrecognizedUnionMembers,
-                        breadcrumbsPrefix: [...(opts?.breadcrumbsPrefix ?? []), parsedDiscriminant],
                     }),
                 getAdditionalPropertiesSchema: (discriminantValue) => union[discriminantValue],
                 allowUnrecognizedUnionMembers: opts?.allowUnrecognizedUnionMembers,
                 transformAdditionalProperties: (additionalProperties, additionalPropertiesSchema) =>
                     additionalPropertiesSchema.json(additionalProperties, opts),
-                breadcrumbsPrefix: opts?.breadcrumbsPrefix,
             });
         },
         getType: () => SchemaType.UNION,
     };
 
     return {
-        ...maybeSkipValidation(baseSchema),
+        ...baseSchema,
         ...getSchemaUtils(baseSchema),
         ...getObjectLikeUtils(baseSchema),
     };
@@ -81,7 +75,6 @@ async function transformAndValidateUnion<
     getAdditionalPropertiesSchema,
     allowUnrecognizedUnionMembers = false,
     transformAdditionalProperties,
-    breadcrumbsPrefix = [],
 }: {
     value: unknown;
     discriminant: string;
@@ -93,7 +86,6 @@ async function transformAndValidateUnion<
         additionalProperties: unknown,
         additionalPropertiesSchema: ObjectSchema<any, any>
     ) => MaybePromise<MaybeValid<TransformedAdditionalProperties>>;
-    breadcrumbsPrefix: string[] | undefined;
 }): Promise<
     MaybeValid<Record<TransformedDiscriminant, TransformedDiscriminantValue> & TransformedAdditionalProperties>
 > {
@@ -102,8 +94,8 @@ async function transformAndValidateUnion<
             ok: false,
             errors: [
                 {
-                    path: breadcrumbsPrefix,
-                    message: getErrorMessageForIncorrectType(value, "object"),
+                    path: [],
+                    message: NOT_AN_OBJECT_ERROR_MESSAGE,
                 },
             ],
         };
@@ -116,7 +108,7 @@ async function transformAndValidateUnion<
             ok: false,
             errors: [
                 {
-                    path: breadcrumbsPrefix,
+                    path: [],
                     message: `Missing discriminant ("${discriminant}")`,
                 },
             ],
@@ -127,7 +119,10 @@ async function transformAndValidateUnion<
     if (!transformedDiscriminantValue.ok) {
         return {
             ok: false,
-            errors: transformedDiscriminantValue.errors,
+            errors: transformedDiscriminantValue.errors.map((error) => ({
+                path: [discriminant, ...error.path],
+                message: error.message,
+            })),
         };
     }
 
@@ -147,8 +142,8 @@ async function transformAndValidateUnion<
                 ok: false,
                 errors: [
                     {
-                        path: [...breadcrumbsPrefix, discriminant],
-                        message: "Unexpected discriminant value",
+                        path: [discriminant],
+                        message: "Unrecognized discriminant value",
                     },
                 ],
             };

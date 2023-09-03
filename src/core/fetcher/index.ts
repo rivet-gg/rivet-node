@@ -1,4 +1,3 @@
-export type { APIResponse } from "./APIResponse";
-export { fetcher } from "./Fetcher";
-export type { Fetcher, FetchFunction } from "./Fetcher";
+export { type APIResponse } from "./APIResponse";
+export { fetcher, type Fetcher, type FetchFunction } from "./Fetcher";
 export { Supplier } from "./Supplier";

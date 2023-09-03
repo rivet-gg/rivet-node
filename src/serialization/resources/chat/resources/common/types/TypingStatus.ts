@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import * as Rivet from "../../../../../../api";
+import { Rivet } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const TypingStatus: core.serialization.ObjectSchema<serializers.chat.TypingStatus.Raw, Rivet.chat.TypingStatus> =

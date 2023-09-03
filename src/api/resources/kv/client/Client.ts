@@ -4,39 +4,31 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Rivet from "../../..";
-import { default as URLSearchParams } from "@ungap/url-search-params";
+import { Rivet } from "@rivet-gg/api";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Kv {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class Kv {
-    constructor(protected readonly _options: Kv.Options) {}
+    constructor(private readonly options: Kv.Options) {}
 
     /**
      * Returns a specific key-value entry by key.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async get(
-        request: Rivet.kv.GetOperationRequest,
-        requestOptions?: Kv.RequestOptions
-    ): Promise<Rivet.kv.GetResponse> {
+    public async get(request: Rivet.kv.GetOperationRequest): Promise<Rivet.kv.GetResponse> {
         const { key, watchIndex, namespaceId } = request;
         const _queryParams = new URLSearchParams();
         _queryParams.append("key", key);
@@ -49,27 +41,19 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production).kv,
-                "/entries"
-            ),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.kv.GetResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -81,7 +65,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -90,7 +73,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -99,7 +81,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -108,7 +89,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -117,7 +97,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -126,7 +105,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -154,29 +132,22 @@ export class Kv {
 
     /**
      * Puts (sets or overwrites) a key-value entry by key.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async put(request: Rivet.kv.PutRequest, requestOptions?: Kv.RequestOptions): Promise<void> {
+    public async put(request: Rivet.kv.PutRequest): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production).kv,
-                "/entries"
-            ),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.kv.PutRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -190,7 +161,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -199,7 +169,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -208,7 +177,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -217,7 +185,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -226,7 +193,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -235,7 +201,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -263,14 +228,14 @@ export class Kv {
 
     /**
      * Deletes a key-value entry by key.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async delete(request: Rivet.kv.DeleteOperationRequest, requestOptions?: Kv.RequestOptions): Promise<void> {
+    public async delete(request: Rivet.kv.DeleteOperationRequest): Promise<void> {
         const { key, namespaceId } = request;
         const _queryParams = new URLSearchParams();
         _queryParams.append("key", key);
@@ -279,20 +244,13 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production).kv,
-                "/entries"
-            ),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -306,7 +264,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -315,7 +272,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -324,7 +280,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -333,7 +288,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -342,7 +296,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -351,7 +304,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -379,17 +331,14 @@ export class Kv {
 
     /**
      * Gets multiple key-value entries by key(s).
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async getBatch(
-        request: Rivet.kv.GetBatchRequest,
-        requestOptions?: Kv.RequestOptions
-    ): Promise<Rivet.kv.GetBatchResponse> {
+    public async getBatch(request: Rivet.kv.GetBatchRequest): Promise<Rivet.kv.GetBatchResponse> {
         const { keys, watchIndex, namespaceId } = request;
         const _queryParams = new URLSearchParams();
         if (Array.isArray(keys)) {
@@ -409,27 +358,19 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production).kv,
-                "/entries/batch"
-            ),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.kv.GetBatchResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -441,7 +382,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -450,7 +390,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -459,7 +398,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -468,7 +406,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -477,7 +414,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -486,7 +422,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -514,29 +449,22 @@ export class Kv {
 
     /**
      * Puts (sets or overwrites) multiple key-value entries by key(s).
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async putBatch(request: Rivet.kv.PutBatchRequest, requestOptions?: Kv.RequestOptions): Promise<void> {
+    public async putBatch(request: Rivet.kv.PutBatchRequest): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production).kv,
-                "/entries/batch"
-            ),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.kv.PutBatchRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -550,7 +478,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -559,7 +486,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -568,7 +494,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -577,7 +502,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -586,7 +510,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -595,7 +518,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -623,14 +545,14 @@ export class Kv {
 
     /**
      * Deletes multiple key-value entries by key(s).
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async deleteBatch(request: Rivet.kv.DeleteBatchRequest, requestOptions?: Kv.RequestOptions): Promise<void> {
+    public async deleteBatch(request: Rivet.kv.DeleteBatchRequest): Promise<void> {
         const { keys, namespaceId } = request;
         const _queryParams = new URLSearchParams();
         if (Array.isArray(keys)) {
@@ -646,20 +568,13 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production).kv,
-                "/entries/batch"
-            ),
+            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -673,7 +588,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -682,7 +596,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -691,7 +604,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -700,7 +612,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -709,7 +620,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -718,7 +628,6 @@ export class Kv {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -744,8 +653,8 @@ export class Kv {
         }
     }
 
-    protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this._options.token);
+    private async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

@@ -4,67 +4,55 @@
 
 import * as environments from "../../../../../../../../environments";
 import * as core from "../../../../../../../../core";
-import * as Rivet from "../../../../../../..";
-import * as serializers from "../../../../../../../../serialization";
+import { Rivet } from "@rivet-gg/api";
 import urlJoin from "url-join";
+import * as serializers from "../../../../../../../../serialization";
 import * as errors from "../../../../../../../../errors";
-import { default as URLSearchParams } from "@ungap/url-search-params";
 import { Analytics } from "../resources/analytics/client/Client";
 import { Logs } from "../resources/logs/client/Client";
 
 export declare namespace Namespaces {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class Namespaces {
-    constructor(protected readonly _options: Namespaces.Options) {}
+    constructor(private readonly options: Namespaces.Options) {}
 
     /**
      * Creates a new namespace for the given game.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async createGameNamespace(
         gameId: string,
-        request: Rivet.cloud.games.namespaces.CreateGameNamespaceRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.CreateGameNamespaceRequest
     ): Promise<Rivet.cloud.games.namespaces.CreateGameNamespaceResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.CreateGameNamespaceRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.CreateGameNamespaceResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -76,7 +64,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -85,7 +72,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -94,7 +80,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -103,7 +88,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -112,7 +96,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -121,7 +104,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -149,43 +131,36 @@ export class Namespaces {
 
     /**
      * Validates information used to create a new game namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async validateGameNamespace(
         gameId: string,
-        request: Rivet.cloud.games.namespaces.ValidateGameNamespaceRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.ValidateGameNamespaceRequest
     ): Promise<Rivet.cloud.games.namespaces.ValidateGameNamespaceResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/validate`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.ValidateGameNamespaceRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.ValidateGameNamespaceResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -197,7 +172,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -206,7 +180,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -215,7 +188,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -224,7 +196,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -233,7 +204,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -242,7 +212,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -270,40 +239,33 @@ export class Namespaces {
 
     /**
      * Gets a game namespace by namespace ID.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async getGameNamespaceById(
         gameId: string,
-        namespaceId: string,
-        requestOptions?: Namespaces.RequestOptions
+        namespaceId: string
     ): Promise<Rivet.cloud.games.namespaces.GetGameNamespaceByIdResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.GetGameNamespaceByIdResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -315,7 +277,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -324,7 +285,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -333,7 +293,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -342,7 +301,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -351,7 +309,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -360,7 +317,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -388,37 +344,31 @@ export class Namespaces {
 
     /**
      * Adds an authenticated user to the given game namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async updateNamespaceCdnAuthUser(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.UpdateNamespaceCdnAuthUserRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.UpdateNamespaceCdnAuthUserRequest
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/auth-user`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.UpdateNamespaceCdnAuthUserRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -432,7 +382,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -441,7 +390,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -450,7 +398,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -459,7 +406,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -468,7 +414,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -477,7 +422,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -505,34 +449,24 @@ export class Namespaces {
 
     /**
      * Removes an authenticated user from the given game namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async removeNamespaceCdnAuthUser(
-        gameId: string,
-        namespaceId: string,
-        user: string,
-        requestOptions?: Namespaces.RequestOptions
-    ): Promise<void> {
+    public async removeNamespaceCdnAuthUser(gameId: string, namespaceId: string, user: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/auth-user/${user}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -546,7 +480,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -555,7 +488,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -564,7 +496,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -573,7 +504,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -582,7 +512,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -591,7 +520,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -619,37 +547,31 @@ export class Namespaces {
 
     /**
      * Updates the CDN authentication type of the given game namesapce.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async setNamespaceCdnAuthType(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.SetNamespaceCdnAuthTypeRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.SetNamespaceCdnAuthTypeRequest
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/cdn-auth`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.SetNamespaceCdnAuthTypeRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -663,7 +585,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -672,7 +593,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -681,7 +601,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -690,7 +609,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -699,7 +617,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -708,7 +625,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -736,37 +652,31 @@ export class Namespaces {
 
     /**
      * Toggles whether or not to allow authentication based on domain for the given game namesapce.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async toggleNamespaceDomainPublicAuth(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.ToggleNamespaceDomainPublicAuthRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.ToggleNamespaceDomainPublicAuthRequest
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/domain-public-auth`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.ToggleNamespaceDomainPublicAuthRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -780,7 +690,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -789,7 +698,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -798,7 +706,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -807,7 +714,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -816,7 +722,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -825,7 +730,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -853,37 +757,31 @@ export class Namespaces {
 
     /**
      * Adds a domain to the given game namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async addNamespaceDomain(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.AddNamespaceDomainRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.AddNamespaceDomainRequest
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/domains`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.AddNamespaceDomainRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -897,7 +795,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -906,7 +803,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -915,7 +811,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -924,7 +819,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -933,7 +827,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -942,7 +835,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -970,34 +862,24 @@ export class Namespaces {
 
     /**
      * Removes a domain from the given game namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
-    public async removeNamespaceDomain(
-        gameId: string,
-        namespaceId: string,
-        domain: string,
-        requestOptions?: Namespaces.RequestOptions
-    ): Promise<void> {
+    public async removeNamespaceDomain(gameId: string, namespaceId: string, domain: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/domains/${domain}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1011,7 +893,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1020,7 +901,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1029,7 +909,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1038,7 +917,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1047,7 +925,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1056,7 +933,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1084,38 +960,32 @@ export class Namespaces {
 
     /**
      * Updates matchmaker config for the given game namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async updateGameNamespaceMatchmakerConfig(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.UpdateGameNamespaceMatchmakerConfigRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.UpdateGameNamespaceMatchmakerConfigRequest
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/mm-config`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.UpdateGameNamespaceMatchmakerConfigRequest.jsonOrThrow(
                 request,
                 { unrecognizedObjectKeys: "strip" }
             ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1129,7 +999,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1138,7 +1007,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1147,7 +1015,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1156,7 +1023,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1165,7 +1031,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1174,7 +1039,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1202,18 +1066,17 @@ export class Namespaces {
 
     /**
      * Gets the version history for a given namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async getGameNamespaceVersionHistoryList(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.GetGameNamespaceVersionHistoryRequest = {},
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.GetGameNamespaceVersionHistoryRequest = {}
     ): Promise<Rivet.cloud.games.namespaces.GetGameNamespaceVersionHistoryResponse> {
         const { anchor, limit } = request;
         const _queryParams = new URLSearchParams();
@@ -1227,20 +1090,15 @@ export class Namespaces {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/version-history`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.GetGameNamespaceVersionHistoryResponse.parseOrThrow(
@@ -1249,7 +1107,6 @@ export class Namespaces {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
                 }
             );
         }
@@ -1262,7 +1119,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1271,7 +1127,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1280,7 +1135,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1289,7 +1143,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1298,7 +1151,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1307,7 +1159,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1335,38 +1186,32 @@ export class Namespaces {
 
     /**
      * Validates information used to update a game namespace's matchmaker config.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async validateGameNamespaceMatchmakerConfig(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.ValidateGameNamespaceMatchmakerConfigRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.ValidateGameNamespaceMatchmakerConfigRequest
     ): Promise<Rivet.cloud.games.namespaces.ValidateGameNamespaceMatchmakerConfigResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/mm-config/validate`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.ValidateGameNamespaceMatchmakerConfigRequest.jsonOrThrow(
                 request,
                 { unrecognizedObjectKeys: "strip" }
             ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.ValidateGameNamespaceMatchmakerConfigResponse.parseOrThrow(
@@ -1375,7 +1220,6 @@ export class Namespaces {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
                 }
             );
         }
@@ -1388,7 +1232,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1397,7 +1240,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1406,7 +1248,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1415,7 +1256,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1424,7 +1264,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1433,7 +1272,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1461,38 +1299,32 @@ export class Namespaces {
 
     /**
      * Creates a development token for the given namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async createGameNamespaceTokenDevelopment(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.CreateGameNamespaceTokenDevelopmentRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.CreateGameNamespaceTokenDevelopmentRequest
     ): Promise<Rivet.cloud.games.namespaces.CreateGameNamespaceTokenDevelopmentResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/tokens/development`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.CreateGameNamespaceTokenDevelopmentRequest.jsonOrThrow(
                 request,
                 { unrecognizedObjectKeys: "strip" }
             ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.CreateGameNamespaceTokenDevelopmentResponse.parseOrThrow(
@@ -1501,7 +1333,6 @@ export class Namespaces {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
                 }
             );
         }
@@ -1514,7 +1345,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1523,7 +1353,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1532,7 +1361,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1541,7 +1369,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1550,7 +1377,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1559,7 +1385,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1587,38 +1412,32 @@ export class Namespaces {
 
     /**
      * Validates information used to create a new game namespace development token.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async validateGameNamespaceTokenDevelopment(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.ValidateGameNamespaceTokenDevelopmentRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.ValidateGameNamespaceTokenDevelopmentRequest
     ): Promise<Rivet.cloud.games.namespaces.ValidateGameNamespaceTokenDevelopmentResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/tokens/development/validate`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.ValidateGameNamespaceTokenDevelopmentRequest.jsonOrThrow(
                 request,
                 { unrecognizedObjectKeys: "strip" }
             ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.ValidateGameNamespaceTokenDevelopmentResponse.parseOrThrow(
@@ -1627,7 +1446,6 @@ export class Namespaces {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
                 }
             );
         }
@@ -1640,7 +1458,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1649,7 +1466,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1658,7 +1474,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1667,7 +1482,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1676,7 +1490,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1685,7 +1498,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1713,33 +1525,27 @@ export class Namespaces {
 
     /**
      * Creates a public token for the given namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async createGameNamespaceTokenPublic(
         gameId: string,
-        namespaceId: string,
-        requestOptions?: Namespaces.RequestOptions
+        namespaceId: string
     ): Promise<Rivet.cloud.games.namespaces.CreateGameNamespaceTokenPublicResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/tokens/public`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.CreateGameNamespaceTokenPublicResponse.parseOrThrow(
@@ -1748,7 +1554,6 @@ export class Namespaces {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
                 }
             );
         }
@@ -1761,7 +1566,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1770,7 +1574,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1779,7 +1582,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1788,7 +1590,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1797,7 +1598,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1806,7 +1606,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1834,37 +1633,31 @@ export class Namespaces {
 
     /**
      * Updates the version of a game namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async updateGameNamespaceVersion(
         gameId: string,
         namespaceId: string,
-        request: Rivet.cloud.games.namespaces.UpdateGameNamespaceVersionRequest,
-        requestOptions?: Namespaces.RequestOptions
+        request: Rivet.cloud.games.namespaces.UpdateGameNamespaceVersionRequest
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `games/${gameId}/namespaces/${namespaceId}/version`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.namespaces.UpdateGameNamespaceVersionRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1878,7 +1671,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1887,7 +1679,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1896,7 +1687,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1905,7 +1695,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1914,7 +1703,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1923,7 +1711,6 @@ export class Namespaces {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1949,20 +1736,20 @@ export class Namespaces {
         }
     }
 
-    protected _analytics: Analytics | undefined;
+    private _analytics: Analytics | undefined;
 
     public get analytics(): Analytics {
-        return (this._analytics ??= new Analytics(this._options));
+        return (this._analytics ??= new Analytics(this.options));
     }
 
-    protected _logs: Logs | undefined;
+    private _logs: Logs | undefined;
 
     public get logs(): Logs {
-        return (this._logs ??= new Logs(this._options));
+        return (this._logs ??= new Logs(this.options));
     }
 
-    protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this._options.token);
+    private async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

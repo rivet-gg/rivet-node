@@ -4,54 +4,44 @@
 
 import * as environments from "../../../../../../../../../../environments";
 import * as core from "../../../../../../../../../../core";
-import * as Rivet from "../../../../../../../../..";
+import { Rivet } from "@rivet-gg/api";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../../../../../serialization";
 import * as errors from "../../../../../../../../../../errors";
 
 export declare namespace Analytics {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class Analytics {
-    constructor(protected readonly _options: Analytics.Options) {}
+    constructor(private readonly options: Analytics.Options) {}
 
     /**
      * Returns live information about all active lobbies for a given namespace.
-     * @throws {@link Rivet.InternalError}
-     * @throws {@link Rivet.RateLimitError}
-     * @throws {@link Rivet.ForbiddenError}
-     * @throws {@link Rivet.UnauthorizedError}
-     * @throws {@link Rivet.NotFoundError}
-     * @throws {@link Rivet.BadRequestError}
+     * @throws {Rivet.InternalError}
+     * @throws {Rivet.RateLimitError}
+     * @throws {Rivet.ForbiddenError}
+     * @throws {Rivet.UnauthorizedError}
+     * @throws {Rivet.NotFoundError}
+     * @throws {Rivet.BadRequestError}
      */
     public async getAnalyticsMatchmakerLive(
         gameId: string,
-        namespaceId: string,
-        requestOptions?: Analytics.RequestOptions
+        namespaceId: string
     ): Promise<Rivet.cloud.games.namespaces.GetAnalyticsMatchmakerLiveResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
-                    .cloud,
+                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
                 `/games/${gameId}/namespaces/${namespaceId}/analytics/matchmaker/live`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@rivet-gg/api",
-                "X-Fern-SDK-Version": "v23.1.0-rc3",
             },
             contentType: "application/json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.namespaces.GetAnalyticsMatchmakerLiveResponse.parseOrThrow(
@@ -60,7 +50,6 @@ export class Analytics {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
                 }
             );
         }
@@ -73,7 +62,6 @@ export class Analytics {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -82,7 +70,6 @@ export class Analytics {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -91,7 +78,6 @@ export class Analytics {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -100,7 +86,6 @@ export class Analytics {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -109,7 +94,6 @@ export class Analytics {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -118,7 +102,6 @@ export class Analytics {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -144,8 +127,8 @@ export class Analytics {
         }
     }
 
-    protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this._options.token);
+    private async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../..";
-import * as Rivet from "../../../../api";
+import { Rivet } from "@rivet-gg/api";
 import * as core from "../../../../core";
 
 export const Email: core.serialization.Schema<serializers.Email.Raw, Rivet.Email> = core.serialization.string();

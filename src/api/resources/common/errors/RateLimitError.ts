@@ -3,11 +3,12 @@
  */
 
 import * as errors from "../../../../errors";
-import * as Rivet from "../../..";
+import { Rivet } from "@rivet-gg/api";
 
 export class RateLimitError extends errors.RivetError {
     constructor(body: Rivet.ErrorBody) {
         super({
+            message: "RateLimitError",
             statusCode: 429,
             body: body,
         });

@@ -8,21 +8,17 @@ import { Links } from "../resources/links/client/Client";
 
 export declare namespace Devices {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class Devices {
-    constructor(protected readonly _options: Devices.Options) {}
+    constructor(private readonly options: Devices.Options) {}
 
-    protected _links: Links | undefined;
+    private _links: Links | undefined;
 
     public get links(): Links {
-        return (this._links ??= new Links(this._options));
+        return (this._links ??= new Links(this.options));
     }
 }

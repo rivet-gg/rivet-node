@@ -14,57 +14,53 @@ import { Matchmaker } from "./api/resources/matchmaker/client/Client";
 
 export declare namespace RivetClient {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class RivetClient {
-    constructor(protected readonly _options: RivetClient.Options) {}
+    constructor(private readonly options: RivetClient.Options) {}
 
-    protected _chat: Chat | undefined;
+    private _chat: Chat | undefined;
 
     public get chat(): Chat {
-        return (this._chat ??= new Chat(this._options));
+        return (this._chat ??= new Chat(this.options));
     }
 
-    protected _cloud: Cloud | undefined;
+    private _cloud: Cloud | undefined;
 
     public get cloud(): Cloud {
-        return (this._cloud ??= new Cloud(this._options));
+        return (this._cloud ??= new Cloud(this.options));
     }
 
-    protected _group: Group | undefined;
+    private _group: Group | undefined;
 
     public get group(): Group {
-        return (this._group ??= new Group(this._options));
+        return (this._group ??= new Group(this.options));
     }
 
-    protected _identity: Identity | undefined;
+    private _identity: Identity | undefined;
 
     public get identity(): Identity {
-        return (this._identity ??= new Identity(this._options));
+        return (this._identity ??= new Identity(this.options));
     }
 
-    protected _kv: Kv | undefined;
+    private _kv: Kv | undefined;
 
     public get kv(): Kv {
-        return (this._kv ??= new Kv(this._options));
+        return (this._kv ??= new Kv(this.options));
     }
 
-    protected _module: Module | undefined;
+    private _module: Module | undefined;
 
     public get module(): Module {
-        return (this._module ??= new Module(this._options));
+        return (this._module ??= new Module(this.options));
     }
 
-    protected _matchmaker: Matchmaker | undefined;
+    private _matchmaker: Matchmaker | undefined;
 
     public get matchmaker(): Matchmaker {
-        return (this._matchmaker ??= new Matchmaker(this._options));
+        return (this._matchmaker ??= new Matchmaker(this.options));
     }
 }

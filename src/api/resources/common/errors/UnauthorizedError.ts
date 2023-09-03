@@ -3,11 +3,12 @@
  */
 
 import * as errors from "../../../../errors";
-import * as Rivet from "../../..";
+import { Rivet } from "@rivet-gg/api";
 
 export class UnauthorizedError extends errors.RivetError {
     constructor(body: Rivet.ErrorBody) {
         super({
+            message: "UnauthorizedError",
             statusCode: 408,
             body: body,
         });

@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import * as Rivet from "../../../../../../api";
+import { Rivet } from "@rivet-gg/api";
 import * as core from "../../../../../../core";
 
 export const Stat: core.serialization.ObjectSchema<serializers.game.Stat.Raw, Rivet.game.Stat> =

@@ -1,7 +1,6 @@
 import { BaseSchema } from "../../Schema";
 import { filterObject } from "../../utils/filterObject";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-import { isPlainObject } from "../../utils/isPlainObject";
+import { isPlainObject, NOT_AN_OBJECT_ERROR_MESSAGE } from "../../utils/isPlainObject";
 import { getSchemaUtils } from "../schema-utils";
 import { ObjectLikeSchema, ObjectLikeUtils } from "./types";
 
@@ -51,8 +50,8 @@ export function withParsedProperties<RawObjectShape, ParsedObjectShape, Properti
                     ok: false,
                     errors: [
                         {
-                            path: opts?.breadcrumbsPrefix ?? [],
-                            message: getErrorMessageForIncorrectType(parsed, "object"),
+                            path: [],
+                            message: NOT_AN_OBJECT_ERROR_MESSAGE,
                         },
                     ],
                 };

@@ -3,11 +3,12 @@
  */
 
 import * as errors from "../../../../errors";
-import * as Rivet from "../../..";
+import { Rivet } from "@rivet-gg/api";
 
 export class NotFoundError extends errors.RivetError {
     constructor(body: Rivet.ErrorBody) {
         super({
+            message: "NotFoundError",
             statusCode: 404,
             body: body,
         });

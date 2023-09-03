@@ -3,11 +3,12 @@
  */
 
 import * as errors from "../../../../errors";
-import * as Rivet from "../../..";
+import { Rivet } from "@rivet-gg/api";
 
 export class InternalError extends errors.RivetError {
     constructor(body: Rivet.ErrorBody) {
         super({
+            message: "InternalError",
             statusCode: 500,
             body: body,
         });

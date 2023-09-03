@@ -1,6 +1,4 @@
 import { BaseSchema, Schema, SchemaType } from "../../Schema";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
 import { getSchemaUtils } from "../schema-utils";
 
 // https://stackoverflow.com/questions/12756159/regex-and-iso8601-formatted-datetime
@@ -9,35 +7,25 @@ const ISO_8601_REGEX =
 
 export function date(): Schema<string, Date> {
     const baseSchema: BaseSchema<string, Date> = {
-        parse: (raw, { breadcrumbsPrefix = [] } = {}) => {
-            if (typeof raw !== "string") {
+        parse: (raw) => {
+            if (typeof raw === "string" && ISO_8601_REGEX.test(raw)) {
+                return {
+                    ok: true,
+                    value: new Date(raw),
+                };
+            } else {
                 return {
                     ok: false,
                     errors: [
                         {
-                            path: breadcrumbsPrefix,
-                            message: getErrorMessageForIncorrectType(raw, "string"),
+                            path: [],
+                            message: "Not an ISO 8601 date string",
                         },
                     ],
                 };
             }
-            if (!ISO_8601_REGEX.test(raw)) {
-                return {
-                    ok: false,
-                    errors: [
-                        {
-                            path: breadcrumbsPrefix,
-                            message: getErrorMessageForIncorrectType(raw, "ISO 8601 date string"),
-                        },
-                    ],
-                };
-            }
-            return {
-                ok: true,
-                value: new Date(raw),
-            };
         },
-        json: (date, { breadcrumbsPrefix = [] } = {}) => {
+        json: (date) => {
             if (date instanceof Date) {
                 return {
                     ok: true,
@@ -48,8 +36,8 @@ export function date(): Schema<string, Date> {
                     ok: false,
                     errors: [
                         {
-                            path: breadcrumbsPrefix,
-                            message: getErrorMessageForIncorrectType(date, "Date object"),
+                            path: [],
+                            message: "Not a Date object",
                         },
                     ],
                 };
@@ -59,7 +47,7 @@ export function date(): Schema<string, Date> {
     };
 
     return {
-        ...maybeSkipValidation(baseSchema),
+        ...baseSchema,
         ...getSchemaUtils(baseSchema),
     };
 }

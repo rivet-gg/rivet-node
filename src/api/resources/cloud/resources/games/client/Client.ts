@@ -15,63 +15,59 @@ import { Versions } from "../resources/versions/client/Client";
 
 export declare namespace Games {
     interface Options {
-        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
+        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
         token?: core.Supplier<core.BearerToken | undefined>;
-    }
-
-    interface RequestOptions {
-        timeoutInSeconds?: number;
     }
 }
 
 export class Games {
-    constructor(protected readonly _options: Games.Options) {}
+    constructor(private readonly options: Games.Options) {}
 
-    protected _namespaces: Namespaces | undefined;
+    private _namespaces: Namespaces | undefined;
 
     public get namespaces(): Namespaces {
-        return (this._namespaces ??= new Namespaces(this._options));
+        return (this._namespaces ??= new Namespaces(this.options));
     }
 
-    protected _avatars: Avatars | undefined;
+    private _avatars: Avatars | undefined;
 
     public get avatars(): Avatars {
-        return (this._avatars ??= new Avatars(this._options));
+        return (this._avatars ??= new Avatars(this.options));
     }
 
-    protected _builds: Builds | undefined;
+    private _builds: Builds | undefined;
 
     public get builds(): Builds {
-        return (this._builds ??= new Builds(this._options));
+        return (this._builds ??= new Builds(this.options));
     }
 
-    protected _cdn: Cdn | undefined;
+    private _cdn: Cdn | undefined;
 
     public get cdn(): Cdn {
-        return (this._cdn ??= new Cdn(this._options));
+        return (this._cdn ??= new Cdn(this.options));
     }
 
-    protected _games: Games_ | undefined;
+    private _games: Games_ | undefined;
 
     public get games(): Games_ {
-        return (this._games ??= new Games_(this._options));
+        return (this._games ??= new Games_(this.options));
     }
 
-    protected _matchmaker: Matchmaker | undefined;
+    private _matchmaker: Matchmaker | undefined;
 
     public get matchmaker(): Matchmaker {
-        return (this._matchmaker ??= new Matchmaker(this._options));
+        return (this._matchmaker ??= new Matchmaker(this.options));
     }
 
-    protected _tokens: Tokens | undefined;
+    private _tokens: Tokens | undefined;
 
     public get tokens(): Tokens {
-        return (this._tokens ??= new Tokens(this._options));
+        return (this._tokens ??= new Tokens(this.options));
     }
 
-    protected _versions: Versions | undefined;
+    private _versions: Versions | undefined;
 
     public get versions(): Versions {
-        return (this._versions ??= new Versions(this._options));
+        return (this._versions ??= new Versions(this.options));
     }
 }
