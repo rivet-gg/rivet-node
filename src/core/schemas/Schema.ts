@@ -70,4 +70,24 @@ export interface SchemaOptions {
      * @default false
      */
     allowUnrecognizedEnumValues?: boolean;
+
+    /**
+     * whether to allow data that doesn't conform to the schema.
+     * invalid data is passed through without transformation.
+     *
+     * when this is enabled, .parse() and .json() will always
+     * return `ok: true`. `.parseOrThrow()` and `.jsonOrThrow()`
+     * will never fail.
+     *
+     * @default false
+     */
+    skipValidation?: boolean;
+
+    /**
+     * each validation failure contains a "path" property, which is
+     * the breadcrumbs to the offending node in the JSON. you can supply
+     * a prefix that is prepended to all the errors' paths. this can be
+     * helpful for zurg's internal debug logging.
+     */
+    breadcrumbsPrefix?: string[];
 }

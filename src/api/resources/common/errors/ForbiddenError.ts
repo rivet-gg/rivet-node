@@ -3,12 +3,11 @@
  */
 
 import * as errors from "../../../../errors";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../..";
 
 export class ForbiddenError extends errors.RivetError {
     constructor(body: Rivet.ErrorBody) {
         super({
-            message: "ForbiddenError",
             statusCode: 403,
             body: body,
         });

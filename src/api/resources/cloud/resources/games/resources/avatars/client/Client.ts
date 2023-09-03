@@ -4,47 +4,60 @@
 
 import * as environments from "../../../../../../../../environments";
 import * as core from "../../../../../../../../core";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../../../../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../../../serialization";
 import * as errors from "../../../../../../../../errors";
 
 export declare namespace Avatars {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
         token?: core.Supplier<core.BearerToken | undefined>;
+    }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
     }
 }
 
 export class Avatars {
-    constructor(private readonly options: Avatars.Options) {}
+    constructor(protected readonly _options: Avatars.Options) {}
 
     /**
      * Lists custom avatars for the given game.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async listGameCustomAvatars(gameId: string): Promise<Rivet.cloud.games.ListGameCustomAvatarsResponse> {
+    public async listGameCustomAvatars(
+        gameId: string,
+        requestOptions?: Avatars.RequestOptions
+    ): Promise<Rivet.cloud.games.ListGameCustomAvatarsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .cloud,
                 `/games/${gameId}/avatars`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.ListGameCustomAvatarsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -56,6 +69,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -64,6 +78,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -72,6 +87,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -80,6 +96,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -88,6 +105,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -96,6 +114,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -124,36 +143,43 @@ export class Avatars {
     /**
      * Prepares a custom avatar image upload.
      * Complete upload with `rivet.api.cloud#CompleteCustomAvatarUpload`.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async prepareCustomAvatarUpload(
         gameId: string,
-        request: Rivet.cloud.games.PrepareCustomAvatarUploadRequest
+        request: Rivet.cloud.games.PrepareCustomAvatarUploadRequest,
+        requestOptions?: Avatars.RequestOptions
     ): Promise<Rivet.cloud.games.PrepareCustomAvatarUploadResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .cloud,
                 `/games/${gameId}/prepare`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.cloud.games.PrepareCustomAvatarUploadRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.cloud.games.PrepareCustomAvatarUploadResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -165,6 +191,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -173,6 +200,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -181,6 +209,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -189,6 +218,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -197,6 +227,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -205,6 +236,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -232,24 +264,33 @@ export class Avatars {
 
     /**
      * Completes a custom avatar image upload. Must be called after the file upload process completes.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async completeCustomAvatarUpload(gameId: string, uploadId: string): Promise<void> {
+    public async completeCustomAvatarUpload(
+        gameId: string,
+        uploadId: string,
+        requestOptions?: Avatars.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .cloud,
                 `/games/${gameId}/avatar-upload/${uploadId}/complete`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -263,6 +304,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -271,6 +313,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -279,6 +322,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -287,6 +331,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -295,6 +340,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -303,6 +349,7 @@ export class Avatars {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -328,8 +375,8 @@ export class Avatars {
         }
     }
 
-    private async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
+    protected async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this._options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

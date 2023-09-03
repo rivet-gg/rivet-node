@@ -4,20 +4,24 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { Rivet } from "@rivet-gg/api";
-import urlJoin from "url-join";
+import * as Rivet from "../../../../..";
 import * as serializers from "../../../../../../serialization";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors";
 
 export declare namespace Players {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
         token?: core.Supplier<core.BearerToken | undefined>;
+    }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
     }
 }
 
 export class Players {
-    constructor(private readonly options: Players.Options) {}
+    constructor(protected readonly _options: Players.Options) {}
 
     /**
      * Validates the player token is valid and has not already been consumed then
@@ -50,27 +54,35 @@ export class Players {
      * once the socket opens. As mentioned above, nothing else should happen until
      * the player token is validated.
      *
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async connected(request: Rivet.matchmaker.PlayerConnectedRequest): Promise<void> {
+    public async connected(
+        request: Rivet.matchmaker.PlayerConnectedRequest,
+        requestOptions?: Players.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .matchmaker,
                 "/players/connected"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.matchmaker.PlayerConnectedRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -84,6 +96,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -92,6 +105,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -100,6 +114,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -108,6 +123,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -116,6 +132,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -124,6 +141,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -151,27 +169,35 @@ export class Players {
 
     /**
      * Marks a player as disconnected. # Ghost Players If players are not marked as disconnected, lobbies will result with "ghost players" that the matchmaker thinks exist but are no longer connected to the lobby.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async disconnected(request: Rivet.matchmaker.PlayerDisconnectedRequest): Promise<void> {
+    public async disconnected(
+        request: Rivet.matchmaker.PlayerDisconnectedRequest,
+        requestOptions?: Players.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .matchmaker,
                 "/players/disconnected"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.matchmaker.PlayerDisconnectedRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -185,6 +211,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -193,6 +220,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -201,6 +229,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -209,6 +238,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -217,6 +247,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -225,6 +256,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -252,30 +284,38 @@ export class Players {
 
     /**
      * Gives matchmaker statistics about the players in game.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async getStatistics(): Promise<Rivet.matchmaker.GetStatisticsResponse> {
+    public async getStatistics(
+        requestOptions?: Players.RequestOptions
+    ): Promise<Rivet.matchmaker.GetStatisticsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .matchmaker,
                 "/players/statistics"
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.matchmaker.GetStatisticsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -287,6 +327,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -295,6 +336,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -303,6 +345,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -311,6 +354,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -319,6 +363,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -327,6 +372,7 @@ export class Players {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -352,8 +398,8 @@ export class Players {
         }
     }
 
-    private async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
+    protected async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this._options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

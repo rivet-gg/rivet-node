@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../../../../../api";
 import * as core from "../../../../../../core";
 
 export const Full: core.serialization.ObjectSchema<serializers.cloud.version.Full.Raw, Rivet.cloud.version.Full> =

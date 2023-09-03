@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../../../../../api";
 import * as core from "../../../../../../core";
 
 export const Publicity: core.serialization.Schema<serializers.group.Publicity.Raw, Rivet.group.Publicity> =

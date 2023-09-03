@@ -4,7 +4,8 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../..";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -13,25 +14,30 @@ import { JoinRequests } from "../resources/joinRequests/client/Client";
 
 export declare namespace Group {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
         token?: core.Supplier<core.BearerToken | undefined>;
+    }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
     }
 }
 
 export class Group {
-    constructor(private readonly options: Group.Options) {}
+    constructor(protected readonly _options: Group.Options) {}
 
     /**
      * Returns a list of suggested groups.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async listSuggested(
-        request: Rivet.group.ListSuggestedRequest = {}
+        request: Rivet.group.ListSuggestedRequest = {},
+        requestOptions?: Group.RequestOptions
     ): Promise<Rivet.group.ListSuggestedResponse> {
         const { watchIndex } = request;
         const _queryParams = new URLSearchParams();
@@ -40,19 +46,28 @@ export class Group {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).group, "/groups"),
+            url: urlJoin(
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
+                "/groups"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.ListSuggestedResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -64,6 +79,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -72,6 +88,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -80,6 +97,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -88,6 +106,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -96,6 +115,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -104,6 +124,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -131,28 +152,40 @@ export class Group {
 
     /**
      * Creates a new group.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async create(request: Rivet.group.CreateRequest): Promise<Rivet.group.CreateResponse> {
+    public async create(
+        request: Rivet.group.CreateRequest,
+        requestOptions?: Group.RequestOptions
+    ): Promise<Rivet.group.CreateResponse> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).group, "/groups"),
+            url: urlJoin(
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
+                "/groups"
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.group.CreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.CreateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -164,6 +197,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -172,6 +206,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -180,6 +215,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -188,6 +224,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -196,6 +233,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -204,6 +242,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -232,35 +271,42 @@ export class Group {
     /**
      * Prepares an avatar image upload.
      * Complete upload with `rivet.api.group#CompleteAvatarUpload`.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async prepareAvatarUpload(
-        request: Rivet.group.PrepareAvatarUploadRequest
+        request: Rivet.group.PrepareAvatarUploadRequest,
+        requestOptions?: Group.RequestOptions
     ): Promise<Rivet.group.PrepareAvatarUploadResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 "/groups/avatar-upload/prepare"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.group.PrepareAvatarUploadRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.PrepareAvatarUploadResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -272,6 +318,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -280,6 +327,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -288,6 +336,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -296,6 +345,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -304,6 +354,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -312,6 +363,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -339,35 +391,42 @@ export class Group {
 
     /**
      * Validate contents of group profile. Use to provide immediate feedback on profile changes before committing them.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async validateProfile(
-        request: Rivet.group.ValidateProfileRequest
+        request: Rivet.group.ValidateProfileRequest,
+        requestOptions?: Group.RequestOptions
     ): Promise<Rivet.group.ValidateProfileResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 "/groups/profile/validate"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.group.ValidateProfileRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.ValidateProfileResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -379,6 +438,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -387,6 +447,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -395,6 +456,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -403,6 +465,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -411,6 +474,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -419,6 +483,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -446,14 +511,17 @@ export class Group {
 
     /**
      * Fuzzy search for groups.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async search(request: Rivet.group.SearchRequest): Promise<Rivet.group.SearchResponse> {
+    public async search(
+        request: Rivet.group.SearchRequest,
+        requestOptions?: Group.RequestOptions
+    ): Promise<Rivet.group.SearchResponse> {
         const { query, anchor, limit } = request;
         const _queryParams = new URLSearchParams();
         _queryParams.append("query", query);
@@ -467,21 +535,27 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 "/groups/search"
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.SearchResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -493,6 +567,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -501,6 +576,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -509,6 +585,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -517,6 +594,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -525,6 +603,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -533,6 +612,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -562,24 +642,33 @@ export class Group {
      * Completes an avatar image upload. Must be called after the file upload
      * process completes.
      * Call `rivet.api.group#PrepareAvatarUpload` first.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async completeAvatarUpload(groupId: string, uploadId: string): Promise<void> {
+    public async completeAvatarUpload(
+        groupId: string,
+        uploadId: string,
+        requestOptions?: Group.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/avatar-upload/${uploadId}/complete`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -593,6 +682,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -601,6 +691,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -609,6 +700,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -617,6 +709,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -625,6 +718,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -633,6 +727,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -660,16 +755,17 @@ export class Group {
 
     /**
      * Returns a group's bans. Must have valid permissions to view.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async getBans(
         groupId: string,
-        request: Rivet.group.GetBansRequest = {}
+        request: Rivet.group.GetBansRequest = {},
+        requestOptions?: Group.RequestOptions
     ): Promise<Rivet.group.GetBansResponse> {
         const { anchor, count, watchIndex } = request;
         const _queryParams = new URLSearchParams();
@@ -687,21 +783,27 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/bans`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.GetBansResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -713,6 +815,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -721,6 +824,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -729,6 +833,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -737,6 +842,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -745,6 +851,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -753,6 +860,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -780,24 +888,33 @@ export class Group {
 
     /**
      * Bans an identity from a group. Must be the owner of the group to perform this action. The banned identity will no longer be able to create a join request or use a group invite.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async banIdentity(groupId: string, identityId: string): Promise<void> {
+    public async banIdentity(
+        groupId: string,
+        identityId: string,
+        requestOptions?: Group.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/bans/${identityId}`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -811,6 +928,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -819,6 +937,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -827,6 +946,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -835,6 +955,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -843,6 +964,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -851,6 +973,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -878,24 +1001,33 @@ export class Group {
 
     /**
      * Unbans an identity from a group. Must be the owner of the group to perform this action.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async unbanIdentity(groupId: string, identityId: string): Promise<void> {
+    public async unbanIdentity(
+        groupId: string,
+        identityId: string,
+        requestOptions?: Group.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/bans/${identityId}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -909,6 +1041,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -917,6 +1050,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -925,6 +1059,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -933,6 +1068,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -941,6 +1077,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -949,6 +1086,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -976,16 +1114,17 @@ export class Group {
 
     /**
      * Returns a group's join requests. Must have valid permissions to view.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async getJoinRequests(
         groupId: string,
-        request: Rivet.group.GetJoinRequestsRequest = {}
+        request: Rivet.group.GetJoinRequestsRequest = {},
+        requestOptions?: Group.RequestOptions
     ): Promise<Rivet.group.GetJoinRequestsResponse> {
         const { anchor, count, watchIndex } = request;
         const _queryParams = new URLSearchParams();
@@ -1003,21 +1142,27 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/join-requests`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.GetJoinRequestsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1029,6 +1174,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1037,6 +1183,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1045,6 +1192,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1053,6 +1201,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1061,6 +1210,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1069,6 +1219,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1096,24 +1247,29 @@ export class Group {
 
     /**
      * Kicks an identity from a group. Must be the owner of the group to perform this action.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async kickMember(groupId: string, identityId: string): Promise<void> {
+    public async kickMember(groupId: string, identityId: string, requestOptions?: Group.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/kick/${identityId}`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1127,6 +1283,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1135,6 +1292,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1143,6 +1301,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1151,6 +1310,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1159,6 +1319,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1167,6 +1328,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1194,24 +1356,29 @@ export class Group {
 
     /**
      * Leaves a group.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async leave(groupId: string): Promise<void> {
+    public async leave(groupId: string, requestOptions?: Group.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/leave`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1225,6 +1392,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1233,6 +1401,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1241,6 +1410,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1249,6 +1419,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1257,6 +1428,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1265,6 +1437,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1292,16 +1465,17 @@ export class Group {
 
     /**
      * Returns a group's members.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async getMembers(
         groupId: string,
-        request: Rivet.group.GetMembersRequest = {}
+        request: Rivet.group.GetMembersRequest = {},
+        requestOptions?: Group.RequestOptions
     ): Promise<Rivet.group.GetMembersResponse> {
         const { anchor, count, watchIndex } = request;
         const _queryParams = new URLSearchParams();
@@ -1319,21 +1493,27 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/members`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.GetMembersResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1345,6 +1525,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1353,6 +1534,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1361,6 +1543,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1369,6 +1552,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1377,6 +1561,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1385,6 +1570,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1412,16 +1598,17 @@ export class Group {
 
     /**
      * Returns a group profile.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
     public async getProfile(
         groupId: string,
-        request: Rivet.group.GetProfileRequest = {}
+        request: Rivet.group.GetProfileRequest = {},
+        requestOptions?: Group.RequestOptions
     ): Promise<Rivet.group.GetProfileResponse> {
         const { watchIndex } = request;
         const _queryParams = new URLSearchParams();
@@ -1431,21 +1618,27 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/profile`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.GetProfileResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1457,6 +1650,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1465,6 +1659,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1473,6 +1668,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1481,6 +1677,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1489,6 +1686,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1497,6 +1695,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1523,27 +1722,36 @@ export class Group {
     }
 
     /**
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async updateProfile(groupId: string, request: Rivet.group.UpdateProfileRequest): Promise<void> {
+    public async updateProfile(
+        groupId: string,
+        request: Rivet.group.UpdateProfileRequest,
+        requestOptions?: Group.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/profile`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.group.UpdateProfileRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1557,6 +1765,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1565,6 +1774,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1573,6 +1783,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1581,6 +1792,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1589,6 +1801,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1597,6 +1810,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1623,30 +1837,39 @@ export class Group {
     }
 
     /**
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async getSummary(groupId: string): Promise<Rivet.group.GetSummaryResponse> {
+    public async getSummary(
+        groupId: string,
+        requestOptions?: Group.RequestOptions
+    ): Promise<Rivet.group.GetSummaryResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/summary`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.group.GetSummaryResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1658,6 +1881,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1666,6 +1890,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1674,6 +1899,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1682,6 +1908,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1690,6 +1917,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1698,6 +1926,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1725,27 +1954,36 @@ export class Group {
 
     /**
      * Transfers ownership of a group to another identity.
-     * @throws {Rivet.InternalError}
-     * @throws {Rivet.RateLimitError}
-     * @throws {Rivet.ForbiddenError}
-     * @throws {Rivet.UnauthorizedError}
-     * @throws {Rivet.NotFoundError}
-     * @throws {Rivet.BadRequestError}
+     * @throws {@link Rivet.InternalError}
+     * @throws {@link Rivet.RateLimitError}
+     * @throws {@link Rivet.ForbiddenError}
+     * @throws {@link Rivet.UnauthorizedError}
+     * @throws {@link Rivet.NotFoundError}
+     * @throws {@link Rivet.BadRequestError}
      */
-    public async transferOwnership(groupId: string, request: Rivet.group.TransferOwnershipRequest): Promise<void> {
+    public async transferOwnership(
+        groupId: string,
+        request: Rivet.group.TransferOwnershipRequest,
+        requestOptions?: Group.RequestOptions
+    ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.RivetEnvironment.Production)
+                    .group,
                 `/groups/${groupId}/transfer-owner`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@rivet-gg/api",
+                "X-Fern-SDK-Version": "v23.1.0-rc2",
             },
             contentType: "application/json",
             body: await serializers.group.TransferOwnershipRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1759,6 +1997,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 429:
@@ -1767,6 +2006,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 403:
@@ -1775,6 +2015,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 408:
@@ -1783,6 +2024,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1791,6 +2033,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 400:
@@ -1799,6 +2042,7 @@ export class Group {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1824,20 +2068,20 @@ export class Group {
         }
     }
 
-    private _invites: Invites | undefined;
+    protected _invites: Invites | undefined;
 
     public get invites(): Invites {
-        return (this._invites ??= new Invites(this.options));
+        return (this._invites ??= new Invites(this._options));
     }
 
-    private _joinRequests: JoinRequests | undefined;
+    protected _joinRequests: JoinRequests | undefined;
 
     public get joinRequests(): JoinRequests {
-        return (this._joinRequests ??= new JoinRequests(this.options));
+        return (this._joinRequests ??= new JoinRequests(this._options));
     }
 
-    private async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
+    protected async _getAuthorizationHeader() {
+        const bearer = await core.Supplier.get(this._options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;
         }

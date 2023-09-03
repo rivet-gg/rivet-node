@@ -1,6 +1,6 @@
 {
     "name": "@rivet-gg/api",
-    "version": "v23.1.0-rc1",
+    "version": "v23.1.0-rc2",
     "private": false,
     "repository": "https://github.com/rivet-gg/rivet-node",
     "files": [
@@ -35,21 +35,21 @@
     "types": "./types/index.d.ts",
     "scripts": {
         "format": "prettier --write 'src/**/*.ts'",
-        "compile": "tsc && tsc-alias",
+        "compile": "tsc",
         "bundle": "node build.js",
         "build": "yarn compile && yarn bundle"
     },
     "dependencies": {
         "url-join": "4.0.1",
         "@types/url-join": "4.0.1",
-        "js-base64": "3.7.2",
-        "axios": "0.27.2"
+        "@ungap/url-search-params": "0.2.2",
+        "axios": "0.27.2",
+        "js-base64": "3.7.2"
     },
     "devDependencies": {
         "@types/node": "17.0.33",
         "esbuild": "0.16.15",
         "prettier": "2.7.1",
-        "tsc-alias": "1.7.1",
         "typescript": "4.6.4"
     }
 }

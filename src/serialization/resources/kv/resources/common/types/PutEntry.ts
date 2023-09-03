@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../../../../../api";
 import * as core from "../../../../../../core";
 
 export const PutEntry: core.serialization.ObjectSchema<serializers.kv.PutEntry.Raw, Rivet.kv.PutEntry> =

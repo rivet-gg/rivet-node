@@ -53,9 +53,5 @@ async function runEsbuild({ platform, target, format, entryPoint, outfile }) {
         entryPoints: [entryPoint],
         outfile,
         bundle: true,
-        alias: {
-            // matches up with tsconfig paths
-            "@rivet-gg/api": "./src",
-        }
     }).catch(() => process.exit(1));
 }

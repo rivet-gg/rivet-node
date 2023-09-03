@@ -10,29 +10,33 @@ import { Regions } from "../resources/regions/client/Client";
 
 export declare namespace Matchmaker {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
         token?: core.Supplier<core.BearerToken | undefined>;
+    }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
     }
 }
 
 export class Matchmaker {
-    constructor(private readonly options: Matchmaker.Options) {}
+    constructor(protected readonly _options: Matchmaker.Options) {}
 
-    private _lobbies: Lobbies | undefined;
+    protected _lobbies: Lobbies | undefined;
 
     public get lobbies(): Lobbies {
-        return (this._lobbies ??= new Lobbies(this.options));
+        return (this._lobbies ??= new Lobbies(this._options));
     }
 
-    private _players: Players | undefined;
+    protected _players: Players | undefined;
 
     public get players(): Players {
-        return (this._players ??= new Players(this.options));
+        return (this._players ??= new Players(this._options));
     }
 
-    private _regions: Regions | undefined;
+    protected _regions: Regions | undefined;
 
     public get regions(): Regions {
-        return (this._regions ??= new Regions(this.options));
+        return (this._regions ??= new Regions(this._options));
     }
 }

@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../../../../../api";
 import * as core from "../../../../../../core";
 
 export const Key: core.serialization.Schema<serializers.kv.Key.Raw, Rivet.kv.Key> = core.serialization.string();

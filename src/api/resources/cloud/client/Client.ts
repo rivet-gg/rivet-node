@@ -14,53 +14,57 @@ import { Uploads } from "../resources/uploads/client/Client";
 
 export declare namespace Cloud {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: core.Supplier<environments.RivetEnvironment | environments.RivetEnvironmentUrls>;
         token?: core.Supplier<core.BearerToken | undefined>;
+    }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
     }
 }
 
 export class Cloud {
-    constructor(private readonly options: Cloud.Options) {}
+    constructor(protected readonly _options: Cloud.Options) {}
 
-    private _games: Games | undefined;
+    protected _games: Games | undefined;
 
     public get games(): Games {
-        return (this._games ??= new Games(this.options));
+        return (this._games ??= new Games(this._options));
     }
 
-    private _auth: Auth | undefined;
+    protected _auth: Auth | undefined;
 
     public get auth(): Auth {
-        return (this._auth ??= new Auth(this.options));
+        return (this._auth ??= new Auth(this._options));
     }
 
-    private _devices: Devices | undefined;
+    protected _devices: Devices | undefined;
 
     public get devices(): Devices {
-        return (this._devices ??= new Devices(this.options));
+        return (this._devices ??= new Devices(this._options));
     }
 
-    private _groups: Groups | undefined;
+    protected _groups: Groups | undefined;
 
     public get groups(): Groups {
-        return (this._groups ??= new Groups(this.options));
+        return (this._groups ??= new Groups(this._options));
     }
 
-    private _logs: Logs | undefined;
+    protected _logs: Logs | undefined;
 
     public get logs(): Logs {
-        return (this._logs ??= new Logs(this.options));
+        return (this._logs ??= new Logs(this._options));
     }
 
-    private _tiers: Tiers | undefined;
+    protected _tiers: Tiers | undefined;
 
     public get tiers(): Tiers {
-        return (this._tiers ??= new Tiers(this.options));
+        return (this._tiers ??= new Tiers(this._options));
     }
 
-    private _uploads: Uploads | undefined;
+    protected _uploads: Uploads | undefined;
 
     public get uploads(): Uploads {
-        return (this._uploads ??= new Uploads(this.options));
+        return (this._uploads ??= new Uploads(this._options));
     }
 }

@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../..";
-import { Rivet } from "@rivet-gg/api";
+import * as Rivet from "../../../../../../api";
 import * as core from "../../../../../../core";
 
 export const AuthAgent: core.serialization.ObjectSchema<serializers.cloud.AuthAgent.Raw, Rivet.cloud.AuthAgent> =
