@@ -16,6 +16,7 @@ export const CreateGameBuildRequest: core.serialization.ObjectSchema<
         "image_file",
         core.serialization.lazyObject(async () => (await import("../../../../../../..")).upload.PrepareFile)
     ),
+    multipartUpload: core.serialization.property("multipart_upload", core.serialization.boolean().optional()),
 });
 
 export declare namespace CreateGameBuildRequest {
@@ -23,5 +24,6 @@ export declare namespace CreateGameBuildRequest {
         display_name: string;
         image_tag: string;
         image_file: serializers.upload.PrepareFile.Raw;
+        multipart_upload?: boolean | null;
     }
 }

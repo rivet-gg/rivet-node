@@ -10,7 +10,6 @@ export const SendTopic: core.serialization.ObjectSchema<serializers.chat.SendTop
     core.serialization.object({
         threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
-        partyId: core.serialization.property("party_id", core.serialization.string().optional()),
         identityId: core.serialization.property("identity_id", core.serialization.string().optional()),
     });
 
@@ -18,7 +17,6 @@ export declare namespace SendTopic {
     interface Raw {
         thread_id?: string | null;
         group_id?: string | null;
-        party_id?: string | null;
         identity_id?: string | null;
     }
 }

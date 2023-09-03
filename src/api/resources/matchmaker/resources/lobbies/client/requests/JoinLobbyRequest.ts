@@ -7,4 +7,5 @@ import { Rivet } from "@rivet-gg/api";
 export interface JoinLobbyRequest {
     lobbyId: string;
     captcha?: Rivet.captcha.Config;
+    verificationData?: unknown;
 }

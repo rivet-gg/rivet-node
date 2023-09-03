@@ -10,4 +10,5 @@ export interface CreateGameBuildRequest {
     /** A tag given to the game build. */
     imageTag: string;
     imageFile: Rivet.upload.PrepareFile;
+    multipartUpload?: boolean;
 }

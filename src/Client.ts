@@ -9,7 +9,7 @@ import { Cloud } from "./api/resources/cloud/client/Client";
 import { Group } from "./api/resources/group/client/Client";
 import { Identity } from "./api/resources/identity/client/Client";
 import { Kv } from "./api/resources/kv/client/Client";
-import { Party } from "./api/resources/party/client/Client";
+import { Module } from "./api/resources/module/client/Client";
 import { Matchmaker } from "./api/resources/matchmaker/client/Client";
 
 export declare namespace RivetClient {
@@ -52,10 +52,10 @@ export class RivetClient {
         return (this._kv ??= new Kv(this.options));
     }
 
-    private _party: Party | undefined;
+    private _module: Module | undefined;
 
-    public get party(): Party {
-        return (this._party ??= new Party(this.options));
+    public get module(): Module {
+        return (this._module ??= new Module(this.options));
     }
 
     private _matchmaker: Matchmaker | undefined;

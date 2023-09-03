@@ -12,4 +12,3 @@ export * from "./logs/types";
 export * as tiers from "./tiers";
 export * from "./tiers/types";
 export * as uploads from "./uploads";
-export * from "./groups/client/requests";

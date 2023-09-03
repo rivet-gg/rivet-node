@@ -8,6 +8,5 @@
 export interface SendTopic {
     threadId?: string;
     groupId?: string;
-    partyId?: string;
     identityId?: string;
 }

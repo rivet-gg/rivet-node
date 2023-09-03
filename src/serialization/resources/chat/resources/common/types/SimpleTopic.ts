@@ -11,9 +11,6 @@ export const SimpleTopic: core.serialization.ObjectSchema<serializers.chat.Simpl
         group: core.serialization
             .lazyObject(async () => (await import("../../../../..")).chat.SimpleTopicGroup)
             .optional(),
-        party: core.serialization
-            .lazyObject(async () => (await import("../../../../..")).chat.SimpleTopicParty)
-            .optional(),
         direct: core.serialization
             .lazyObject(async () => (await import("../../../../..")).chat.SimpleTopicDirect)
             .optional(),
@@ -22,7 +19,6 @@ export const SimpleTopic: core.serialization.ObjectSchema<serializers.chat.Simpl
 export declare namespace SimpleTopic {
     interface Raw {
         group?: serializers.chat.SimpleTopicGroup.Raw | null;
-        party?: serializers.chat.SimpleTopicParty.Raw | null;
         direct?: serializers.chat.SimpleTopicDirect.Raw | null;
     }
 }

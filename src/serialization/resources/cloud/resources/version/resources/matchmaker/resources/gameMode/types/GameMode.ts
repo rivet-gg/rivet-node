@@ -26,6 +26,31 @@ export const GameMode: core.serialization.ObjectSchema<
             async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeRuntimeDocker
         )
         .optional(),
+    listable: core.serialization.boolean().optional(),
+    findConfig: core.serialization.property(
+        "find_config",
+        core.serialization
+            .lazyObject(
+                async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeFindConfig
+            )
+            .optional()
+    ),
+    joinConfig: core.serialization.property(
+        "join_config",
+        core.serialization
+            .lazyObject(
+                async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeJoinConfig
+            )
+            .optional()
+    ),
+    createConfig: core.serialization.property(
+        "create_config",
+        core.serialization
+            .lazyObject(
+                async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeCreateConfig
+            )
+            .optional()
+    ),
     tier: core.serialization.string().optional(),
     idleLobbies: core.serialization.property(
         "idle_lobbies",
@@ -45,6 +70,10 @@ export declare namespace GameMode {
         max_players_direct?: number | null;
         max_players_party?: number | null;
         docker?: serializers.cloud.version.matchmaker.GameModeRuntimeDocker.Raw | null;
+        listable?: boolean | null;
+        find_config?: serializers.cloud.version.matchmaker.GameModeFindConfig.Raw | null;
+        join_config?: serializers.cloud.version.matchmaker.GameModeJoinConfig.Raw | null;
+        create_config?: serializers.cloud.version.matchmaker.GameModeCreateConfig.Raw | null;
         tier?: string | null;
         idle_lobbies?: serializers.cloud.version.matchmaker.GameModeIdleLobbiesConfig.Raw | null;
     }

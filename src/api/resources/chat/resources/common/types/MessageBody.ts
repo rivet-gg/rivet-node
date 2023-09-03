@@ -15,9 +15,4 @@ export interface MessageBody {
     groupJoin?: Rivet.chat.MessageBodyGroupJoin;
     groupLeave?: Rivet.chat.MessageBodyGroupLeave;
     groupMemberKick?: Rivet.chat.MessageBodyGroupMemberKick;
-    partyInvite?: Rivet.chat.MessageBodyPartyInvite;
-    partyJoinRequest?: Rivet.chat.MessageBodyPartyJoinRequest;
-    partyJoin?: Rivet.chat.MessageBodyPartyJoin;
-    partyLeave?: Rivet.chat.MessageBodyPartyLeave;
-    partyActivityChange?: Rivet.chat.MessageBodyPartyActivityChange;
 }

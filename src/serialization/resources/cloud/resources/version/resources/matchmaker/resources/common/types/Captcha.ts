@@ -15,6 +15,9 @@ export const Captcha: core.serialization.ObjectSchema<
     hcaptcha: core.serialization
         .lazyObject(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.CaptchaHcaptcha)
         .optional(),
+    turnstile: core.serialization
+        .lazyObject(async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.CaptchaTurnstile)
+        .optional(),
 });
 
 export declare namespace Captcha {
@@ -22,5 +25,6 @@ export declare namespace Captcha {
         requests_before_reverify: number;
         verification_ttl: number;
         hcaptcha?: serializers.cloud.version.matchmaker.CaptchaHcaptcha.Raw | null;
+        turnstile?: serializers.cloud.version.matchmaker.CaptchaTurnstile.Raw | null;
     }
 }

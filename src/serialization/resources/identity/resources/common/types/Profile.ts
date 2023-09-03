@@ -21,7 +21,6 @@ export const Profile: core.serialization.ObjectSchema<serializers.identity.Profi
         presence: core.serialization
             .lazyObject(async () => (await import("../../../../..")).identity.Presence)
             .optional(),
-        party: core.serialization.lazyObject(async () => (await import("../../../../..")).party.Summary).optional(),
         isRegistered: core.serialization.property("is_registered", core.serialization.boolean()),
         external: core.serialization.lazyObject(async () => (await import("../../../../..")).identity.ExternalLinks),
         isAdmin: core.serialization.property("is_admin", core.serialization.boolean()),
@@ -59,7 +58,6 @@ export declare namespace Profile {
         account_number: serializers.AccountNumber.Raw;
         avatar_url: string;
         presence?: serializers.identity.Presence.Raw | null;
-        party?: serializers.party.Summary.Raw | null;
         is_registered: boolean;
         external: serializers.identity.ExternalLinks.Raw;
         is_admin: boolean;

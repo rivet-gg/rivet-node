@@ -6,3 +6,4 @@ export * from "./JoinRegion";
 export * from "./JoinPort";
 export * from "./JoinPortRange";
 export * from "./JoinPlayer";
+export * from "./CustomLobbyPublicity";

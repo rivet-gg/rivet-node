@@ -12,15 +12,15 @@ export const GameActivity: core.serialization.ObjectSchema<
 > = core.serialization.object({
     game: core.serialization.lazyObject(async () => (await import("../../../../..")).game.Handle),
     message: core.serialization.string(),
-    publicMetadata: core.serialization.property("public_metadata", core.serialization.unknown()),
-    mutualMetadata: core.serialization.property("mutual_metadata", core.serialization.unknown()),
+    publicMetadata: core.serialization.property("public_metadata", core.serialization.unknown().optional()),
+    mutualMetadata: core.serialization.property("mutual_metadata", core.serialization.unknown().optional()),
 });
 
 export declare namespace GameActivity {
     interface Raw {
         game: serializers.game.Handle.Raw;
         message: string;
-        public_metadata?: unknown;
-        mutual_metadata?: unknown;
+        public_metadata?: unknown | null;
+        mutual_metadata?: unknown | null;
     }
 }

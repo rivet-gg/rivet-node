@@ -22,12 +22,6 @@ export const GlobalEventKind: core.serialization.ObjectSchema<
             .lazyObject(async () => (await import("../../../../..")).identity.GlobalEventChatRead)
             .optional()
     ),
-    partyUpdate: core.serialization.property(
-        "party_update",
-        core.serialization
-            .lazyObject(async () => (await import("../../../../..")).identity.GlobalEventPartyUpdate)
-            .optional()
-    ),
     identityUpdate: core.serialization.property(
         "identity_update",
         core.serialization
@@ -52,7 +46,6 @@ export declare namespace GlobalEventKind {
     interface Raw {
         chat_message?: serializers.identity.GlobalEventChatMessage.Raw | null;
         chat_read?: serializers.identity.GlobalEventChatRead.Raw | null;
-        party_update?: serializers.identity.GlobalEventPartyUpdate.Raw | null;
         identity_update?: serializers.identity.GlobalEventIdentityUpdate.Raw | null;
         matchmaker_lobby_join?: serializers.identity.GlobalEventMatchmakerLobbyJoin.Raw | null;
         chat_thread_remove?: serializers.identity.GlobalEventChatThreadRemove.Raw | null;

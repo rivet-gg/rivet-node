@@ -15,8 +15,6 @@ export interface Profile {
     avatarUrl: string;
     presence?: Rivet.identity.Presence;
     /** Whether or not this identity is registered with a linked account. */
-    party?: Rivet.party.Summary;
-    /** Whether or not this identity is registered with a linked account. */
     isRegistered: boolean;
     external: Rivet.identity.ExternalLinks;
     /** Whether or not this identity is an admin. */

@@ -17,6 +17,7 @@ export const FindLobbyRequest: core.serialization.Schema<
         core.serialization.boolean().optional()
     ),
     captcha: core.serialization.lazyObject(async () => (await import("../../../../../..")).captcha.Config).optional(),
+    verificationData: core.serialization.property("verification_data", core.serialization.unknown().optional()),
 });
 
 export declare namespace FindLobbyRequest {
@@ -25,5 +26,6 @@ export declare namespace FindLobbyRequest {
         regions?: string[] | null;
         prevent_auto_create_lobby?: boolean | null;
         captcha?: serializers.captcha.Config.Raw | null;
+        verification_data?: unknown | null;
     }
 }

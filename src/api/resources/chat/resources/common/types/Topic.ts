@@ -9,6 +9,5 @@ import { Rivet } from "@rivet-gg/api";
  */
 export interface Topic {
     group?: Rivet.chat.TopicGroup;
-    party?: Rivet.chat.TopicParty;
     direct?: Rivet.chat.TopicDirect;
 }

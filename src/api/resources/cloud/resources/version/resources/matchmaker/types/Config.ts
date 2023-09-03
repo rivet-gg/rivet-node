@@ -11,7 +11,7 @@ export interface Config {
     /** A list of game modes. */
     gameModes?: Record<string, Rivet.cloud.version.matchmaker.GameMode>;
     captcha?: Rivet.cloud.version.matchmaker.Captcha;
-    /** Client-side configuration */
+    /** _Configures Rivet CLI behavior. Has no effect on server behavior._ */
     devHostname?: string;
     regions?: Record<string, Rivet.cloud.version.matchmaker.GameModeRegion>;
     maxPlayers?: number;

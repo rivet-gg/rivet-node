@@ -12,7 +12,7 @@ export interface RivetEnvironmentUrls {
     job: string;
     kv: string;
     matchmaker: string;
-    party: string;
+    module: string;
     portal: string;
 }
 
@@ -27,7 +27,7 @@ export const RivetEnvironment = {
         job: "https://job.api.rivet.gg/v1",
         kv: "https://kv.api.rivet.gg/v1",
         matchmaker: "https://matchmaker.api.rivet.gg/v1",
-        party: "https://party.api.rivet.gg/v1",
+        module: "https://module.api.rivet.gg/v1",
         portal: "https://portal.api.rivet.gg/v1",
     },
 } as const;

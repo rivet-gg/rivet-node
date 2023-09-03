@@ -21,7 +21,6 @@ export const Handle: core.serialization.ObjectSchema<serializers.identity.Handle
         presence: core.serialization
             .lazyObject(async () => (await import("../../../../..")).identity.Presence)
             .optional(),
-        party: core.serialization.lazyObject(async () => (await import("../../../../..")).party.Handle).optional(),
         isRegistered: core.serialization.property("is_registered", core.serialization.boolean()),
         external: core.serialization.lazyObject(async () => (await import("../../../../..")).identity.ExternalLinks),
     });
@@ -33,7 +32,6 @@ export declare namespace Handle {
         account_number: serializers.AccountNumber.Raw;
         avatar_url: string;
         presence?: serializers.identity.Presence.Raw | null;
-        party?: serializers.party.Handle.Raw | null;
         is_registered: boolean;
         external: serializers.identity.ExternalLinks.Raw;
     }

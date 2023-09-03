@@ -13,4 +13,5 @@ export interface Captcha {
     /** Denotes how long a connection can continue to reconnect without having to reverify a captcha (in milliseconds). */
     verificationTtl: number;
     hcaptcha?: Rivet.cloud.version.matchmaker.CaptchaHcaptcha;
+    turnstile?: Rivet.cloud.version.matchmaker.CaptchaTurnstile;
 }

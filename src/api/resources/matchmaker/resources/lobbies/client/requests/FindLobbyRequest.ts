@@ -10,4 +10,5 @@ export interface FindLobbyRequest {
     regions?: string[];
     preventAutoCreateLobby?: boolean;
     captcha?: Rivet.captcha.Config;
+    verificationData?: unknown;
 }

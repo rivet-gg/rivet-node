@@ -9,5 +9,4 @@ import { Rivet } from "@rivet-gg/api";
  */
 export interface SendMessageBody {
     text?: Rivet.chat.SendMessageBodyText;
-    partyInvite?: Rivet.chat.SendMessageBodyPartyInvite;
 }

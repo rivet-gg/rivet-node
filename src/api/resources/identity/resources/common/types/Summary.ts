@@ -14,7 +14,6 @@ export interface Summary {
     /** The URL of this identity's avatar image. */
     avatarUrl: string;
     presence?: Rivet.identity.Presence;
-    party?: Rivet.party.Handle;
     /** Whether or not this identity is registered with a linked account. */
     isRegistered: boolean;
     external: Rivet.identity.ExternalLinks;

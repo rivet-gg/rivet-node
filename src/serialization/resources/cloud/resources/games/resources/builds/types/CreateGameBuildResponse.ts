@@ -14,7 +14,19 @@ export const CreateGameBuildResponse: core.serialization.ObjectSchema<
     uploadId: core.serialization.property("upload_id", core.serialization.string()),
     imagePresignedRequest: core.serialization.property(
         "image_presigned_request",
-        core.serialization.lazyObject(async () => (await import("../../../../../../..")).upload.PresignedRequest)
+        core.serialization
+            .lazyObject(async () => (await import("../../../../../../..")).upload.PresignedRequest)
+            .optional()
+    ),
+    imagePresignedRequests: core.serialization.property(
+        "image_presigned_requests",
+        core.serialization
+            .list(
+                core.serialization.lazyObject(
+                    async () => (await import("../../../../../../..")).upload.PresignedRequest
+                )
+            )
+            .optional()
     ),
 });
 
@@ -22,6 +34,7 @@ export declare namespace CreateGameBuildResponse {
     interface Raw {
         build_id: string;
         upload_id: string;
-        image_presigned_request: serializers.upload.PresignedRequest.Raw;
+        image_presigned_request?: serializers.upload.PresignedRequest.Raw | null;
+        image_presigned_requests?: serializers.upload.PresignedRequest.Raw[] | null;
     }
 }

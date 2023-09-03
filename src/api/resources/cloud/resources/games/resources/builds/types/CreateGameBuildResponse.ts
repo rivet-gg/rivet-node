@@ -7,5 +7,6 @@ import { Rivet } from "@rivet-gg/api";
 export interface CreateGameBuildResponse {
     buildId: string;
     uploadId: string;
-    imagePresignedRequest: Rivet.upload.PresignedRequest;
+    imagePresignedRequest?: Rivet.upload.PresignedRequest;
+    imagePresignedRequests?: Rivet.upload.PresignedRequest[];
 }

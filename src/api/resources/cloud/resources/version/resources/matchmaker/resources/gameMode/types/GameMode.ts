@@ -13,6 +13,10 @@ export interface GameMode {
     maxPlayersDirect?: number;
     maxPlayersParty?: number;
     docker?: Rivet.cloud.version.matchmaker.GameModeRuntimeDocker;
+    listable?: boolean;
+    findConfig?: Rivet.cloud.version.matchmaker.GameModeFindConfig;
+    joinConfig?: Rivet.cloud.version.matchmaker.GameModeJoinConfig;
+    createConfig?: Rivet.cloud.version.matchmaker.GameModeCreateConfig;
     tier?: string;
     idleLobbies?: Rivet.cloud.version.matchmaker.GameModeIdleLobbiesConfig;
 }

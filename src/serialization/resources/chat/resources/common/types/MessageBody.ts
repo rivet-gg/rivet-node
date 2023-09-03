@@ -44,36 +44,6 @@ export const MessageBody: core.serialization.ObjectSchema<serializers.chat.Messa
                 .lazyObject(async () => (await import("../../../../..")).chat.MessageBodyGroupMemberKick)
                 .optional()
         ),
-        partyInvite: core.serialization.property(
-            "party_invite",
-            core.serialization
-                .lazyObject(async () => (await import("../../../../..")).chat.MessageBodyPartyInvite)
-                .optional()
-        ),
-        partyJoinRequest: core.serialization.property(
-            "party_join_request",
-            core.serialization
-                .lazyObject(async () => (await import("../../../../..")).chat.MessageBodyPartyJoinRequest)
-                .optional()
-        ),
-        partyJoin: core.serialization.property(
-            "party_join",
-            core.serialization
-                .lazyObject(async () => (await import("../../../../..")).chat.MessageBodyPartyJoin)
-                .optional()
-        ),
-        partyLeave: core.serialization.property(
-            "party_leave",
-            core.serialization
-                .lazyObject(async () => (await import("../../../../..")).chat.MessageBodyPartyLeave)
-                .optional()
-        ),
-        partyActivityChange: core.serialization.property(
-            "party_activity_change",
-            core.serialization
-                .lazyObject(async () => (await import("../../../../..")).chat.MessageBodyPartyActivityChange)
-                .optional()
-        ),
     });
 
 export declare namespace MessageBody {
@@ -85,10 +55,5 @@ export declare namespace MessageBody {
         group_join?: serializers.chat.MessageBodyGroupJoin.Raw | null;
         group_leave?: serializers.chat.MessageBodyGroupLeave.Raw | null;
         group_member_kick?: serializers.chat.MessageBodyGroupMemberKick.Raw | null;
-        party_invite?: serializers.chat.MessageBodyPartyInvite.Raw | null;
-        party_join_request?: serializers.chat.MessageBodyPartyJoinRequest.Raw | null;
-        party_join?: serializers.chat.MessageBodyPartyJoin.Raw | null;
-        party_leave?: serializers.chat.MessageBodyPartyLeave.Raw | null;
-        party_activity_change?: serializers.chat.MessageBodyPartyActivityChange.Raw | null;
     }
 }

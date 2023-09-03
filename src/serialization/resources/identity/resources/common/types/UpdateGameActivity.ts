@@ -11,14 +11,14 @@ export const UpdateGameActivity: core.serialization.ObjectSchema<
     Rivet.identity.UpdateGameActivity
 > = core.serialization.object({
     message: core.serialization.string().optional(),
-    publicMetadata: core.serialization.property("public_metadata", core.serialization.unknown()),
-    mutualMetadata: core.serialization.property("mutual_metadata", core.serialization.unknown()),
+    publicMetadata: core.serialization.property("public_metadata", core.serialization.unknown().optional()),
+    mutualMetadata: core.serialization.property("mutual_metadata", core.serialization.unknown().optional()),
 });
 
 export declare namespace UpdateGameActivity {
     interface Raw {
         message?: string | null;
-        public_metadata?: unknown;
-        mutual_metadata?: unknown;
+        public_metadata?: unknown | null;
+        mutual_metadata?: unknown | null;
     }
 }

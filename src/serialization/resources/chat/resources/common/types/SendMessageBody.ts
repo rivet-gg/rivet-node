@@ -13,17 +13,10 @@ export const SendMessageBody: core.serialization.ObjectSchema<
     text: core.serialization
         .lazyObject(async () => (await import("../../../../..")).chat.SendMessageBodyText)
         .optional(),
-    partyInvite: core.serialization.property(
-        "party_invite",
-        core.serialization
-            .lazyObject(async () => (await import("../../../../..")).chat.SendMessageBodyPartyInvite)
-            .optional()
-    ),
 });
 
 export declare namespace SendMessageBody {
     interface Raw {
         text?: serializers.chat.SendMessageBodyText.Raw | null;
-        party_invite?: serializers.chat.SendMessageBodyPartyInvite.Raw | null;
     }
 }

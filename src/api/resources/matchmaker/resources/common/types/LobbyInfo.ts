@@ -13,4 +13,5 @@ export interface LobbyInfo {
     maxPlayersDirect: number;
     maxPlayersParty: number;
     totalPlayerCount: number;
+    state?: unknown;
 }

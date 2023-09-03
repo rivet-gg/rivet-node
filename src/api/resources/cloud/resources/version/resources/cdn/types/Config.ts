@@ -8,9 +8,9 @@ import { Rivet } from "@rivet-gg/api";
  * CDN configuration for a given version.
  */
 export interface Config {
-    /** Client-side configuration */
+    /** _Configures Rivet CLI behavior. Has no effect on server behavior._ */
     buildCommand?: string;
-    /** Client-side configuration */
+    /** _Configures Rivet CLI behavior. Has no effect on server behavior._ */
     buildOutput?: string;
     siteId?: string;
     /** Multiple CDN version routes. */

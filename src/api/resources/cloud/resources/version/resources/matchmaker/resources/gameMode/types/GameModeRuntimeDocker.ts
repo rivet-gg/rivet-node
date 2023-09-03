@@ -8,9 +8,9 @@ import { Rivet } from "@rivet-gg/api";
  * A game mode runtime running through Docker.
  */
 export interface GameModeRuntimeDocker {
-    /** Client-side configuration */
+    /** _Configures Rivet CLI behavior. Has no effect on server behavior._ */
     dockerfile?: string;
-    /** Client-side configuration */
+    /** _Configures Rivet CLI behavior. Has no effect on server behavior._ */
     image?: string;
     imageId?: string;
     args?: string[];

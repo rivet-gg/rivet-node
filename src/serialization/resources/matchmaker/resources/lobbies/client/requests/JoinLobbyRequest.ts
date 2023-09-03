@@ -12,11 +12,13 @@ export const JoinLobbyRequest: core.serialization.Schema<
 > = core.serialization.object({
     lobbyId: core.serialization.property("lobby_id", core.serialization.string()),
     captcha: core.serialization.lazyObject(async () => (await import("../../../../../..")).captcha.Config).optional(),
+    verificationData: core.serialization.property("verification_data", core.serialization.unknown().optional()),
 });
 
 export declare namespace JoinLobbyRequest {
     interface Raw {
         lobby_id: string;
         captcha?: serializers.captcha.Config.Raw | null;
+        verification_data?: unknown | null;
     }
 }

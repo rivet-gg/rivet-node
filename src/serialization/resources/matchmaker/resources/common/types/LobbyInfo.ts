@@ -17,6 +17,7 @@ export const LobbyInfo: core.serialization.ObjectSchema<
     maxPlayersDirect: core.serialization.property("max_players_direct", core.serialization.number()),
     maxPlayersParty: core.serialization.property("max_players_party", core.serialization.number()),
     totalPlayerCount: core.serialization.property("total_player_count", core.serialization.number()),
+    state: core.serialization.unknown().optional(),
 });
 
 export declare namespace LobbyInfo {
@@ -28,5 +29,6 @@ export declare namespace LobbyInfo {
         max_players_direct: number;
         max_players_party: number;
         total_player_count: number;
+        state?: unknown | null;
     }
 }

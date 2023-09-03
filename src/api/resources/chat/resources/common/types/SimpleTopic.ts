@@ -11,6 +11,5 @@ import { Rivet } from "@rivet-gg/api";
  */
 export interface SimpleTopic {
     group?: Rivet.chat.SimpleTopicGroup;
-    party?: Rivet.chat.SimpleTopicParty;
     direct?: Rivet.chat.SimpleTopicDirect;
 }

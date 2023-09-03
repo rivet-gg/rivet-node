@@ -20,7 +20,7 @@ export class Analytics {
     constructor(private readonly options: Analytics.Options) {}
 
     /**
-     * Returns live information about all active lobies for a given namespace.
+     * Returns live information about all active lobbies for a given namespace.
      * @throws {Rivet.InternalError}
      * @throws {Rivet.RateLimitError}
      * @throws {Rivet.ForbiddenError}
