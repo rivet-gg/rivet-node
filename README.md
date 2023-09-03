@@ -6,31 +6,21 @@ The Rivet Node.js library provides access to the Rivet API from JavaScript/TypeS
 
 ## Documentation
 
-API documentation is available at <https://docs.rivet.gg/docs/api/>.
+API documentation is available at <https://rivet.gg/docs>.
 
 ## Usage
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-rr1yzn?file=app.ts&view=editor)
 
 ```typescript
-import { RivetApiClient } from '@rivet-gg/api';
+import { RivetClient } from '@rivet-gg/api';
+let rivet = new RivetClient({ token: process.env.RIVET_TOKEN });
 
-void main();
+// Find a lobby (a new lobby will automatically be created on demand if needed)
+let res = await rivet.matchmaker.lobbies.find({ gameModes: ['default'] });
 
-async function main() {
-  const client = new RivetApiClient({
-    environment: 'https://identity.api.rivet.gg/v1',
-    token: 'MY_TOKEN',
-  });
-
-  const followResponse = await client.identity.follow('identity-id');
-
-  console.log(
-    'Received response from Rivet!',
-    JSON.stringify(followResponse, undefined, 4)
-  );
-}
-
+// Connect to the lobby (Rivet automatically manages your SSL)
+let ws = new WebSocket(`wss://${res.ports['default'].host}/?token=${res.player.token}`);
 ```
 
 ## Beta status
