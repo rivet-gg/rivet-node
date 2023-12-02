@@ -8,4 +8,3 @@ export * from "./GameBannerUploadPrepareRequest";
 export * from "./GameBannerUploadPrepareResponse";
 export * from "./GameLogoUploadPrepareRequest";
 export * from "./GameLogoUploadPrepareResponse";
-export * from "./GameSummary";

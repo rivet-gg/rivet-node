@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Players {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -60,8 +60,8 @@ export class Players {
     public async connected(request: Rivet.matchmaker.PlayerConnectedRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/players/connected"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/players/connected"
             ),
             method: "POST",
             headers: {
@@ -161,8 +161,8 @@ export class Players {
     public async disconnected(request: Rivet.matchmaker.PlayerDisconnectedRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/players/disconnected"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/players/disconnected"
             ),
             method: "POST",
             headers: {
@@ -262,8 +262,8 @@ export class Players {
     public async getStatistics(): Promise<Rivet.matchmaker.GetStatisticsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/players/statistics"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/players/statistics"
             ),
             method: "GET",
             headers: {

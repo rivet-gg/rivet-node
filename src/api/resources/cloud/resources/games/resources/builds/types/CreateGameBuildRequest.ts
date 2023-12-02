@@ -11,4 +11,6 @@ export interface CreateGameBuildRequest {
     imageTag: string;
     imageFile: Rivet.upload.PrepareFile;
     multipartUpload?: boolean;
+    kind?: Rivet.cloud.games.BuildKind;
+    compression?: Rivet.cloud.games.BuildCompression;
 }

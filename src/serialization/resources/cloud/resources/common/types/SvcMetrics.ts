@@ -11,7 +11,6 @@ export const SvcMetrics: core.serialization.ObjectSchema<serializers.cloud.SvcMe
         job: core.serialization.string(),
         cpu: core.serialization.list(core.serialization.number()),
         memory: core.serialization.list(core.serialization.number()),
-        memoryMax: core.serialization.property("memory_max", core.serialization.list(core.serialization.number())),
         allocatedMemory: core.serialization.property("allocated_memory", core.serialization.number().optional()),
     });
 
@@ -20,7 +19,6 @@ export declare namespace SvcMetrics {
         job: string;
         cpu: number[];
         memory: number[];
-        memory_max: number[];
         allocated_memory?: number | null;
     }
 }

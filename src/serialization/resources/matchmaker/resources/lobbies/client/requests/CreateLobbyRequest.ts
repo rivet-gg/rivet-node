@@ -12,9 +12,13 @@ export const CreateLobbyRequest: core.serialization.Schema<
 > = core.serialization.object({
     gameMode: core.serialization.property("game_mode", core.serialization.string()),
     region: core.serialization.string().optional(),
-    captcha: core.serialization.lazyObject(async () => (await import("../../../../../..")).captcha.Config).optional(),
-    publicity: core.serialization.lazy(async () => (await import("../../../../../..")).matchmaker.CustomLobbyPublicity),
+    publicity: core.serialization
+        .lazy(async () => (await import("../../../../../..")).matchmaker.CustomLobbyPublicity)
+        .optional(),
+    tags: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
+    maxPlayers: core.serialization.property("max_players", core.serialization.number().optional()),
     lobbyConfig: core.serialization.property("lobby_config", core.serialization.unknown().optional()),
+    captcha: core.serialization.lazyObject(async () => (await import("../../../../../..")).captcha.Config).optional(),
     verificationData: core.serialization.property("verification_data", core.serialization.unknown().optional()),
 });
 
@@ -22,9 +26,11 @@ export declare namespace CreateLobbyRequest {
     interface Raw {
         game_mode: string;
         region?: string | null;
-        captcha?: serializers.captcha.Config.Raw | null;
-        publicity: serializers.matchmaker.CustomLobbyPublicity.Raw;
+        publicity?: serializers.matchmaker.CustomLobbyPublicity.Raw | null;
+        tags?: Record<string, string> | null;
+        max_players?: number | null;
         lobby_config?: unknown | null;
+        captcha?: serializers.captcha.Config.Raw | null;
         verification_data?: unknown | null;
     }
 }

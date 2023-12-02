@@ -5,9 +5,6 @@
 import { Rivet } from "@rivet-gg/api";
 
 export interface GlobalEventKind {
-    chatMessage?: Rivet.identity.GlobalEventChatMessage;
-    chatRead?: Rivet.identity.GlobalEventChatRead;
     identityUpdate?: Rivet.identity.GlobalEventIdentityUpdate;
     matchmakerLobbyJoin?: Rivet.identity.GlobalEventMatchmakerLobbyJoin;
-    chatThreadRemove?: Rivet.identity.GlobalEventChatThreadRemove;
 }

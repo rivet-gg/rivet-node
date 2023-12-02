@@ -12,13 +12,11 @@ export const ExternalLinks: core.serialization.ObjectSchema<
 > = core.serialization.object({
     profile: core.serialization.string(),
     settings: core.serialization.string().optional(),
-    chat: core.serialization.string().optional(),
 });
 
 export declare namespace ExternalLinks {
     interface Raw {
         profile: string;
         settings?: string | null;
-        chat?: string | null;
     }
 }

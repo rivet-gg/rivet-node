@@ -15,7 +15,7 @@ import { Versions } from "../resources/versions/client/Client";
 
 export declare namespace Games {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }

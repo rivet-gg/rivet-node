@@ -34,7 +34,6 @@ export const Profile: core.serialization.ObjectSchema<serializers.group.Profile.
             core.serialization.boolean().optional()
         ),
         ownerIdentityId: core.serialization.property("owner_identity_id", core.serialization.string()),
-        threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
     });
 
 export declare namespace Profile {
@@ -52,6 +51,5 @@ export declare namespace Profile {
         join_requests: serializers.group.JoinRequest.Raw[];
         is_current_identity_requesting_join?: boolean | null;
         owner_identity_id: string;
-        thread_id?: string | null;
     }
 }

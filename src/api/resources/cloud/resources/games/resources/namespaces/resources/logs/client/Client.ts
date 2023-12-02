@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../../../errors";
 
 export declare namespace Logs {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -41,8 +41,8 @@ export class Logs {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/namespaces/${namespaceId}/logs/lobbies`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/namespaces/${namespaceId}/logs/lobbies`
             ),
             method: "GET",
             headers: {
@@ -148,8 +148,8 @@ export class Logs {
     ): Promise<Rivet.cloud.games.namespaces.GetNamespaceLobbyResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/namespaces/${namespaceId}/logs/lobbies/${lobbyId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/namespaces/${namespaceId}/logs/lobbies/${lobbyId}`
             ),
             method: "GET",
             headers: {

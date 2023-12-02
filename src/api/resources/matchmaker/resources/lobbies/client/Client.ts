@@ -11,7 +11,7 @@ import { Rivet } from "@rivet-gg/api";
 
 export declare namespace Lobbies {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class Lobbies {
     public async ready(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/lobbies/ready"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/lobbies/ready"
             ),
             method: "POST",
             headers: {
@@ -133,8 +133,8 @@ export class Lobbies {
     public async setClosed(request: Rivet.matchmaker.SetLobbyClosedRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/lobbies/closed"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/lobbies/closed"
             ),
             method: "PUT",
             headers: {
@@ -233,8 +233,8 @@ export class Lobbies {
     public async setState(request?: unknown): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/lobbies/state"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/lobbies/state"
             ),
             method: "PUT",
             headers: {
@@ -333,8 +333,8 @@ export class Lobbies {
     public async getState(lobbyId: string): Promise<unknown | undefined> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                `/lobbies/${lobbyId}/state`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/matchmaker/lobbies/${lobbyId}/state`
             ),
             method: "GET",
             headers: {
@@ -439,8 +439,8 @@ export class Lobbies {
         const { origin, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/lobbies/find"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/lobbies/find"
             ),
             method: "POST",
             headers: {
@@ -546,8 +546,8 @@ export class Lobbies {
     public async join(request: Rivet.matchmaker.JoinLobbyRequest): Promise<Rivet.matchmaker.JoinLobbyResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/lobbies/join"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/lobbies/join"
             ),
             method: "POST",
             headers: {
@@ -652,8 +652,8 @@ export class Lobbies {
     public async create(request: Rivet.matchmaker.CreateLobbyRequest): Promise<Rivet.matchmaker.CreateLobbyResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/lobbies/create"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/lobbies/create"
             ),
             method: "POST",
             headers: {
@@ -765,8 +765,8 @@ export class Lobbies {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).matchmaker,
-                "/lobbies/list"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/matchmaker/lobbies/list"
             ),
             method: "GET",
             headers: {

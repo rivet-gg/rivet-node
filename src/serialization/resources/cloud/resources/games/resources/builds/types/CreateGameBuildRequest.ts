@@ -17,6 +17,10 @@ export const CreateGameBuildRequest: core.serialization.ObjectSchema<
         core.serialization.lazyObject(async () => (await import("../../../../../../..")).upload.PrepareFile)
     ),
     multipartUpload: core.serialization.property("multipart_upload", core.serialization.boolean().optional()),
+    kind: core.serialization.lazy(async () => (await import("../../../../../../..")).cloud.games.BuildKind).optional(),
+    compression: core.serialization
+        .lazy(async () => (await import("../../../../../../..")).cloud.games.BuildCompression)
+        .optional(),
 });
 
 export declare namespace CreateGameBuildRequest {
@@ -25,5 +29,7 @@ export declare namespace CreateGameBuildRequest {
         image_tag: string;
         image_file: serializers.upload.PrepareFile.Raw;
         multipart_upload?: boolean | null;
+        kind?: serializers.cloud.games.BuildKind.Raw | null;
+        compression?: serializers.cloud.games.BuildCompression.Raw | null;
     }
 }

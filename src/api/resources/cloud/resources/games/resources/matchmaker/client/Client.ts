@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../errors";
 
 export declare namespace Matchmaker {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -34,8 +34,8 @@ export class Matchmaker {
     ): Promise<Rivet.cloud.games.ExportMatchmakerLobbyHistoryResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/matchmaker/lobbies/export-history`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/matchmaker/lobbies/export-history`
             ),
             method: "POST",
             headers: {
@@ -142,8 +142,8 @@ export class Matchmaker {
     ): Promise<Rivet.cloud.games.DeleteMatchmakerLobbyResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/matchmaker/lobbies/${lobbyId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/matchmaker/lobbies/${lobbyId}`
             ),
             method: "DELETE",
             headers: {
@@ -255,8 +255,8 @@ export class Matchmaker {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/matchmaker/lobbies/${lobbyId}/logs`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/matchmaker/lobbies/${lobbyId}/logs`
             ),
             method: "GET",
             headers: {
@@ -362,8 +362,8 @@ export class Matchmaker {
     ): Promise<Rivet.cloud.games.ExportLobbyLogsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/matchmaker/lobbies/${lobbyId}/logs/export`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/matchmaker/lobbies/${lobbyId}/logs/export`
             ),
             method: "POST",
             headers: {

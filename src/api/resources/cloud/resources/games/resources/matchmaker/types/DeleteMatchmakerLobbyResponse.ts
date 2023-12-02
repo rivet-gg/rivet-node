@@ -4,5 +4,5 @@
 
 export interface DeleteMatchmakerLobbyResponse {
     /** Whether or not the lobby was successfully stopped. */
-    didRemove?: boolean;
+    didRemove: boolean;
 }

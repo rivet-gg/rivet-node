@@ -16,6 +16,8 @@ export const FindLobbyRequest: core.serialization.Schema<
         "prevent_auto_create_lobby",
         core.serialization.boolean().optional()
     ),
+    tags: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
+    maxPlayers: core.serialization.property("max_players", core.serialization.number().optional()),
     captcha: core.serialization.lazyObject(async () => (await import("../../../../../..")).captcha.Config).optional(),
     verificationData: core.serialization.property("verification_data", core.serialization.unknown().optional()),
 });
@@ -25,6 +27,8 @@ export declare namespace FindLobbyRequest {
         game_modes: string[];
         regions?: string[] | null;
         prevent_auto_create_lobby?: boolean | null;
+        tags?: Record<string, string> | null;
+        max_players?: number | null;
         captcha?: serializers.captcha.Config.Raw | null;
         verification_data?: unknown | null;
     }

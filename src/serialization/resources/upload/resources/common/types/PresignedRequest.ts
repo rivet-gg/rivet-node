@@ -12,11 +12,15 @@ export const PresignedRequest: core.serialization.ObjectSchema<
 > = core.serialization.object({
     path: core.serialization.string(),
     url: core.serialization.string(),
+    byteOffset: core.serialization.property("byte_offset", core.serialization.number()),
+    contentLength: core.serialization.property("content_length", core.serialization.number()),
 });
 
 export declare namespace PresignedRequest {
     interface Raw {
         path: string;
         url: string;
+        byte_offset: number;
+        content_length: number;
     }
 }

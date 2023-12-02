@@ -11,7 +11,7 @@ import * as errors from "../../../../errors";
 
 export declare namespace Kv {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -41,7 +41,7 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/kv/entries"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -141,7 +141,7 @@ export class Kv {
      */
     public async put(request: Rivet.kv.PutRequest): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/kv/entries"),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -244,7 +244,7 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/kv/entries"),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -358,7 +358,7 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/kv/entries/batch"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -458,7 +458,7 @@ export class Kv {
      */
     public async putBatch(request: Rivet.kv.PutBatchRequest): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/kv/entries/batch"),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -568,7 +568,7 @@ export class Kv {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).kv, "/entries/batch"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/kv/entries/batch"),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

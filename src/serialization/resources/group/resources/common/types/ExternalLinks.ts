@@ -11,12 +11,10 @@ export const ExternalLinks: core.serialization.ObjectSchema<
     Rivet.group.ExternalLinks
 > = core.serialization.object({
     profile: core.serialization.string(),
-    chat: core.serialization.string(),
 });
 
 export declare namespace ExternalLinks {
     interface Raw {
         profile: string;
-        chat: string;
     }
 }

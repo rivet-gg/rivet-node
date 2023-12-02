@@ -1,4 +1,5 @@
 export * from "./Handle";
+export * from "./Summary";
 export * from "./StatSummary";
 export * from "./Stat";
 export * from "./StatConfig";

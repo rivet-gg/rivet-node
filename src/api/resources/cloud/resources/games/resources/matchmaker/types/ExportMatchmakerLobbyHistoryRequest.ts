@@ -4,7 +4,7 @@
 
 export interface ExportMatchmakerLobbyHistoryRequest {
     /** Unsigned 64 bit integer. */
-    queryStart?: number;
+    queryStart: number;
     /** Unsigned 64 bit integer. */
-    queryEnd?: number;
+    queryEnd: number;
 }

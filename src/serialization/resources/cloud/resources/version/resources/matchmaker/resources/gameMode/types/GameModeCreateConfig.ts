@@ -10,24 +10,23 @@ export const GameModeCreateConfig: core.serialization.ObjectSchema<
     serializers.cloud.version.matchmaker.GameModeCreateConfig.Raw,
     Rivet.cloud.version.matchmaker.GameModeCreateConfig
 > = core.serialization.object({
+    enabled: core.serialization.boolean(),
     identityRequirement: core.serialization.property(
         "identity_requirement",
-        core.serialization.lazy(
-            async () =>
-                (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeIdentityRequirement
-        )
-    ),
-    verificationConfig: core.serialization.property(
-        "verification_config",
         core.serialization
-            .lazyObject(
+            .lazy(
                 async () =>
-                    (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeVerificationConfig
+                    (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeIdentityRequirement
             )
             .optional()
     ),
-    enablePublic: core.serialization.property("enable_public", core.serialization.boolean()),
-    enablePrivate: core.serialization.property("enable_private", core.serialization.boolean()),
+    verification: core.serialization
+        .lazyObject(
+            async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeVerificationConfig
+        )
+        .optional(),
+    enablePublic: core.serialization.property("enable_public", core.serialization.boolean().optional()),
+    enablePrivate: core.serialization.property("enable_private", core.serialization.boolean().optional()),
     maxLobbiesPerIdentity: core.serialization.property(
         "max_lobbies_per_identity",
         core.serialization.number().optional()
@@ -36,10 +35,11 @@ export const GameModeCreateConfig: core.serialization.ObjectSchema<
 
 export declare namespace GameModeCreateConfig {
     interface Raw {
-        identity_requirement: serializers.cloud.version.matchmaker.GameModeIdentityRequirement.Raw;
-        verification_config?: serializers.cloud.version.matchmaker.GameModeVerificationConfig.Raw | null;
-        enable_public: boolean;
-        enable_private: boolean;
+        enabled: boolean;
+        identity_requirement?: serializers.cloud.version.matchmaker.GameModeIdentityRequirement.Raw | null;
+        verification?: serializers.cloud.version.matchmaker.GameModeVerificationConfig.Raw | null;
+        enable_public?: boolean | null;
+        enable_private?: boolean | null;
         max_lobbies_per_identity?: number | null;
     }
 }

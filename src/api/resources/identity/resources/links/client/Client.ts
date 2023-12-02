@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Links {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -42,10 +42,7 @@ export class Links {
      */
     public async prepare(): Promise<Rivet.identity.PrepareGameLinkResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/game-links"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/identity/game-links"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -151,10 +148,7 @@ export class Links {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/game-links"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/identity/game-links"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

@@ -12,13 +12,13 @@ export const GameBannerUploadPrepareRequest: core.serialization.ObjectSchema<
 > = core.serialization.object({
     path: core.serialization.string(),
     mime: core.serialization.string().optional(),
-    contentLength: core.serialization.property("content_length", core.serialization.number().optional()),
+    contentLength: core.serialization.property("content_length", core.serialization.number()),
 });
 
 export declare namespace GameBannerUploadPrepareRequest {
     interface Raw {
         path: string;
         mime?: string | null;
-        content_length?: number | null;
+        content_length: number;
     }
 }

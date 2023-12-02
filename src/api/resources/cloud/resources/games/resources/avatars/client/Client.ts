@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../errors";
 
 export declare namespace Avatars {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class Avatars {
     public async listGameCustomAvatars(gameId: string): Promise<Rivet.cloud.games.ListGameCustomAvatarsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/avatars`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/avatars`
             ),
             method: "GET",
             headers: {
@@ -137,8 +137,8 @@ export class Avatars {
     ): Promise<Rivet.cloud.games.PrepareCustomAvatarUploadResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/prepare`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/prepare`
             ),
             method: "POST",
             headers: {
@@ -242,8 +242,8 @@ export class Avatars {
     public async completeCustomAvatarUpload(gameId: string, uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/avatar-upload/${uploadId}/complete`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/avatar-upload/${uploadId}/complete`
             ),
             method: "POST",
             headers: {

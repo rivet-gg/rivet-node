@@ -12,8 +12,6 @@ export interface SvcMetrics {
     cpu: number[];
     /** Memory metrics. */
     memory: number[];
-    /** Peak memory metrics. */
-    memoryMax: number[];
     /** Total allocated memory (MB). */
     allocatedMemory?: number;
 }

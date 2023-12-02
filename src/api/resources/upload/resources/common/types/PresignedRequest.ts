@@ -3,7 +3,7 @@
  */
 
 /**
- * A presigned request used to upload files.  Upload your file to the given URL via a PUT request.
+ * A presigned request used to upload files. Upload your file to the given URL via a PUT request.
  *
  */
 export interface PresignedRequest {
@@ -17,4 +17,8 @@ export interface PresignedRequest {
      *
      */
     url: string;
+    /** The byte offset for this multipart chunk. Always 0 if not a multipart upload. */
+    byteOffset: number;
+    /** Expected size of this upload. */
+    contentLength: number;
 }

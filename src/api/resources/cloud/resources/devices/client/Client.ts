@@ -8,7 +8,7 @@ import { Links } from "../resources/links/client/Client";
 
 export declare namespace Devices {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }

@@ -20,6 +20,9 @@ export interface RegionTier {
     disk: number;
     /** Internet bandwidth (MB). */
     bandwidth: number;
-    /** Price billed for every second this server is running (in quadrillionth USD, 1,000,000,000,000 = $1.00). */
+    /**
+     * **Deprecated**
+     * Price billed for every second this server is running (in quadrillionth USD, 1,000,000,000,000 = $1.00).
+     */
     pricePerSecond: number;
 }

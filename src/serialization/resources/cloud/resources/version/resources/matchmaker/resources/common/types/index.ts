@@ -5,5 +5,4 @@ export * from "./Captcha";
 export * from "./CaptchaHcaptcha";
 export * from "./CaptchaHcaptchaLevel";
 export * from "./CaptchaTurnstile";
-export * from "./CaptchaTurnstileDomain";
 export * from "./NetworkMode";

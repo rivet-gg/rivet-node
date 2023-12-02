@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Tiers {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -30,7 +30,7 @@ export class Tiers {
      */
     public async getRegionTiers(): Promise<Rivet.cloud.GetRegionTiersResponse> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).cloud, "/region-tiers"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/cloud/region-tiers"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

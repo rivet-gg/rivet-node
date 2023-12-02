@@ -8,5 +8,5 @@ export interface GameBannerUploadPrepareRequest {
     /** The MIME type of the game banner. */
     mime?: string;
     /** Unsigned 64 bit integer. */
-    contentLength?: number;
+    contentLength: number;
 }

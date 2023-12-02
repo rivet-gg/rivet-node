@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Events {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -36,10 +36,7 @@ export class Events {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/events/live"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/identity/events/live"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

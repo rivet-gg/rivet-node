@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../errors";
 
 export declare namespace Cdn {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class Cdn {
     public async listGameCdnSites(gameId: string): Promise<Rivet.cloud.games.ListGameCdnSitesResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/cdn/sites`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/cdn/sites`
             ),
             method: "GET",
             headers: {
@@ -136,8 +136,8 @@ export class Cdn {
     ): Promise<Rivet.cloud.games.CreateGameCdnSiteResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/cdn/sites`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/cdn/sites`
             ),
             method: "POST",
             headers: {

@@ -11,7 +11,7 @@ import { Rivet } from "@rivet-gg/api";
 
 export declare namespace JoinRequests {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class JoinRequests {
     public async createJoinRequest(groupId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/join-request`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/join-request`
             ),
             method: "POST",
             headers: {
@@ -133,8 +133,8 @@ export class JoinRequests {
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/join-request/${identityId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/join-request/${identityId}`
             ),
             method: "POST",
             headers: {

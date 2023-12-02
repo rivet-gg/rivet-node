@@ -9,4 +9,5 @@ import { Rivet } from "@rivet-gg/api";
  */
 export interface LinkedAccount {
     email?: Rivet.identity.EmailLinkedAccount;
+    accessToken?: Rivet.identity.AccessTokenLinkedAccount;
 }

@@ -11,7 +11,7 @@ import * as errors from "../../../../errors";
 
 export declare namespace Module {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -37,8 +37,8 @@ export class Module {
         const { origin, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).module,
-                `/modules/${module}/scripts/${script}/call`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/module/modules/${module}/scripts/${script}/call`
             ),
             method: "POST",
             headers: {

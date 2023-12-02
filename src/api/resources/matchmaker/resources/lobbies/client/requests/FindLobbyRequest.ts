@@ -9,6 +9,8 @@ export interface FindLobbyRequest {
     gameModes: string[];
     regions?: string[];
     preventAutoCreateLobby?: boolean;
+    tags?: Record<string, string>;
+    maxPlayers?: number;
     captcha?: Rivet.captcha.Config;
     verificationData?: unknown;
 }

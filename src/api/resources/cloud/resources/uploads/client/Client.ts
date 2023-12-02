@@ -11,7 +11,7 @@ import { Rivet } from "@rivet-gg/api";
 
 export declare namespace Uploads {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class Uploads {
     public async completeUpload(uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/uploads/${uploadId}/complete`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/uploads/${uploadId}/complete`
             ),
             method: "POST",
             headers: {

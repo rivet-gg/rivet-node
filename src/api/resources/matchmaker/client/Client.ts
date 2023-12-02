@@ -10,7 +10,7 @@ import { Regions } from "../resources/regions/client/Client";
 
 export declare namespace Matchmaker {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }

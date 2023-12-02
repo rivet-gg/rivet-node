@@ -10,16 +10,13 @@ export const CaptchaTurnstile: core.serialization.ObjectSchema<
     serializers.cloud.version.matchmaker.CaptchaTurnstile.Raw,
     Rivet.cloud.version.matchmaker.CaptchaTurnstile
 > = core.serialization.object({
-    domains: core.serialization.record(
-        core.serialization.string(),
-        core.serialization.lazyObject(
-            async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.CaptchaTurnstileDomain
-        )
-    ),
+    siteKey: core.serialization.property("site_key", core.serialization.string()),
+    secretKey: core.serialization.property("secret_key", core.serialization.string()),
 });
 
 export declare namespace CaptchaTurnstile {
     interface Raw {
-        domains: Record<string, serializers.cloud.version.matchmaker.CaptchaTurnstileDomain.Raw>;
+        site_key: string;
+        secret_key: string;
     }
 }

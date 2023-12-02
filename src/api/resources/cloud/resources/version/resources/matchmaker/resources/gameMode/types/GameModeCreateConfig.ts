@@ -8,9 +8,13 @@ import { Rivet } from "@rivet-gg/api";
  * Configures the requirements and authentication for the /create endpoint. If this value is not set in the config, the /create endpoint is NOT enabled.
  */
 export interface GameModeCreateConfig {
-    identityRequirement: Rivet.cloud.version.matchmaker.GameModeIdentityRequirement;
-    verificationConfig?: Rivet.cloud.version.matchmaker.GameModeVerificationConfig;
-    enablePublic: boolean;
-    enablePrivate: boolean;
+    /** Sets whether or not the /create endpoint is enabled. */
+    enabled: boolean;
+    identityRequirement?: Rivet.cloud.version.matchmaker.GameModeIdentityRequirement;
+    verification?: Rivet.cloud.version.matchmaker.GameModeVerificationConfig;
+    /** Defaults to false when unset. */
+    enablePublic?: boolean;
+    /** Defaults to true when unset. */
+    enablePrivate?: boolean;
     maxLobbiesPerIdentity?: number;
 }

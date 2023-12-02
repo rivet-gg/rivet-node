@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../../../errors";
 
 export declare namespace Analytics {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -34,8 +34,8 @@ export class Analytics {
     ): Promise<Rivet.cloud.games.namespaces.GetAnalyticsMatchmakerLiveResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/namespaces/${namespaceId}/analytics/matchmaker/live`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/namespaces/${namespaceId}/analytics/matchmaker/live`
             ),
             method: "GET",
             headers: {

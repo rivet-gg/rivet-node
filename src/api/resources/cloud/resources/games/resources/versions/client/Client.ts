@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../errors";
 
 export declare namespace Versions {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -34,8 +34,8 @@ export class Versions {
     ): Promise<Rivet.cloud.games.CreateGameVersionResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/versions`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/versions`
             ),
             method: "POST",
             headers: {
@@ -142,8 +142,8 @@ export class Versions {
     ): Promise<Rivet.cloud.games.ValidateGameVersionResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/versions/validate`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/versions/validate`
             ),
             method: "POST",
             headers: {
@@ -250,8 +250,8 @@ export class Versions {
     ): Promise<Rivet.cloud.games.GetGameVersionByIdResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/versions/${versionId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/versions/${versionId}`
             ),
             method: "GET",
             headers: {

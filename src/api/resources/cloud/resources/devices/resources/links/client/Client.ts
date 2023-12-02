@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../errors";
 
 export declare namespace Links {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -29,10 +29,7 @@ export class Links {
      */
     public async prepare(): Promise<Rivet.cloud.devices.PrepareDeviceLinkResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                "/devices/links"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/cloud/devices/links"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -139,10 +136,7 @@ export class Links {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                "/devices/links"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/cloud/devices/links"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

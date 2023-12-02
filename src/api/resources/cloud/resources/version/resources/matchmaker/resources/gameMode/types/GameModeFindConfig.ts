@@ -10,6 +10,6 @@ import { Rivet } from "@rivet-gg/api";
 export interface GameModeFindConfig {
     /** Sets whether or not the /find endpoint is enabled. */
     enabled: boolean;
-    identityRequirement: Rivet.cloud.version.matchmaker.GameModeIdentityRequirement;
-    verificationConfig?: Rivet.cloud.version.matchmaker.GameModeVerificationConfig;
+    identityRequirement?: Rivet.cloud.version.matchmaker.GameModeIdentityRequirement;
+    verification?: Rivet.cloud.version.matchmaker.GameModeVerificationConfig;
 }

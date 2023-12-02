@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Groups {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class Groups {
     public async validate(request: Rivet.cloud.ValidateGroupRequest): Promise<Rivet.cloud.ValidateGroupResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                "/groups/validate"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/cloud/groups/validate"
             ),
             method: "POST",
             headers: {
@@ -136,8 +136,8 @@ export class Groups {
     public async convertGroup(groupId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/groups/${groupId}/convert`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/groups/${groupId}/convert`
             ),
             method: "POST",
             headers: {

@@ -13,10 +13,17 @@ export const LinkedAccount: core.serialization.ObjectSchema<
     email: core.serialization
         .lazyObject(async () => (await import("../../../../..")).identity.EmailLinkedAccount)
         .optional(),
+    accessToken: core.serialization.property(
+        "access_token",
+        core.serialization
+            .lazyObject(async () => (await import("../../../../..")).identity.AccessTokenLinkedAccount)
+            .optional()
+    ),
 });
 
 export declare namespace LinkedAccount {
     interface Raw {
         email?: serializers.identity.EmailLinkedAccount.Raw | null;
+        access_token?: serializers.identity.AccessTokenLinkedAccount.Raw | null;
     }
 }

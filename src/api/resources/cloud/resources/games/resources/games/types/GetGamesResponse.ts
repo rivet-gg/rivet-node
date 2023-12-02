@@ -6,8 +6,8 @@ import { Rivet } from "@rivet-gg/api";
 
 export interface GetGamesResponse {
     /** A list of game summaries. */
-    games: Rivet.cloud.games.GameSummary[];
+    games: Rivet.game.Summary[];
     /** A list of group summaries. */
-    groups: Rivet.group.Handle[];
+    groups: Rivet.group.Summary[];
     watch: Rivet.WatchResponse;
 }

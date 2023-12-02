@@ -13,7 +13,7 @@ import { JoinRequests } from "../resources/joinRequests/client/Client";
 
 export declare namespace Group {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -40,7 +40,7 @@ export class Group {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).group, "/groups"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/group/groups"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -140,7 +140,7 @@ export class Group {
      */
     public async create(request: Rivet.group.CreateRequest): Promise<Rivet.group.CreateResponse> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).group, "/groups"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/group/groups"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -244,8 +244,8 @@ export class Group {
     ): Promise<Rivet.group.PrepareAvatarUploadResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                "/groups/avatar-upload/prepare"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/group/groups/avatar-upload/prepare"
             ),
             method: "POST",
             headers: {
@@ -351,8 +351,8 @@ export class Group {
     ): Promise<Rivet.group.ValidateProfileResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                "/groups/profile/validate"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/group/groups/profile/validate"
             ),
             method: "POST",
             headers: {
@@ -466,10 +466,7 @@ export class Group {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                "/groups/search"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/group/groups/search"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -572,8 +569,8 @@ export class Group {
     public async completeAvatarUpload(groupId: string, uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/avatar-upload/${uploadId}/complete`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/avatar-upload/${uploadId}/complete`
             ),
             method: "POST",
             headers: {
@@ -687,8 +684,8 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/bans`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/bans`
             ),
             method: "GET",
             headers: {
@@ -790,8 +787,8 @@ export class Group {
     public async banIdentity(groupId: string, identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/bans/${identityId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/bans/${identityId}`
             ),
             method: "POST",
             headers: {
@@ -888,8 +885,8 @@ export class Group {
     public async unbanIdentity(groupId: string, identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/bans/${identityId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/bans/${identityId}`
             ),
             method: "DELETE",
             headers: {
@@ -1003,8 +1000,8 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/join-requests`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/join-requests`
             ),
             method: "GET",
             headers: {
@@ -1106,8 +1103,8 @@ export class Group {
     public async kickMember(groupId: string, identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/kick/${identityId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/kick/${identityId}`
             ),
             method: "POST",
             headers: {
@@ -1204,8 +1201,8 @@ export class Group {
     public async leave(groupId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/leave`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/leave`
             ),
             method: "POST",
             headers: {
@@ -1319,8 +1316,8 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/members`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/members`
             ),
             method: "GET",
             headers: {
@@ -1431,8 +1428,8 @@ export class Group {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/profile`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/profile`
             ),
             method: "GET",
             headers: {
@@ -1533,8 +1530,8 @@ export class Group {
     public async updateProfile(groupId: string, request: Rivet.group.UpdateProfileRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/profile`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/profile`
             ),
             method: "POST",
             headers: {
@@ -1633,8 +1630,8 @@ export class Group {
     public async getSummary(groupId: string): Promise<Rivet.group.GetSummaryResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/summary`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/summary`
             ),
             method: "GET",
             headers: {
@@ -1735,8 +1732,8 @@ export class Group {
     public async transferOwnership(groupId: string, request: Rivet.group.TransferOwnershipRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `/groups/${groupId}/transfer-owner`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/transfer-owner`
             ),
             method: "POST",
             headers: {

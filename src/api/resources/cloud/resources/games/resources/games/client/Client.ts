@@ -11,7 +11,7 @@ import * as errors from "../../../../../../../../errors";
 
 export declare namespace Games {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -38,7 +38,7 @@ export class Games {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).cloud, "/games"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/cloud/games"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -140,7 +140,7 @@ export class Games {
         request: Rivet.cloud.games.CreateGameRequest
     ): Promise<Rivet.cloud.games.CreateGameResponse> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).cloud, "/games"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/cloud/games"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -244,10 +244,7 @@ export class Games {
         request: Rivet.cloud.games.ValidateGameRequest
     ): Promise<Rivet.cloud.games.ValidateGameResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                "/games/validate"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/cloud/games/validate"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -359,8 +356,8 @@ export class Games {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}`
             ),
             method: "GET",
             headers: {
@@ -465,8 +462,8 @@ export class Games {
     ): Promise<Rivet.cloud.games.GameBannerUploadPrepareResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/banner-upload/prepare`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/banner-upload/prepare`
             ),
             method: "POST",
             headers: {
@@ -570,8 +567,8 @@ export class Games {
     public async gameBannerUploadComplete(gameId: string, uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/banner-upload/${uploadId}/complete`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/banner-upload/${uploadId}/complete`
             ),
             method: "POST",
             headers: {
@@ -671,8 +668,8 @@ export class Games {
     ): Promise<Rivet.cloud.games.GameLogoUploadPrepareResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/logo-upload/prepare`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/logo-upload/prepare`
             ),
             method: "POST",
             headers: {
@@ -776,8 +773,8 @@ export class Games {
     public async gameLogoUploadComplete(gameId: string, uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/games/${gameId}/logo-upload/${uploadId}/complete`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/games/${gameId}/logo-upload/${uploadId}/complete`
             ),
             method: "POST",
             headers: {

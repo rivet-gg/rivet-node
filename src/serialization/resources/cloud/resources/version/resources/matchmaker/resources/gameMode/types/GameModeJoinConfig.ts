@@ -13,26 +13,24 @@ export const GameModeJoinConfig: core.serialization.ObjectSchema<
     enabled: core.serialization.boolean(),
     identityRequirement: core.serialization.property(
         "identity_requirement",
-        core.serialization.lazy(
-            async () =>
-                (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeIdentityRequirement
-        )
-    ),
-    verificationConfig: core.serialization.property(
-        "verification_config",
         core.serialization
-            .lazyObject(
+            .lazy(
                 async () =>
-                    (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeVerificationConfig
+                    (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeIdentityRequirement
             )
             .optional()
     ),
+    verification: core.serialization
+        .lazyObject(
+            async () => (await import("../../../../../../../../..")).cloud.version.matchmaker.GameModeVerificationConfig
+        )
+        .optional(),
 });
 
 export declare namespace GameModeJoinConfig {
     interface Raw {
         enabled: boolean;
-        identity_requirement: serializers.cloud.version.matchmaker.GameModeIdentityRequirement.Raw;
-        verification_config?: serializers.cloud.version.matchmaker.GameModeVerificationConfig.Raw | null;
+        identity_requirement?: serializers.cloud.version.matchmaker.GameModeIdentityRequirement.Raw | null;
+        verification?: serializers.cloud.version.matchmaker.GameModeVerificationConfig.Raw | null;
     }
 }

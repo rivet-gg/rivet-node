@@ -7,8 +7,10 @@ import { Rivet } from "@rivet-gg/api";
 export interface CreateLobbyRequest {
     gameMode: string;
     region?: string;
-    captcha?: Rivet.captcha.Config;
-    publicity: Rivet.matchmaker.CustomLobbyPublicity;
+    publicity?: Rivet.matchmaker.CustomLobbyPublicity;
+    tags?: Record<string, string>;
+    maxPlayers?: number;
     lobbyConfig?: unknown;
+    captcha?: Rivet.captcha.Config;
     verificationData?: unknown;
 }

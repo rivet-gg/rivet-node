@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Auth {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -30,7 +30,7 @@ export class Auth {
      */
     public async inspect(): Promise<Rivet.cloud.InspectResponse> {
         const _response = await core.fetcher({
-            url: urlJoin((this.options.environment ?? environments.RivetEnvironment.Production).cloud, "/auth/inspect"),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/cloud/auth/inspect"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

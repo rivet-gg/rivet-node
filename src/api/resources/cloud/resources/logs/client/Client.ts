@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Logs {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class Logs {
     public async getRayPerfLogs(rayId: string): Promise<Rivet.cloud.GetRayPerfLogsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).cloud,
-                `/rays/${rayId}/perf`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/cloud/rays/${rayId}/perf`
             ),
             method: "GET",
             headers: {

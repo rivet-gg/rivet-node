@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors";
 
 export declare namespace Invites {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -31,8 +31,8 @@ export class Invites {
     public async getInvite(groupInviteCode: string): Promise<Rivet.group.GetInviteResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `invites/${groupInviteCode}`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/invites/${groupInviteCode}`
             ),
             method: "GET",
             headers: {
@@ -133,8 +133,8 @@ export class Invites {
     public async consumeInvite(groupInviteCode: string): Promise<Rivet.group.ConsumeInviteResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `invites/${groupInviteCode}/consume`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/invites/${groupInviteCode}/consume`
             ),
             method: "POST",
             headers: {
@@ -238,8 +238,8 @@ export class Invites {
     ): Promise<Rivet.group.CreateInviteResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).group,
-                `groups/${groupId}/invites`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/group/groups/${groupId}/invites`
             ),
             method: "POST",
             headers: {

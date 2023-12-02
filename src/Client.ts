@@ -4,7 +4,7 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Chat } from "./api/resources/chat/client/Client";
+import { Admin } from "./api/resources/admin/client/Client";
 import { Cloud } from "./api/resources/cloud/client/Client";
 import { Group } from "./api/resources/group/client/Client";
 import { Identity } from "./api/resources/identity/client/Client";
@@ -14,7 +14,7 @@ import { Matchmaker } from "./api/resources/matchmaker/client/Client";
 
 export declare namespace RivetClient {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -22,10 +22,10 @@ export declare namespace RivetClient {
 export class RivetClient {
     constructor(private readonly options: RivetClient.Options) {}
 
-    private _chat: Chat | undefined;
+    private _admin: Admin | undefined;
 
-    public get chat(): Chat {
-        return (this._chat ??= new Chat(this.options));
+    public get admin(): Admin {
+        return (this._admin ??= new Admin(this.options));
     }
 
     private _cloud: Cloud | undefined;

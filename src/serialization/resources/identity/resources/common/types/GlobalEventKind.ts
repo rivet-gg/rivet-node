@@ -10,18 +10,6 @@ export const GlobalEventKind: core.serialization.ObjectSchema<
     serializers.identity.GlobalEventKind.Raw,
     Rivet.identity.GlobalEventKind
 > = core.serialization.object({
-    chatMessage: core.serialization.property(
-        "chat_message",
-        core.serialization
-            .lazyObject(async () => (await import("../../../../..")).identity.GlobalEventChatMessage)
-            .optional()
-    ),
-    chatRead: core.serialization.property(
-        "chat_read",
-        core.serialization
-            .lazyObject(async () => (await import("../../../../..")).identity.GlobalEventChatRead)
-            .optional()
-    ),
     identityUpdate: core.serialization.property(
         "identity_update",
         core.serialization
@@ -34,20 +22,11 @@ export const GlobalEventKind: core.serialization.ObjectSchema<
             .lazyObject(async () => (await import("../../../../..")).identity.GlobalEventMatchmakerLobbyJoin)
             .optional()
     ),
-    chatThreadRemove: core.serialization.property(
-        "chat_thread_remove",
-        core.serialization
-            .lazyObject(async () => (await import("../../../../..")).identity.GlobalEventChatThreadRemove)
-            .optional()
-    ),
 });
 
 export declare namespace GlobalEventKind {
     interface Raw {
-        chat_message?: serializers.identity.GlobalEventChatMessage.Raw | null;
-        chat_read?: serializers.identity.GlobalEventChatRead.Raw | null;
         identity_update?: serializers.identity.GlobalEventIdentityUpdate.Raw | null;
         matchmaker_lobby_join?: serializers.identity.GlobalEventMatchmakerLobbyJoin.Raw | null;
-        chat_thread_remove?: serializers.identity.GlobalEventChatThreadRemove.Raw | null;
     }
 }

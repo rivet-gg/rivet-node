@@ -1,6 +1,6 @@
 {
     "name": "@rivet-gg/api",
-    "version": "v23.1.0",
+    "version": "23.2.0-rc1",
     "private": false,
     "repository": "https://github.com/rivet-gg/rivet-node",
     "files": [

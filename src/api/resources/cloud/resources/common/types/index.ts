@@ -16,6 +16,7 @@ export * from "./GameFull";
 export * from "./NamespaceSummary";
 export * from "./RegionSummary";
 export * from "./RegionTier";
+export * from "./UniversalRegion";
 export * from "./NamespaceFull";
 export * from "./NamespaceConfig";
 export * from "./CdnNamespaceConfig";

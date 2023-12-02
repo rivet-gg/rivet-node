@@ -3,6 +3,7 @@ export * from "./GameModeRegion";
 export * from "./GameModeRuntimeDocker";
 export * from "./GameModeRuntimeDockerPort";
 export * from "./GameModeIdleLobbiesConfig";
+export * from "./GameModeActions";
 export * from "./GameModeIdentityRequirement";
 export * from "./GameModeVerificationConfig";
 export * from "./GameModeFindConfig";

@@ -10,13 +10,13 @@ export const ExportMatchmakerLobbyHistoryRequest: core.serialization.ObjectSchem
     serializers.cloud.games.ExportMatchmakerLobbyHistoryRequest.Raw,
     Rivet.cloud.games.ExportMatchmakerLobbyHistoryRequest
 > = core.serialization.object({
-    queryStart: core.serialization.property("query_start", core.serialization.number().optional()),
-    queryEnd: core.serialization.property("query_end", core.serialization.number().optional()),
+    queryStart: core.serialization.property("query_start", core.serialization.number()),
+    queryEnd: core.serialization.property("query_end", core.serialization.number()),
 });
 
 export declare namespace ExportMatchmakerLobbyHistoryRequest {
     interface Raw {
-        query_start?: number | null;
-        query_end?: number | null;
+        query_start: number;
+        query_end: number;
     }
 }

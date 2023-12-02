@@ -8,5 +8,5 @@ export interface PrepareCustomAvatarUploadRequest {
     /** The MIME type of the custom avatar. */
     mime?: string;
     /** Unsigned 64 bit integer. */
-    contentLength?: number;
+    contentLength: number;
 }

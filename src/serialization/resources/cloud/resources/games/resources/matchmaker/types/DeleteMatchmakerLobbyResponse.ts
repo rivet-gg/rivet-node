@@ -10,11 +10,11 @@ export const DeleteMatchmakerLobbyResponse: core.serialization.ObjectSchema<
     serializers.cloud.games.DeleteMatchmakerLobbyResponse.Raw,
     Rivet.cloud.games.DeleteMatchmakerLobbyResponse
 > = core.serialization.object({
-    didRemove: core.serialization.property("did_remove", core.serialization.boolean().optional()),
+    didRemove: core.serialization.property("did_remove", core.serialization.boolean()),
 });
 
 export declare namespace DeleteMatchmakerLobbyResponse {
     interface Raw {
-        did_remove?: boolean | null;
+        did_remove: boolean;
     }
 }

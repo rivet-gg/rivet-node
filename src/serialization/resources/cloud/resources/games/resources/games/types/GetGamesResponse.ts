@@ -11,18 +11,18 @@ export const GetGamesResponse: core.serialization.ObjectSchema<
     Rivet.cloud.games.GetGamesResponse
 > = core.serialization.object({
     games: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("../../../../../../..")).cloud.games.GameSummary)
+        core.serialization.lazyObject(async () => (await import("../../../../../../..")).game.Summary)
     ),
     groups: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("../../../../../../..")).group.Handle)
+        core.serialization.lazyObject(async () => (await import("../../../../../../..")).group.Summary)
     ),
     watch: core.serialization.lazyObject(async () => (await import("../../../../../../..")).WatchResponse),
 });
 
 export declare namespace GetGamesResponse {
     interface Raw {
-        games: serializers.cloud.games.GameSummary.Raw[];
-        groups: serializers.group.Handle.Raw[];
+        games: serializers.game.Summary.Raw[];
+        groups: serializers.group.Summary.Raw[];
         watch: serializers.WatchResponse.Raw;
     }
 }

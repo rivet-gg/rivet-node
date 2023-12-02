@@ -30,5 +30,4 @@ export interface Profile {
     /** Whether or not the current identity is currently requesting to join this group. */
     isCurrentIdentityRequestingJoin?: boolean;
     ownerIdentityId: string;
-    threadId?: string;
 }

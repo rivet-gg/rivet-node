@@ -13,7 +13,7 @@ import { Links } from "../resources/links/client/Client";
 
 export declare namespace Identity {
     interface Options {
-        environment?: environments.RivetEnvironment | environments.RivetEnvironmentUrls;
+        environment?: environments.RivetEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -38,10 +38,7 @@ export class Identity {
      */
     public async setup(request: Rivet.identity.SetupRequest = {}): Promise<Rivet.identity.SetupResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities"
-            ),
+            url: urlJoin(this.options.environment ?? environments.RivetEnvironment.Production, "/identity/identities"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -151,8 +148,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/${identityId}/profile`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/${identityId}/profile`
             ),
             method: "GET",
             headers: {
@@ -262,8 +259,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/profile"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/profile"
             ),
             method: "GET",
             headers: {
@@ -375,8 +372,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/batch/handle"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/batch/handle"
             ),
             method: "GET",
             headers: {
@@ -490,8 +487,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/batch/summary"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/batch/summary"
             ),
             method: "GET",
             headers: {
@@ -593,8 +590,8 @@ export class Identity {
     public async updateProfile(request: Rivet.identity.UpdateProfileRequest = {}): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/profile"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/profile"
             ),
             method: "POST",
             headers: {
@@ -694,8 +691,8 @@ export class Identity {
     public async validateProfile(request: Rivet.identity.ValidateProfileRequest = {}): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/profile/validate"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/profile/validate"
             ),
             method: "POST",
             headers: {
@@ -806,8 +803,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/search"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/search"
             ),
             method: "GET",
             headers: {
@@ -909,8 +906,8 @@ export class Identity {
     public async setGameActivity(request: Rivet.identity.SetGameActivityRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/activity"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/activity"
             ),
             method: "POST",
             headers: {
@@ -1010,8 +1007,8 @@ export class Identity {
     public async removeGameActivity(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/activity"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/activity"
             ),
             method: "DELETE",
             headers: {
@@ -1108,8 +1105,8 @@ export class Identity {
     public async updateStatus(request: Rivet.identity.UpdateStatusRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/identities/self/status"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/identities/self/status"
             ),
             method: "POST",
             headers: {
@@ -1209,8 +1206,8 @@ export class Identity {
     public async follow(identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/${identityId}/follow`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/${identityId}/follow`
             ),
             method: "POST",
             headers: {
@@ -1307,8 +1304,8 @@ export class Identity {
     public async unfollow(identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/${identityId}/follow`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/${identityId}/follow`
             ),
             method: "DELETE",
             headers: {
@@ -1407,8 +1404,8 @@ export class Identity {
     ): Promise<Rivet.identity.PrepareAvatarUploadResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/avatar-upload/prepare"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/avatar-upload/prepare"
             ),
             method: "POST",
             headers: {
@@ -1512,8 +1509,8 @@ export class Identity {
     public async completeAvatarUpload(uploadId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/avatar-upload/${uploadId}/complete`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/avatar-upload/${uploadId}/complete`
             ),
             method: "POST",
             headers: {
@@ -1610,8 +1607,8 @@ export class Identity {
     public async signupForBeta(request: Rivet.identity.SignupForBetaRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/beta-signup"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/beta-signup"
             ),
             method: "POST",
             headers: {
@@ -1711,8 +1708,8 @@ export class Identity {
     public async report(identityId: string, request: Rivet.identity.ReportRequest = {}): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/${identityId}/report`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/${identityId}/report`
             ),
             method: "POST",
             headers: {
@@ -1822,8 +1819,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/${identityId}/followers`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/${identityId}/followers`
             ),
             method: "GET",
             headers: {
@@ -1937,8 +1934,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/${identityId}/following`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/${identityId}/following`
             ),
             method: "GET",
             headers: {
@@ -2051,8 +2048,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/friends"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/friends"
             ),
             method: "GET",
             headers: {
@@ -2166,8 +2163,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/${identityId}/mutual-friends`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/${identityId}/mutual-friends`
             ),
             method: "GET",
             headers: {
@@ -2280,8 +2277,8 @@ export class Identity {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/recent-followers"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/recent-followers"
             ),
             method: "GET",
             headers: {
@@ -2382,8 +2379,8 @@ export class Identity {
     public async ignoreRecentFollower(identityId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                `/identities/self/recent-followers/${identityId}/ignore`
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                `/identity/identities/self/recent-followers/${identityId}/ignore`
             ),
             method: "POST",
             headers: {
@@ -2479,8 +2476,8 @@ export class Identity {
     public async markDeletion(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/delete-request"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/delete-request"
             ),
             method: "POST",
             headers: {
@@ -2576,8 +2573,8 @@ export class Identity {
     public async unmarkDeletion(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (this.options.environment ?? environments.RivetEnvironment.Production).identity,
-                "/identities/self/delete-request"
+                this.options.environment ?? environments.RivetEnvironment.Production,
+                "/identity/identities/self/delete-request"
             ),
             method: "DELETE",
             headers: {

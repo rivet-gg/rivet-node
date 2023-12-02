@@ -10,6 +10,4 @@ export interface ExternalLinks {
     profile: string;
     /** A link to the Rivet settings page. */
     settings?: string;
-    /** A link to a chat page with the given identity. */
-    chat?: string;
 }
