@@ -1,5 +1,12 @@
 # Rivet Node Library
 
+___
+
+## ❗ DEPRECATION NOTICE ❗
+
+### This repo is being deprecated as all functionality has been moved into [the main repo](https://github.com/rivet-gg/rivet) 
+___
+
 [![npm shield](https://img.shields.io/npm/v/@rivet-gg/api)](https://www.npmjs.com/package/@fern-api/rivet)
 
 The Rivet Node.js library provides access to the Rivet API from JavaScript/TypeScript.
